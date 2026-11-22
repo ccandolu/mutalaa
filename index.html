@@ -62,6 +62,67 @@ body{background:radial-gradient(ellipse at 12% -8%,#234a7d 0%,transparent 38%),r
 
 @media(max-width:850px){.bookgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:650px){.app{display:block}.sidebar{display:none}main{padding:18px 16px 185px}.mobilebrand{display:flex;align-items:center;gap:9px;font-size:13px;letter-spacing:2px;font-weight:700}.crumb{display:none}.bookgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 14px}.hero{padding:22px}.detailgrid{grid-template-columns:115px 1fr;gap:17px}.detailgrid .bookcover{max-width:115px}.player{left:10px;right:10px;bottom:68px}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:15;justify-content:space-around;padding:8px 5px calc(8px + env(safe-area-inset-bottom));background:#09182bea;backdrop-filter:blur(20px);border-top:1px solid var(--line)}.mobile-nav button{background:none;border:0;color:#9aadc8;font-size:11px;min-width:58px}.mobile-nav button.active{color:#fff}.mobile-nav span{display:block;font-size:17px;margin-bottom:3px}}
+
+.mini-wave{height:22px;display:flex;align-items:center;gap:2px;opacity:.35;transition:opacity .25s}
+.mini-wave i{display:block;width:2px;height:5px;border-radius:4px;background:#a9cefa}
+.mini-wave i:nth-child(2),.mini-wave i:nth-child(4){height:10px}
+.mini-wave i:nth-child(3){height:16px}
+.is-playing .mini-wave{opacity:1}
+.is-playing .mini-wave i{animation:waveBeat .8s ease-in-out infinite alternate}
+.is-playing .mini-wave i:nth-child(2){animation-delay:.12s}.is-playing .mini-wave i:nth-child(3){animation-delay:.24s}.is-playing .mini-wave i:nth-child(4){animation-delay:.36s}.is-playing .mini-wave i:nth-child(5){animation-delay:.48s}
+@keyframes waveBeat{from{transform:scaleY(.35)}to{transform:scaleY(1.5)}}
+/* MÜTALAA 3.0 — Swiss Editorial x Apple Glass motion system */
+:root{
+ --ice:#b9d8ff;--motion-ease:cubic-bezier(.22,.8,.24,1);
+ --glass-strong:rgba(18,39,66,.72)
+}
+html{scroll-behavior:smooth}
+body{background:
+ radial-gradient(ellipse at 12% -8%,rgba(48,91,145,.72) 0%,transparent 39%),
+ radial-gradient(ellipse at 100% 56%,rgba(20,56,96,.56) 0%,transparent 38%),
+ #061326}
+.sidebar{background:rgba(5,17,34,.66);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px)}
+.brandname{letter-spacing:3.5px}
+main{position:relative}
+.glass{background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));border-color:rgba(184,213,248,.14);box-shadow:0 18px 55px rgba(0,8,20,.22),inset 0 1px 0 rgba(255,255,255,.045)}
+.hero{background:linear-gradient(115deg,rgba(27,57,94,.76),rgba(8,25,46,.62));border-color:rgba(164,202,247,.2)}
+.hero:after{animation:ambientFloat 9s ease-in-out infinite alternate}
+@keyframes ambientFloat{from{transform:translate3d(0,0,0) scale(.9);opacity:.12}to{transform:translate3d(-55px,35px,0) scale(1.25);opacity:.24}}
+.primary,.secondary,.navbtn,.map-pill{transition:transform .32s var(--motion-ease),background .32s,border-color .32s,box-shadow .32s,color .32s}
+.primary:hover{box-shadow:0 10px 30px rgba(58,119,188,.32);transform:translateY(-2px)}
+.secondary:hover,.map-pill:hover{border-color:rgba(160,205,255,.45);background:rgba(126,174,230,.12)}
+.navbtn{position:relative;overflow:hidden}
+.navbtn:before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent,rgba(167,207,255,.12),transparent);transform:translateX(-120%);transition:transform .55s}
+.navbtn:hover:before{transform:translateX(120%)}
+.book{transition:transform .38s var(--motion-ease),opacity .35s}
+.book:hover{transform:translateY(-6px)}
+.bookcover{transform:translateZ(0);transition:transform .45s var(--motion-ease),box-shadow .45s,border-color .45s}
+.book:hover .bookcover{transform:perspective(800px) rotateY(-3deg) translateY(-3px);box-shadow:0 24px 48px rgba(0,0,0,.42);border-color:rgba(184,216,255,.4)}
+.booktitle{letter-spacing:-.2px}
+.page{animation:pageEnter .62s var(--motion-ease) both}
+@keyframes pageEnter{0%{opacity:0;transform:translate3d(0,17px,0) scale(.992);filter:blur(4px)}65%{filter:blur(0)}100%{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}}
+.page-leave{opacity:0!important;transform:translate3d(0,-8px,0) scale(.995)!important;filter:blur(3px)!important;transition:all .18s ease!important}
+.sectionhead,.hero,.glass,.book{animation:softReveal .55s var(--motion-ease) both}
+@keyframes softReveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.bookgrid .book:nth-child(2){animation-delay:.045s}.bookgrid .book:nth-child(3){animation-delay:.09s}.bookgrid .book:nth-child(4){animation-delay:.135s}.bookgrid .book:nth-child(5){animation-delay:.18s}.bookgrid .book:nth-child(6){animation-delay:.225s}.bookgrid .book:nth-child(7){animation-delay:.27s}.bookgrid .book:nth-child(8){animation-delay:.315s}
+.player{background:linear-gradient(110deg,rgba(18,42,73,.94),rgba(7,22,41,.94));border-color:rgba(172,210,255,.2);box-shadow:0 20px 55px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.08);transition:box-shadow .3s,transform .3s}
+.playbtn{box-shadow:0 0 0 5px rgba(103,157,220,.10);transition:transform .25s,box-shadow .25s}
+.playbtn:hover{transform:scale(1.08);box-shadow:0 0 0 8px rgba(103,157,220,.13)}
+.map-node circle{transition:cx .5s,cy .5s,r .35s,fill .35s,stroke .35s,filter .35s}
+.map-node.selected circle{animation:nodePulse 2.8s ease-in-out infinite}
+@keyframes nodePulse{0%,100%{filter:drop-shadow(0 0 5px #6aa8ed55)}50%{filter:drop-shadow(0 0 14px #6aa8edbb)}}
+.map-edge{stroke-dasharray:5 7;animation:edgeFlow 18s linear infinite}
+@keyframes edgeFlow{to{stroke-dashoffset:-240}}
+.map-stage{border-color:rgba(151,196,246,.18)}
+.map-detail{animation:detailReveal .4s var(--motion-ease) both}
+@keyframes detailReveal{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+.map-pill.active{box-shadow:0 0 18px rgba(90,151,218,.15)}
+.toast{backdrop-filter:blur(20px);box-shadow:0 12px 35px #0005}
+button:focus-visible,input:focus-visible{outline:2px solid #9fc8fa;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+
 </style>
 </head>
 <body>
@@ -79,7 +140,7 @@ body{background:radial-gradient(ellipse at 12% -8%,#234a7d 0%,transparent 38%),r
 </main>
 </div>
 <nav class="mobile-nav"><button class="active" data-page="home"><span>⌂</span>Ana Sayfa</button><button data-page="library"><span>▤</span>Kitaplık</button><button data-page="risale"><span>✧</span>Risale</button><button data-page="map"><span>⌘</span>Harita</button><button data-page="favorites"><span>♡</span>Favoriler</button></nav>
-<div class="player"><div class="playerrow"><div class="mini-cover" id="miniCover">م</div><div class="now"><strong id="nowTitle">Henüz bir eser seçilmedi</strong><span id="nowAuthor">Dinlemek için bir eser seçin</span></div><button class="secondary" id="back15">↶15</button><button class="playbtn" id="play">▶</button><button class="secondary" id="forward15">15↷</button><button class="secondary" id="speed">1x</button></div><div class="seekrow"><span id="elapsed">00:00</span><input id="seek" type="range" min="0" max="100" value="0"><span id="duration">--:--</span></div><div class="small muted" id="voiceStatus" style="margin-top:5px">Türkçe sesli okuma cihazınızın ses motorunu kullanır.</div></div>
+<div class="player"><div class="playerrow"><div class="mini-cover" id="miniCover">م</div><div class="now"><strong id="nowTitle">Henüz bir eser seçilmedi</strong><span id="nowAuthor">Dinlemek için bir eser seçin</span></div><button class="secondary" id="back15">↶15</button><div class="mini-wave" id="miniWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><button class="playbtn" id="play">▶</button><button class="secondary" id="forward15">15↷</button><button class="secondary" id="speed">1x</button></div><div class="seekrow"><span id="elapsed">00:00</span><input id="seek" type="range" min="0" max="100" value="0"><span id="duration">--:--</span></div><div class="small muted" id="voiceStatus" style="margin-top:5px">Türkçe sesli okuma cihazınızın ses motorunu kullanır.</div></div>
 <div class="toast" id="toast"></div>
 <script>
 const books=[
@@ -146,13 +207,32 @@ function map(){
 }
 function selectMapNode(id){if(!mapNodes.some(n=>n.id===id))return;selectedMapNode=id;$('mapDetail').innerHTML=mapDetail();document.querySelectorAll('.map-svg .map-node').forEach(el=>el.classList.toggle('selected',el.dataset.node===id));document.querySelectorAll('.map-edge').forEach(el=>el.classList.remove('active'));const pos=Object.fromEntries(mapNodes.map(n=>[n.id,n]));document.querySelectorAll('.map-svg .map-edge').forEach((el,i)=>{if(mapEdges[i].includes(id))el.classList.add('active')});}
 
-function render(p){page=p;let names={home:'ANA SAYFA',library:'KİTAPLIK',risale:'RİSALE-İ NUR',map:'İLİM HARİTASI',audio:'SESLİ DERSLER',favorites:'FAVORİLERİM',notes:'NOTLARIM',profile:'PROFİLİM'};$('crumb').textContent='MÜTALAA / '+names[p];$('content').innerHTML=({home,library,risale,map,audio,favorites:favoritesPage,notes:notesPage,profile})[p]();document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===p))}
+function render(p){
+ const target=p||page;
+ const content=$('content');
+ if(target===page && content.dataset.rendered==='1'){return;}
+ page=target;
+ const names={home:'ANA SAYFA',library:'KİTAPLIK',risale:'RİSALE-İ NUR',map:'İLİM HARİTASI',audio:'SESLİ DERSLER',favorites:'FAVORİLERİM',notes:'NOTLARIM',profile:'PROFİLİM'};
+ $('crumb').textContent='MÜTALAA / '+(names[page]||'');
+ document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
+ const draw=()=>{
+   content.innerHTML=({home,library,risale,map,audio,favorites:favoritesPage,notes:notesPage,profile})[page]();
+   content.dataset.rendered='1';
+   content.classList.remove('page-leave');
+   content.classList.add('page');
+   window.scrollTo({top:0,behavior:'smooth'});
+ };
+ if(content.dataset.rendered==='1' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+   content.classList.add('page-leave');
+   setTimeout(draw,150);
+ }else draw();
+}
 function detail(b){$('content').innerHTML=`<button class="secondary" id="goBack" style="margin-bottom:20px">← Geri dön</button><div class="detailgrid page"><div>${cover(b)}</div><div><div class="small muted">${esc(b.cat)}</div><h1 style="font-size:26px;margin:9px 0">${esc(b.title)}</h1><p class="muted" style="font-size:13px">${esc(b.author)}</p><p class="detailtext">${esc(b.desc)}</p><div class="small muted">${b.time} dakika · Örnek metin</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:18px"><button class="primary" id="detailPlay">▶ Dinlemeye başla</button><button class="secondary" id="detailFav">${favorites.includes(b.id)?'♥':'♡'} Favorilere ekle</button></div></div></div><div class="glass" style="padding:20px;margin-top:28px"><div class="eyebrow">ESERDEN BİR BÖLÜM</div><p class="detailtext">${esc(b.text)}</p><button class="secondary" id="saveQuote">✎ Bu metinden not oluştur</button></div>`;$('goBack').onclick=()=>render('library');$('detailPlay').onclick=()=>start(b);$('detailFav').onclick=()=>toggleFav(b.id);$('saveQuote').onclick=()=>{notes.unshift({title:b.title,text:b.text,date:new Date().toLocaleDateString('tr-TR')});save();toast('Metin notlarına eklendi.')}}
 function toast(t){$('toast').textContent=t;$('toast').style.opacity=1;setTimeout(()=>$('toast').style.opacity=0,1800)}
 function save(){localStorage.setItem('mutalaa-favs',JSON.stringify(favorites));localStorage.setItem('mutalaa-notes',JSON.stringify(notes));localStorage.setItem('mutalaa-minutes',totalMinutes)}
 function toggleFav(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];save();render(page);toast('Favori listen güncellendi.')}
 function fmt(n){return String(Math.floor(n/60)).padStart(2,'0')+':'+String(Math.floor(n%60)).padStart(2,'0')}
-function update(){ $('elapsed').textContent=fmt(elapsed);$('seek').value=duration?elapsed/duration*100:0;$('play').textContent=playing?'Ⅱ':'▶';$('goalProgress').style.width=Math.min(100,totalMinutes/20*100)+'%';$('goalText').textContent=totalMinutes+' / 20 dakika'}
+function update(){ document.querySelector('.player').classList.toggle('is-playing',playing); $('elapsed').textContent=fmt(elapsed);$('seek').value=duration?elapsed/duration*100:0;$('play').textContent=playing?'Ⅱ':'▶';$('goalProgress').style.width=Math.min(100,totalMinutes/20*100)+'%';$('goalText').textContent=totalMinutes+' / 20 dakika'}
 function start(b){current=b;elapsed=0;duration=b.time*60;$('nowTitle').textContent=b.title;$('nowAuthor').textContent=b.author;$('miniCover').textContent=b.symbol;$('duration').textContent=fmt(duration);playSpeech()}
 function playSpeech(){if(!current){toast('Önce bir eser seçmelisin.');return}if(!('speechSynthesis'in window)){toast('Tarayıcı sesli okumayı desteklemiyor.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(current.text);u.lang='tr-TR';u.rate=speed;let v=speechSynthesis.getVoices().find(x=>x.lang.toLowerCase().startsWith('tr'));if(v)u.voice=v;u.onstart=()=>{$('voiceStatus').textContent='Türkçe sesli okuma aktif'};u.onend=()=>{playing=false;update()};u.onerror=()=>{$('voiceStatus').textContent='Ses motoru okuma sırasında durdu.'};playing=true;update();speechSynthesis.speak(u)}
 function pause(){speechSynthesis.cancel();playing=false;update()}
