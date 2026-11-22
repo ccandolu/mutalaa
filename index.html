@@ -354,7 +354,7 @@ body.reader-large{font-size:18px}
 </style>
 
 <style id="mutalaa-6-design-system">
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
 :root{
   --bg:#050f1e;--panel:rgba(15,31,52,.68);--panel-strong:rgba(17,36,61,.88);
   --line:rgba(190,211,239,.105);--line-hi:rgba(211,226,246,.2);
@@ -497,7 +497,7 @@ input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid r
 
 
 <style id="mutalaa-7-art-direction">
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap');
+
 :root{
  --bg:#070d17;--panel:rgba(16,27,43,.72);--panel-2:rgba(20,34,53,.82);
  --line:rgba(191,207,226,.105);--line-strong:rgba(191,207,226,.18);
@@ -677,6 +677,312 @@ a{color:var(--gold-bright)}
 }
 </style>
 
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap">
+
+
+<style id="mutalaa-7-1-performance">
+/* Performance and responsive polish */
+html{scroll-behavior:auto}
+.page{will-change:opacity,transform}
+.book,.widget-card,.setting-card,.calligraphy-card{will-change:auto}
+@media(hover:none){
+ .book:hover,.widget-card:hover,.setting-card:hover,.calligraphy-card:hover{transform:none}
+ .glass:before,.widget-card:before,.setting-card:before,.calligraphy-card:before,.book:before{display:none}
+}
+@media(max-width:850px){
+ .glass,.widget-card,.setting-card,.calligraphy-card,.search-panel,.player,.mobile-nav{
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)
+ }
+ .bookgrid .book,.widget-grid .widget-card{animation:none!important}
+}
+@media(max-width:650px){
+ .page{animation-duration:.25s}
+ .player{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+}
+@media(prefers-reduced-motion:reduce){
+ .page{will-change:auto}
+}
+</style>
+
+
+<style id="mutalaa-7-2-minimal">
+:root{
+ --bg:#0b1421;--panel:#111e2d;--panel-2:#142235;--line:rgba(190,205,222,.10);
+ --line-strong:rgba(190,205,222,.16);--muted:#91a0b2;--gold:#bda477;
+ --ink:#edf1f5;--radius:12px;
+}
+html,body{background:#0b1421!important;color:var(--ink)}
+body{
+ background:linear-gradient(180deg,#0b1421 0%,#0a1320 100%)!important;
+ font-family:'DM Sans',system-ui,sans-serif;letter-spacing:0
+}
+body:before,body:after{display:none!important}
+.app{grid-template-columns:218px minmax(0,1fr);max-width:1600px}
+.sidebar{
+ position:sticky;top:0;height:100vh;padding:27px 16px 22px;gap:27px;
+ background:#0a1420!important;border-right:1px solid var(--line);box-shadow:none!important;
+ backdrop-filter:none!important
+}
+.brand{gap:10px}
+.brandmark{width:38px;height:38px;border-radius:10px;box-shadow:none!important;background:#182b40!important;border:1px solid rgba(189,164,119,.25)}
+.brandname{font-family:'Playfair Display',Georgia,serif;font-size:15px;letter-spacing:3px}
+.subbrand{font-size:8px;letter-spacing:1.4px;color:#8292a5}
+.navtitle{font-size:9px;letter-spacing:1.7px;color:#8795a6;margin:0 0 9px 10px}
+.navbtn{
+ min-height:39px;padding:10px 11px;margin:2px 0;border-radius:8px;
+ color:#a2afbe;font-size:12px;border:1px solid transparent;background:transparent;
+ box-shadow:none!important;transform:none!important
+}
+.navbtn:before{display:none!important}
+.navbtn:hover{background:rgba(255,255,255,.035);border-color:transparent;transform:none}
+.navbtn.active{
+ color:#ead9b8;background:rgba(189,164,119,.09);
+ border-color:rgba(189,164,119,.13);box-shadow:inset 2px 0 var(--gold)!important
+}
+.sidebar .goal{
+ margin-top:auto;padding:14px;background:transparent!important;border:1px solid var(--line)!important;
+ border-radius:10px;box-shadow:none!important;backdrop-filter:none!important
+}
+main{padding:29px clamp(20px,3.2vw,48px) 150px;min-width:0}
+.topbar{margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.crumb{font-size:9px;letter-spacing:1.7px;color:#8795a6}
+.topactions{gap:8px}
+.topactions button{padding:9px 12px;font-size:11px}
+h1,h2,h3,.hero h1,.detail-title,.sectionhead h2{
+ font-family:'Playfair Display',Georgia,serif;letter-spacing:-.025em;font-weight:500
+}
+h1,.hero h1{font-size:clamp(30px,3.3vw,43px)!important;line-height:1.13}
+h2,.sectionhead h2{font-size:23px!important}
+.eyebrow,.editorial-kicker{font-size:9px;letter-spacing:1.7px;color:var(--gold)}
+.page{max-width:1280px;margin:0 auto;animation:none!important;filter:none!important;will-change:auto}
+.hero,.detail-hero,.calligraphy-hero{
+ padding:27px 30px;border-radius:12px;margin-bottom:25px;
+ background:#111f30!important;border:1px solid var(--line)!important;
+ box-shadow:none!important;backdrop-filter:none!important
+}
+.hero:before,.hero:after,.detail-hero:before,.detail-hero:after,.calligraphy-hero:before,.calligraphy-hero:after{display:none!important}
+.hero p,.detail-desc{font-size:13px;line-height:1.75;color:#aab6c4}
+.sectionhead{margin:29px 0 14px}
+.sectionhead h2{margin:0}
+.glass,.widget-card,.setting-card,.calligraphy-card,.account-card,.map-detail,.search-panel{
+ background:#101d2c!important;border:1px solid var(--line)!important;border-radius:11px!important;
+ box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important
+}
+.glass:before,.widget-card:before,.setting-card:before,.calligraphy-card:before,.book:before{display:none!important}
+.widget-grid{gap:10px}
+.widget-card{padding:15px;min-height:98px}
+.widget-value{font-family:'Playfair Display',Georgia,serif;font-size:26px}
+.widget-label{font-size:9px;letter-spacing:1.3px;color:#b49c72}
+.widget-sub{font-size:10px;color:#8e9dad}
+.bookgrid{grid-template-columns:repeat(5,minmax(0,1fr));gap:24px 18px}
+.book{padding:0 0 8px!important;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;transform:none!important}
+.book:hover{transform:translateY(-2px)!important}
+.bookcover{
+ border-radius:4px!important;box-shadow:3px 5px 12px rgba(0,0,0,.22)!important;
+ transition:transform .2s ease!important
+}
+.bookcover:after{display:none!important}
+.book:hover .bookcover{transform:translateY(-2px)!important;box-shadow:4px 8px 16px rgba(0,0,0,.28)!important}
+.booktitle{font-size:11px;line-height:1.45;margin-top:9px}
+.bookauthor,.bookmeta{font-size:9px;color:#8f9daf}
+.shelf-stage{border-radius:10px;background:#0e1a28!important;border:1px solid var(--line)!important}
+.shelf-plank{box-shadow:none!important}
+.primary,.secondary{
+ border-radius:8px;padding:9px 13px;font-size:11px;font-weight:600;
+ box-shadow:none!important;transform:none!important
+}
+.primary{background:#bda477!important;color:#17202a!important;border:1px solid #bda477!important}
+.primary:hover{background:#c9b48d!important}
+.secondary{background:transparent!important;color:#c2ccd7!important;border:1px solid var(--line-strong)!important}
+.secondary:hover{background:rgba(255,255,255,.045)!important;border-color:rgba(189,164,119,.28)!important}
+input,select,textarea{background:#0c1724!important;border:1px solid var(--line-strong)!important;border-radius:8px!important}
+.reader-paper{
+ max-width:760px;margin-inline:auto;padding:clamp(25px,4vw,52px)!important;
+ border-radius:5px!important;box-shadow:0 10px 30px rgba(0,0,0,.18)!important
+}
+.paper-text{font-family:'Playfair Display',Georgia,serif;line-height:2.05}
+.player{
+ left:calc(218px + 22px);right:22px;bottom:14px;max-width:1280px;margin:0 auto;
+ padding:10px 14px 8px;border-radius:11px;background:#101c2a!important;
+ border:1px solid var(--line)!important;box-shadow:0 8px 28px rgba(0,0,0,.24)!important;
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important
+}
+.playerrow{gap:10px}
+.playbtn{width:34px;height:34px;background:#bda477!important;color:#16202b!important;box-shadow:none!important}
+.mini-cover{border-radius:4px;box-shadow:none}
+.toast{backdrop-filter:none!important;box-shadow:0 8px 25px rgba(0,0,0,.3)!important}
+.account-modal{backdrop-filter:blur(5px)!important}
+button{transition:background .16s ease,border-color .16s ease,color .16s ease!important}
+button:active{transform:none!important}
+.bookgrid .book,.widget-grid .widget-card{animation:none!important}
+.mobile-nav{display:none}
+@media(max-width:1050px){
+ .app{grid-template-columns:190px minmax(0,1fr)}
+ .sidebar{padding-inline:13px}
+ .player{left:205px;right:15px}
+ .bookgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:850px){
+ .app{display:block}
+ .sidebar{display:none}
+ main{padding:22px 20px 175px}
+ .player{left:15px;right:15px;bottom:82px}
+ .mobile-nav{display:flex!important;position:fixed!important;left:10px!important;right:10px!important;bottom:10px!important;z-index:55;
+  justify-content:space-around;gap:2px;padding:6px 4px!important;border-radius:10px!important;
+  background:#101c2a!important;border:1px solid var(--line-strong)!important;box-shadow:0 8px 25px rgba(0,0,0,.35)!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+ .mobile-nav button{min-width:0!important;flex:1;padding:6px 2px!important;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:8px!important;color:#8998aa}
+ .mobile-nav button span{font-size:15px}
+ .mobile-nav button.active{color:#d8c39e;background:rgba(189,164,119,.08)}
+}
+@media(max-width:650px){
+ main{padding:16px 14px 175px}
+ .topbar{margin-bottom:20px;padding-bottom:11px}
+ .crumb{display:none}
+ .hero,.detail-hero,.calligraphy-hero{padding:21px 18px;border-radius:10px;margin-bottom:20px}
+ .hero h1{font-size:32px!important}
+ .sectionhead{margin:24px 0 12px}
+ .sectionhead h2{font-size:21px!important}
+ .bookgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:19px 12px}
+ .booktitle{font-size:10px}
+ .widget-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .widget-card{min-height:90px;padding:12px}
+ .widget-value{font-size:23px}
+ .player{left:8px;right:8px;bottom:77px;padding:8px 9px 6px}
+ .playerrow{gap:6px}
+ .now strong,.now span{max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .playerrow .secondary{padding:6px 7px;font-size:9px}
+ .playbtn{width:31px;height:31px}
+ .reader-paper{padding:24px 19px!important}
+ .paper-text{font-size:16px;line-height:1.95}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+
+<style id="mutalaa-8-editorial-screens">
+/* Home: a calm two-column editorial composition */
+.home-hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(210px,.7fr);gap:clamp(24px,5vw,72px);align-items:center;padding:34px 0 40px;border-bottom:1px solid var(--line)}
+.home-copy{max-width:650px}
+.home-date{margin-top:25px;font-size:11px;color:var(--muted);letter-spacing:.04em}
+.home-copy h1{font:500 clamp(38px,5vw,62px)/1.08 'Playfair Display',Georgia,serif!important;letter-spacing:-.04em;margin:17px 0 15px}
+.home-copy h1 em{font-weight:500;color:#c7b28c}
+.home-copy p{max-width:480px;color:#a3afbd;font-size:13px;line-height:1.85;margin:0 0 22px}
+.home-featured{justify-self:center;width:min(100%,230px);border:0!important;background:transparent!important;padding:0!important;text-align:left;display:flex;flex-direction:column;align-items:stretch;transform:none!important}
+.home-featured .featured-label{font-size:9px;letter-spacing:1.8px;color:var(--muted);margin-bottom:12px}
+.home-featured .bookcover{width:100%;aspect-ratio:3/4.2;border-radius:4px!important;box-shadow:8px 12px 24px rgba(0,0,0,.3)!important}
+.home-featured .bookcover .symbol{font-size:30px}
+.home-featured .bookcover .covername{font-size:17px}
+.home-featured .featured-info{display:flex;flex-direction:column;gap:4px;margin-top:13px}
+.home-featured .featured-info b{font:500 16px 'Playfair Display',Georgia,serif;color:var(--ink)}
+.home-featured .featured-info span{font-size:10px;color:var(--muted)}
+.home-progress{display:grid;grid-template-columns:1fr 1.25fr auto;gap:28px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.home-progress>div:first-child{display:grid;grid-template-columns:auto auto;align-items:baseline;column-gap:8px}
+.home-progress>div:first-child .eyebrow{grid-column:1/-1}
+.home-progress strong{font:500 29px 'Playfair Display',Georgia,serif}
+.home-progress strong small{font:500 12px 'DM Sans',sans-serif;color:var(--muted)}
+.home-progress .muted{font-size:10px}
+.progress-side{display:grid;gap:7px}
+.progress-copy{display:flex;justify-content:space-between;font-size:10px;color:#aeb8c5}
+.progress-copy b{font-weight:600;color:var(--gold)}
+.text-link{border:0!important;background:none!important;color:#c6b18a!important;font-size:11px;font-weight:600;padding:7px 0!important;white-space:nowrap}
+.text-link span{margin-left:5px}
+.text-link:hover{color:#ead9b8!important}
+.home-selection{padding-top:30px}
+.home-selection .sectionhead{margin:0 0 18px}
+.home-selection .sectionhead h2{margin:7px 0 4px}
+.home-selection .sectionhead p{margin:0;color:var(--muted);font-size:11px}
+.home-selection .bookgrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.home-quote{margin-top:34px;padding:19px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.home-quote p{font:italic 19px 'Playfair Display',Georgia,serif;color:#c8b58f;margin:10px 0 0}
+/* Library: one heading, one filter row, no dashboard clutter */
+.library-heading{display:flex;justify-content:space-between;align-items:end;padding:12px 0 25px;border-bottom:1px solid var(--line)}
+.library-heading h1{font:500 clamp(36px,4vw,48px) 'Playfair Display',Georgia,serif!important;margin:8px 0}
+.library-heading p{font-size:12px;color:var(--muted);margin:0}
+.library-count{display:flex;align-items:baseline;gap:7px;color:var(--muted)}
+.library-count strong{font:500 27px 'Playfair Display',Georgia,serif;color:var(--ink)}
+.library-count span{font-size:9px;letter-spacing:1.4px}
+.library-tools{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 0 20px}
+.library-tools .filters{display:flex;gap:6px;flex-wrap:wrap}
+.library-tools .filter{font-size:10px;padding:7px 11px;border-radius:20px!important}
+.library-tools .filter.selected{background:rgba(189,164,119,.12)!important;border-color:rgba(189,164,119,.25)!important;color:#e1cda7!important}
+.library-note{font-size:10px;color:var(--muted)}
+#catalog .bookgrid{grid-template-columns:repeat(5,minmax(0,1fr));gap:28px 20px}
+#catalog .bookactions{opacity:0;transition:opacity .18s ease}
+#catalog .book:hover .bookactions{opacity:1}
+/* Reader: focus on the text, not the interface */
+.reader-back{display:flex;align-items:center;justify-content:space-between;padding:4px 0 20px;border-bottom:1px solid var(--line)}
+.reader-heading{display:grid;grid-template-columns:190px minmax(0,1fr);gap:clamp(24px,4vw,55px);align-items:center;padding:30px 0 34px}
+.reader-cover .bookcover{width:100%;aspect-ratio:3/4.2;border-radius:4px!important;box-shadow:8px 12px 24px rgba(0,0,0,.25)!important}
+.reader-intro{max-width:650px}
+.reader-intro h1{font:500 clamp(32px,4vw,48px)/1.1 'Playfair Display',Georgia,serif!important;margin:12px 0 9px}
+.reader-intro .detail-author{font-size:12px;color:#b6a27e}
+.reader-intro .detail-desc{max-width:570px;font-size:13px;line-height:1.8;margin:15px 0}
+.reader-facts{display:flex;gap:18px;color:var(--muted);font-size:10px;padding:12px 0;border-top:1px solid var(--line);max-width:460px}
+.reader-actions{display:flex;gap:8px;margin-top:12px}
+.reading-area{max-width:760px;margin:0 auto;padding:30px clamp(22px,5vw,58px)!important;background:#f0eadf!important;color:#30343a!important;border-radius:3px!important;box-shadow:0 8px 28px rgba(0,0,0,.18)!important}
+.reading-top{display:flex;justify-content:space-between;gap:10px;font:700 8px 'DM Sans',sans-serif;letter-spacing:1.5px;color:#8c806b;border-bottom:1px solid rgba(60,55,45,.16);padding-bottom:13px;margin-bottom:25px}
+.reading-area .paper-text{font:400 18px/2.05 'Playfair Display',Georgia,serif;color:#34383d;min-height:175px}
+.reading-area .paper-controls{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(60,55,45,.16);padding-top:16px;margin-top:24px}
+.reading-area .paper-controls .secondary{color:#4a5057!important;border-color:rgba(60,55,45,.18)!important}
+.reading-area .page-count{font-size:10px;color:#817968}
+.reading-disclaimer{text-align:center;color:var(--muted);font-size:10px;margin:12px 0 30px}
+@media(max-width:950px){
+ #catalog .bookgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:700px){
+ .home-hero{grid-template-columns:minmax(0,1fr) 118px;gap:15px;padding:20px 0 25px}
+ .home-copy h1{font-size:34px!important}
+ .home-copy p{font-size:11px;line-height:1.7}
+ .home-copy .primary{font-size:10px;padding:9px 11px}
+ .home-featured{width:112px}
+ .home-featured .featured-label{font-size:7px;letter-spacing:1px}
+ .home-featured .bookcover{aspect-ratio:3/4.2}
+ .home-featured .bookcover .symbol{font-size:20px}
+ .home-featured .bookcover .covername{font-size:11px}
+ .home-featured .bookcover .coverauthor{font-size:7px}
+ .home-featured .featured-info b{font-size:12px}
+ .home-featured .featured-info span{font-size:8px}
+ .home-progress{grid-template-columns:1fr 1fr;gap:12px;padding:16px 0}
+ .home-progress .text-link{grid-column:1/-1;justify-self:start}
+ .home-progress strong{font-size:24px}
+ .home-selection{padding-top:23px}
+ .home-selection .sectionhead h2{font-size:20px!important}
+ .home-selection .bookgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:17px 11px}
+ .home-quote{margin-top:24px}
+ .home-quote p{font-size:16px}
+ .library-heading{padding:7px 0 19px}
+ .library-heading h1{font-size:35px!important}
+ .library-heading p{max-width:260px;font-size:10px;line-height:1.6}
+ .library-count strong{font-size:22px}
+ .library-tools{display:block;padding:13px 0 17px}
+ .library-tools .filters{flex-wrap:nowrap;overflow-x:auto;padding-bottom:5px;scrollbar-width:none}
+ .library-tools .filters::-webkit-scrollbar{display:none}
+ .library-tools .filter{white-space:nowrap;flex:0 0 auto}
+ .library-note{display:none}
+ #catalog .bookgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 12px}
+ #catalog .bookactions{opacity:1}
+ .reader-heading{grid-template-columns:105px minmax(0,1fr);gap:17px;padding:23px 0}
+ .reader-intro h1{font-size:27px!important}
+ .reader-intro .detail-desc{font-size:11px;line-height:1.6;margin:10px 0}
+ .reader-facts{gap:10px;font-size:9px;padding:9px 0}
+ .reader-actions{flex-wrap:wrap}
+ .reader-actions button{font-size:9px;padding:8px 9px}
+ .reading-area{padding:23px 18px!important}
+ .reading-area .paper-text{font-size:16px;line-height:1.9}
+ .reading-top{font-size:7px}
+}
+@media(max-width:380px){
+ .home-hero{grid-template-columns:minmax(0,1fr) 98px}
+ .home-featured{width:96px}
+ .home-copy h1{font-size:30px!important}
+ .reader-heading{grid-template-columns:88px minmax(0,1fr);gap:13px}
+}
+</style>
+
 </head>
 <body>
 <div class="splash" id="splash" aria-hidden="true"><div class="splash-inner"><div class="splash-mark">م</div><div class="splash-name">MÜTALAA</div><div class="splash-sub">İLİM · KÜLTÜR · TEFEKKÜR</div><div class="splash-line"></div></div></div>
@@ -729,22 +1035,39 @@ function card(b){return `<article class="book"><button data-open="${b.id}" style
 function grid(arr){return `<div class="bookgrid">${arr.map(card).join('')}</div>`}
 function heading(t,s){return `<div class="sectionhead"><h2>${t}</h2><p>${s}</p></div>`}
 function home(){
- let d=new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'}).toLocaleUpperCase('tr');
- let favCount=favorites.length, mins=totalMinutes, target=Math.min(100,Math.round(mins/20*100));
- return `<section class="hero glass"><div class="editorial-kicker">BİLGİYE · HAKİKATE · İRFANA</div><h1>Oku. Dinle.<br><span>Derinleş.</span></h1><p>İlim, düşünce ve irfan yolculuğunda kendi kütüphaneni oluştur. Her eser, yeni bir pencere.</p><button class="primary" data-page="library">Kütüphaneyi keşfet <span aria-hidden="true">↗</span></button><div style="position:absolute;right:24px;bottom:18px;color:#b7c6da55;font:italic 12px Georgia,serif;letter-spacing:2px">MÜTALAA / 01</div></section>
- <div class="home-intro"><div><div class="date">${d} · GÜNLÜK SEÇKİ</div><h2>Bugün ne okuyalım?</h2></div><span class="muted small">01 / 04</span></div>
- <div class="featured-strip"><div class="featured-note glass"><div class="editorial-kicker">GÜNÜN MÜTALAASI</div><div class="quote">“İlim, insanın yolunu aydınlatan bir nurdur.”</div><div class="source">MÜTALAA · GÜNLÜK NOT</div></div><div class="reading-stat glass"><span>TOPLAM DİNLEME</span><strong>${mins}<small style="font-size:13px;color:#a9bad0"> dk</small></strong><span>Her gün küçük bir adım.</span><div class="progress"><div style="width:${target}%"></div></div></div></div>
- <div class="sectionhead"><div><h2>Kişisel panon</h2><p>Kitaplığından kısa bir bakış</p></div><span class="small muted">WIDGETS</span></div>
- <div class="widget-grid">
-  <div class="widget-card glass" data-mark="◷"><div class="widget-label">OKUMA HEDEFİ</div><div class="widget-value">${mins}<small style="font-size:12px"> dk</small></div><div class="widget-sub">Günlük 20 dakika hedefinin ${target}%'i</div><div class="progress" style="margin-top:11px"><div style="width:${target}%"></div></div></div>
-  <div class="widget-card glass" data-mark="♡"><div class="widget-label">FAVORİLER</div><div class="widget-value">${favCount}</div><div class="widget-sub">Kaydettiğin eser</div><button class="secondary" data-page="favorites">Koleksiyona git ↗</button></div>
-  <div class="widget-card glass" data-mark="✧"><div class="widget-label">GÜNÜN KEŞFİ</div><div class="widget-value" style="font-size:20px">Hat Sanatı</div><div class="widget-sub">Klasik metinlerin estetik dünyası</div><button class="secondary" data-page="hat">Keşfet ↗</button></div>
- </div>
- <div class="sectionhead"><div><h2>Kaldığın yerden devam et</h2><p>Okuma yolculuğuna geri dön</p></div><span class="small muted">01</span></div>
- <section class="shelf-wrap"><div class="shelf-top"><div><div class="editorial-kicker">KİŞİSEL KOLEKSİYON</div><h3>Kütüphanenin rafları</h3></div><span class="small muted">01 — 08</span></div><div class="shelf-stage"><div class="shelf-books">${books.slice(0,8).map(b=>`<button class="shelf-book" data-open="${b.id}" aria-label="${esc(b.title)}"><div class="bookcover" style="background:linear-gradient(145deg,${b.color},#101e35)"><div><div class="symbol">${b.symbol}</div><div class="brandmini">MÜTALAA</div><div class="covername">${esc(b.title)}</div><div class="coverauthor">${esc(b.author)}</div></div></div></button>`).join('')}</div><div class="shelf-plank"></div></div><div class="shelf-caption">BİR ESER SEÇ · YENİ BİR DÜNYA KEŞFET</div></section>
- <div class="sectionhead"><div><h2>Editörün seçtikleri</h2><p>Kütüphaneden öne çıkan eserler</p></div><span class="small muted">02</span></div>${grid(books.slice(4))}
- <div class="glass" style="padding:20px;margin-top:28px"><div class="editorial-kicker">KÜÇÜK BİR HATIRLATMA</div><p style="font:italic 17px/1.6 Georgia,serif;color:#d7e0ec;margin:13px 0 4px">“Okumak, düşünmeye açılan kapıdır.”</p><span class="small muted">MÜTALAA NOTLARI</span></div>`;
+ const d=new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});
+ const mins=totalMinutes, target=Math.min(100,Math.round(mins/20*100));
+ const featured=books[0];
+ return `
+ <section class="home-hero">
+  <div class="home-copy">
+   <div class="eyebrow">MÜTALAA · DİJİTAL KÜTÜPHANE</div>
+   <div class="home-date">${d}</div>
+   <h1>Bilginin izinde,<br><em>derinleşerek.</em></h1>
+   <p>İlim, düşünce ve irfan dünyasından eserleri keşfet. Kendi okuma yolculuğunu oluştur.</p>
+   <button class="primary" data-page="library">Kitaplığı keşfet <span>↗</span></button>
+  </div>
+  <button class="home-featured" data-open="${featured.id}" aria-label="${esc(featured.title)} eserini aç">
+   <div class="featured-label">ÖNE ÇIKAN ESER</div>
+   ${cover(featured)}
+   <div class="featured-info"><b>${esc(featured.title)}</b><span>${esc(featured.author)}</span></div>
+  </button>
+ </section>
+ <section class="home-progress">
+  <div><span class="eyebrow">OKUMA YOLCULUĞUN</span><strong>${mins} <small>dk</small></strong><span class="muted">Toplam dinleme süresi</span></div>
+  <div class="progress-side"><div class="progress-copy"><span>Günlük hedef</span><b>${target}%</b></div><div class="progress"><div style="width:${target}%"></div></div><span class="muted">20 dakikalık hedef</span></div>
+  <button class="text-link" data-page="profile">İstatistikler <span>→</span></button>
+ </section>
+ <section class="home-selection">
+  <div class="sectionhead"><div><span class="eyebrow">SEÇKİ</span><h2>Kitaplıktan seçtiklerimiz</h2><p>Okumaya değer eserlerden bir seçki.</p></div><button class="text-link" data-page="library">Tüm kitaplar <span>→</span></button></div>
+  ${grid(books.slice(0,4))}
+ </section>
+ <section class="home-quote">
+  <span class="eyebrow">MÜTALAA'DAN BİR NOT</span>
+  <p>“Oku. Dinle. Düşün. Derinleş.”</p>
+ </section>`;
 }
+
 function hat(){
  const samples=[
   {ar:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',tr:'Rahmân ve Rahîm olan Allah’ın adıyla',kind:'Besmele'},
@@ -767,7 +1090,19 @@ function customize(){
  <section class="setting-card glass"><div class="editorial-kicker">ÖNİZLEME</div><h3 style="font:20px Georgia,serif;margin:10px 0 5px">MÜTALAA görünümü</h3><p class="small muted" style="line-height:1.7">Seçimlerin bu tarayıcıda saklanır ve sonraki ziyaretinde uygulanır.</p><button class="secondary" id="resetPrefs">Varsayılan ayarlara dön</button></section></div>`;
 }
 
-function library(){return `${heading('Kitaplık','Eserleri keşfet ve kendi dinleme yolculuğunu başlat.')}<div class="filters">${['Tümü','Risale-i Nur','İslam Düşüncesi','Fikir ve Edebiyat','Tasavvuf ve İrfan'].map((x,i)=>`<button class="secondary filter ${i===0?'selected':''}" data-filter="${x}">${x}</button>`).join('')}</div><div id="catalog">${grid(books)}</div>`}
+function library(){
+ return `
+ <section class="library-heading">
+  <div><span class="eyebrow">MÜTALAA KOLEKSİYONU</span><h1>Kitaplık</h1><p>İlgi duyduğun alanda bir eser seç ve keşfetmeye başla.</p></div>
+  <div class="library-count"><strong>${books.length}</strong><span>ESER</span></div>
+ </section>
+ <div class="library-tools">
+  <div class="filters">${['Tümü','Risale-i Nur','İslam Düşüncesi','Fikir ve Edebiyat','Tasavvuf ve İrfan'].map((x,i)=>`<button class="secondary filter ${i===0?'selected':''}" data-filter="${x}">${x}</button>`).join('')}</div>
+  <span class="library-note">Bir eser seçerek ayrıntılarına ulaşabilirsin.</span>
+ </div>
+ <div id="catalog">${grid(books)}</div>`;
+}
+
 function risale(){let a=books.filter(b=>b.cat==='Risale-i Nur');return `<div class="glass" style="padding:25px;margin-bottom:25px"><div class="eyebrow">ÖZEL KOLEKSİYON</div><h1 style="font-size:28px;margin:13px 0">Risale-i Nur Külliyatı</h1><p class="muted" style="font-size:13px;line-height:1.7">İman hakikatleri, tefekkür ve marifet üzerine eserler. Külliyatı kitap ve bahis sırasına göre keşfet.</p><div class="small muted">${a.length} örnek eser · Sesli okuma</div></div>${heading('Külliyattan seçmeler','Eserler ve örnek dinleme içerikleri')}${grid(a)}`}
 function favoritesPage(){let a=books.filter(b=>favorites.includes(b.id));return heading('Favorilerim','Kaydettiğin eserlere buradan ulaş.')+(a.length?grid(a):'<div class="glass empty">Henüz favori eserin yok. Kitaplardan ♡ simgesine dokun.</div>')}
 function notesPage(){return heading('Notlarım','Dinleme sırasında kaydettiğin notlar.')+(notes.length?notes.map((n,i)=>`<div class="glass" style="padding:16px;margin-bottom:12px"><div class="small muted">${esc(n.title)} · ${esc(n.date)}</div><p style="font-size:13px;line-height:1.7">${esc(n.text)}</p><button class="secondary" data-delete-note="${i}">Notu sil</button></div>`).join(''):'<div class="glass empty">Henüz not eklemedin.</div>')}
@@ -845,45 +1180,67 @@ function accountSubmit(e){
  closeAccount();updateAccountChip();render('profile');toast('Hoş geldin, '+users[email].name.split(' ')[0]+'.');
 }
 
+let renderTimer=null;
+let renderSequence=0;
 function render(p){
  const target=p||page;
  const content=$('content');
  page=target;
- const names={home:'ANA SAYFA',library:'KİTAPLIK',risale:'RİSALE-İ NUR',map:'İLİM HARİTASI',audio:'SESLİ DERSLER',favorites:'FAVORİLERİM',notes:'NOTLARIM',profile:'PROFİLİM',hat:'HAT SANATI',search:'GELİŞMİŞ ARAMA',customize:'KİŞİSELLEŞTİRME',hat:'HAT SANATI',search:'GELİŞMİŞ ARAMA',customize:'KİŞİSELLEŞTİRME'};
+ const names={home:'ANA SAYFA',library:'KİTAPLIK',risale:'RİSALE-İ NUR',map:'İLİM HARİTASI',audio:'SESLİ DERSLER',favorites:'FAVORİLERİM',notes:'NOTLARIM',profile:'PROFİLİM',hat:'HAT SANATI',search:'GELİŞMİŞ ARAMA',customize:'KİŞİSELLEŞTİRME'};
  $('crumb').textContent='MÜTALAA / '+(names[page]||'');
  document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
+ if(renderTimer){clearTimeout(renderTimer);renderTimer=null;}
+ const sequence=++renderSequence;
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  const draw=()=>{
+   if(sequence!==renderSequence)return;
    content.innerHTML=({home,library,risale,map,audio,favorites:favoritesPage,notes:notesPage,profile,hat,search:searchPage,customize})[page]();
    content.dataset.rendered='1';
    content.classList.remove('page-leave');
    content.classList.add('page');
-   window.scrollTo({top:0,behavior:'smooth'});
+   window.scrollTo({top:0,behavior:reduced?'instant':'auto'});
+   applyPrefs();
  };
- if(content.dataset.rendered==='1' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+ if(content.dataset.rendered==='1'&&!reduced){
    content.classList.add('page-leave');
-   setTimeout(draw,150);
+   renderTimer=setTimeout(()=>{renderTimer=null;draw();},110);
  }else draw();
 }
 function detail(b){
- const chunks = b.text.match(/.{1,190}(?:\s|$)/g)||[b.text];
+ const chunks=b.text.match(/.{1,190}(?:\s|$)/g)||[b.text];
  let activeChunk=0;
- $('content').innerHTML=`<button class="secondary" id="goBack" style="margin-bottom:16px">← Kütüphaneye dön</button>
- <section class="detail-hero glass page">
-  <div class="detail-cover">${cover(b)}</div>
-  <div><div class="editorial-kicker">${esc(b.cat)}</div><h1 class="detail-title">${esc(b.title)}</h1><div class="detail-author">${esc(b.author)}</div><p class="detail-desc">${esc(b.desc)}</p>
-   <div class="detail-meta"><span>${b.time} DAKİKA</span><span>SESLİ OKUMA</span><span>MÜTALAA KOLEKSİYONU</span></div>
-   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:19px"><button class="primary" id="detailPlay">▶ Dinlemeye başla</button><button class="secondary" id="detailFav">${favorites.includes(b.id)?'♥':'♡'} Kaydet</button></div>
+ $('content').innerHTML=`
+ <div class="reader-back"><button class="text-link" id="goBack">← Kitaplığa dön</button><span class="eyebrow">${esc(b.cat)}</span></div>
+ <section class="reader-heading">
+  <div class="reader-cover">${cover(b)}</div>
+  <div class="reader-intro">
+   <span class="eyebrow">MÜTALAA · ESER DETAYI</span>
+   <h1 class="detail-title">${esc(b.title)}</h1>
+   <div class="detail-author">${esc(b.author)}</div>
+   <p class="detail-desc">${esc(b.desc)}</p>
+   <div class="reader-facts"><span>${b.time} dakika</span><span>Sesli okuma</span></div>
+   <div class="reader-actions"><button class="primary" id="detailPlay">▶ Dinlemeye başla</button><button class="secondary" id="detailFav">${favorites.includes(b.id)?'♥ Kaydedildi':'♡ Kaydet'}</button></div>
   </div>
  </section>
- <section class="reader-paper" id="readerPaper"><div class="paper-kicker">ESERDEN BİR BÖLÜM · OKUMA MODU</div><div class="paper-text page-flip" id="paperText">${esc(chunks[0])}</div><div class="paper-controls"><button class="secondary" id="paperPrev" disabled>← Önceki</button><span class="page-count" id="paperCount">01 / ${String(chunks.length).padStart(2,'0')}</span><button class="secondary" id="paperNext">Sonraki →</button></div></section>
- <div class="small muted" style="text-align:center;margin:12px 0 26px">Örnek metin · Sayfa geçişleriyle okuma deneyimi</div>`;
+ <section class="reading-area" id="readerPaper">
+  <div class="reading-top"><span>ESERDEN BİR BÖLÜM</span><span>OKUMA MODU</span></div>
+  <div class="paper-text page-flip" id="paperText">${esc(chunks[0])}</div>
+  <div class="paper-controls"><button class="secondary" id="paperPrev" disabled>← Önceki</button><span class="page-count" id="paperCount">01 / ${String(chunks.length).padStart(2,'0')}</span><button class="secondary" id="paperNext">Sonraki →</button></div>
+ </section>
+ <p class="reading-disclaimer">Örnek metin · Sayfa geçişleriyle okuma deneyimi</p>`;
  $('goBack').onclick=()=>render('library');
  $('detailPlay').onclick=()=>start(b);
  $('detailFav').onclick=()=>toggleFav(b.id);
- const showChunk=()=>{$('paperText').classList.remove('page-flip');void $('paperText').offsetWidth;$('paperText').textContent=chunks[activeChunk];$('paperText').classList.add('page-flip');$('paperCount').textContent=String(activeChunk+1).padStart(2,'0')+' / '+String(chunks.length).padStart(2,'0');$('paperPrev').disabled=activeChunk===0;$('paperNext').disabled=activeChunk===chunks.length-1};
+ const showChunk=()=>{
+  $('paperText').classList.remove('page-flip');void $('paperText').offsetWidth;
+  $('paperText').textContent=chunks[activeChunk];$('paperText').classList.add('page-flip');
+  $('paperCount').textContent=String(activeChunk+1).padStart(2,'0')+' / '+String(chunks.length).padStart(2,'0');
+  $('paperPrev').disabled=activeChunk===0;$('paperNext').disabled=activeChunk===chunks.length-1;
+ };
  $('paperPrev').onclick=()=>{if(activeChunk>0){activeChunk--;showChunk()}};
  $('paperNext').onclick=()=>{if(activeChunk<chunks.length-1){activeChunk++;showChunk()}};
 }
+
 function toast(t){$('toast').textContent=t;$('toast').style.opacity=1;setTimeout(()=>$('toast').style.opacity=0,1800)}
 function save(){localStorage.setItem('mutalaa-favs',JSON.stringify(favorites));localStorage.setItem('mutalaa-notes',JSON.stringify(notes));localStorage.setItem('mutalaa-minutes',totalMinutes)}
 function toggleFav(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];save();render(page);toast('Favori listen güncellendi.')}
@@ -961,11 +1318,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('.m
 
 // Branded entrance and restrained touch feedback.
 window.addEventListener('load',()=>{const s=$('splash');if(s)setTimeout(()=>s.classList.add('hide'),1050)});
-document.addEventListener('click',e=>{
- const target=e.target.closest('button');
- if(!target || window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
- const r=document.createElement('span');r.className='ripple';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';document.body.appendChild(r);setTimeout(()=>r.remove(),600);
-});
+
 
 updateAccountChip();applyPrefs();render('home');update();
 </script>
@@ -974,13 +1327,7 @@ updateAccountChip();applyPrefs();render('home');update();
 (function(){
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce) return;
-  document.addEventListener('pointermove', function(e){
-    const card=e.target.closest('.glass,.widget-card,.setting-card,.calligraphy-card,.book');
-    if(!card) return;
-    const r=card.getBoundingClientRect();
-    card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
-    card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
-  },{passive:true});
+
   document.addEventListener('click',function(e){
     const el=e.target.closest('button');
     if(!el || el.disabled) return;
