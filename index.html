@@ -123,24 +123,267 @@ button:focus-visible,input:focus-visible{outline:2px solid #9fc8fa;outline-offse
  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
 }
 
+
+/* MOBILE APP SHELL + ACCOUNT EXPERIENCE */
+body{min-height:100dvh}
+.app{min-height:100dvh}
+main{padding-bottom:165px}
+.sidebar{position:sticky;top:0;height:100dvh;min-height:100dvh}
+.mobilebrand{gap:8px}
+.mobile-nav{padding-left:8px;padding-right:8px}
+.mobile-nav button{position:relative;padding:7px 5px;border-radius:12px}
+.mobile-nav button.active{background:rgba(105,158,222,.14);color:#eaf4ff}
+.mobile-nav button.active:after{content:"";position:absolute;top:0;left:35%;right:35%;height:2px;border-radius:4px;background:#9fc8fa}
+.topactions .account-chip{display:flex;align-items:center;gap:7px}
+.account-avatar{width:29px;height:29px;border-radius:50%;display:inline-grid;place-items:center;background:linear-gradient(145deg,#527eae,#1c3556);border:1px solid #ffffff35;font-size:11px;font-weight:700}
+.account-modal{position:fixed;inset:0;z-index:60;background:rgba(2,9,19,.72);backdrop-filter:blur(16px);display:none;align-items:center;justify-content:center;padding:18px}
+.account-modal.open{display:flex;animation:modalFade .25s ease both}
+.account-card{width:min(440px,100%);padding:25px;background:linear-gradient(145deg,rgba(24,50,82,.96),rgba(7,21,39,.97));border:1px solid rgba(184,216,255,.2);border-radius:23px;box-shadow:0 30px 90px #0009;animation:modalUp .38s cubic-bezier(.2,.8,.2,1) both}
+@keyframes modalFade{from{opacity:0}to{opacity:1}}
+@keyframes modalUp{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.account-card input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:#ffffff0b;color:white;outline:none;margin-top:7px}
+.account-card input:focus{border-color:#8cb9f3}
+.account-field{margin-top:14px}
+.account-field label{font-size:11px;color:#b8c9df}
+.account-tabs{display:flex;padding:4px;border-radius:12px;background:#ffffff09;margin:18px 0}
+.account-tabs button{flex:1;padding:10px;border:0;border-radius:9px;background:transparent;color:var(--muted);font-size:12px}
+.account-tabs button.active{background:#ffffff14;color:white}
+.account-error{font-size:11px;color:#ffb5b5;min-height:16px;margin-top:9px}
+.account-hint{font-size:10px;color:#91a7c4;line-height:1.6;margin-top:13px}
+.profile-head{display:flex;align-items:center;gap:14px;padding:19px}
+.profile-big-avatar{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(145deg,#527eae,#1c3556);font-size:20px;border:1px solid #ffffff30}
+.profile-action{display:flex;width:100%;justify-content:space-between;align-items:center;padding:14px 2px;background:none;border:0;border-bottom:1px solid var(--line);font-size:12px;text-align:left}
+.profile-action:last-child{border-bottom:0}
+@media(max-width:650px){
+ body{background:radial-gradient(ellipse at 15% -5%,#19396b 0%,transparent 38%),#061326}
+ main{padding:14px 14px 190px}
+ .topbar{margin-bottom:21px}
+ .topactions .account-chip{padding:5px 8px}
+ .topactions .account-chip .account-label{display:none}
+ .mobile-nav{padding-bottom:calc(8px + env(safe-area-inset-bottom));}
+ .player{bottom:calc(67px + env(safe-area-inset-bottom));left:8px;right:8px;padding:10px 11px}
+ .player .mini-wave{display:none}
+ .player .secondary{padding:8px 9px}
+ .player .now strong{font-size:11px}
+ .player .now span{font-size:9px}
+ .hero{border-radius:21px}
+ .bookgrid{gap:21px 12px}
+ .glass{border-radius:17px}
+ .account-card{padding:21px;border-radius:21px}
+}
+@media(min-width:651px){.mobile-nav{display:none!important}}
+
+/* MÜTALAA 4.0 — EDITORIAL + GLASS DESIGN LAYER */
+:root{--ink:#071326;--navy:#0b1b31;--steel:#b8c9dc;--gold:#cbb58a;--glass-edge:rgba(190,215,246,.16);--motion-ease:cubic-bezier(.22,.8,.22,1)}
+body{background:radial-gradient(ellipse at 8% -12%,rgba(54,94,145,.34),transparent 38%),radial-gradient(ellipse at 96% 48%,rgba(27,63,105,.25),transparent 36%),linear-gradient(145deg,#050d1a,#08172b 58%,#071326)}
+.hero{min-height:300px;padding:clamp(25px,4vw,42px);background:linear-gradient(112deg,rgba(16,37,65,.94),rgba(8,22,41,.72)),radial-gradient(circle at 85% 30%,rgba(197,174,130,.14),transparent 34%)}
+.hero:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;background-image:linear-gradient(115deg,transparent 49.8%,rgba(206,222,242,.12) 50%,transparent 50.2%);background-size:34px 34px;mask-image:linear-gradient(90deg,transparent,black)}
+.hero .eyebrow{color:#c9b68f;letter-spacing:3.5px}.hero h1{font-family:Georgia,"Times New Roman",serif;font-weight:500;letter-spacing:-1.4px}.hero h1 span{color:#d4c19b}.hero p{max-width:430px}.hero .primary{background:linear-gradient(135deg,#bca77f,#8e7954);border-color:#e3d2ad66;color:#101a29}
+.editorial-kicker{display:flex;align-items:center;gap:10px;color:#cbb58a;font-size:9px;letter-spacing:2.5px;text-transform:uppercase}.editorial-kicker:after{content:"";height:1px;width:44px;background:linear-gradient(90deg,#cbb58a,transparent)}
+.home-intro{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:4px 0 20px}.home-intro .date{font-size:10px;color:#8499b5;letter-spacing:1.5px}.home-intro h2{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:24px;letter-spacing:-.4px;margin:8px 0 0}
+.featured-strip{display:grid;grid-template-columns:1.2fr .8fr;gap:13px;margin:20px 0 28px}.featured-note{padding:19px;min-height:145px;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(27,54,87,.8),rgba(10,25,44,.75))}.featured-note:after{content:"م";position:absolute;right:12px;bottom:-35px;font-family:Georgia,serif;font-size:125px;color:#d1bd9866;opacity:.16;line-height:1}.featured-note>*{position:relative;z-index:1}.featured-note .quote{font-family:Georgia,serif;font-size:17px;line-height:1.55;max-width:270px;margin:14px 0}.featured-note .source{font-size:10px;color:#a9bad0}
+.reading-stat{padding:18px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(150deg,rgba(26,48,75,.74),rgba(9,24,43,.72))}.reading-stat strong{font-family:Georgia,serif;font-size:34px;font-weight:400;color:#e2d2ae}.reading-stat span{font-size:10px;color:#9aacc5}
+.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(190,215,246,.1);padding-bottom:11px}.sectionhead h2{font-family:Georgia,"Times New Roman",serif;font-size:21px;font-weight:400;letter-spacing:-.3px}.sectionhead p{font-size:10px;letter-spacing:.3px}
+.bookcover{border-radius:5px;box-shadow:0 16px 35px rgba(0,0,0,.4);border:1px solid rgba(222,231,243,.2)}.bookcover:after{inset:9px;border-radius:2px;border-color:rgba(226,213,181,.3)}.bookcover .brandmini{color:#d9c8a6}.booktitle{font-size:12px;letter-spacing:.1px}.bookactions .secondary{background:rgba(255,255,255,.045);border-color:rgba(190,215,246,.11)}
+.mobile-nav{background:rgba(5,15,29,.84)!important;border-top:1px solid rgba(183,208,241,.13)!important;backdrop-filter:blur(26px) saturate(145%)!important;-webkit-backdrop-filter:blur(26px) saturate(145%)!important}.mobile-nav button{font-size:10px;letter-spacing:.1px;transition:color .25s,transform .25s}.mobile-nav button span{font-size:18px}.mobile-nav button.active{background:linear-gradient(180deg,rgba(125,169,220,.16),rgba(125,169,220,.035));box-shadow:inset 0 0 0 1px rgba(168,203,242,.1)}.mobile-nav button.active:after{left:38%;right:38%;background:#d2bf98;box-shadow:0 0 12px #d2bf9888}
+.player{background:linear-gradient(115deg,rgba(18,39,65,.94),rgba(7,19,35,.96))!important;border:1px solid rgba(190,215,246,.2)!important;box-shadow:0 18px 55px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.07)!important}.player.is-playing{box-shadow:0 18px 55px rgba(0,0,0,.5),0 0 28px rgba(95,145,204,.12)!important}.mini-cover{border:1px solid rgba(222,205,166,.3);background:linear-gradient(145deg,#536d8b,#172b45)!important}.playbtn{background:linear-gradient(145deg,#d0bd98,#9c8968)!important;color:#0a1728!important}.mini-wave{display:flex;align-items:center;gap:3px;height:24px}.mini-wave i{display:block;width:3px;height:7px;border-radius:4px;background:#cbb58a;opacity:.65}.player.is-playing .mini-wave i{animation:miniWave .75s ease-in-out infinite alternate}.player.is-playing .mini-wave i:nth-child(2){animation-delay:.12s}.player.is-playing .mini-wave i:nth-child(3){animation-delay:.24s}.player.is-playing .mini-wave i:nth-child(4){animation-delay:.08s}.player.is-playing .mini-wave i:nth-child(5){animation-delay:.2s}@keyframes miniWave{to{height:21px;opacity:1}}
+.topbar{padding-bottom:12px;border-bottom:1px solid rgba(190,215,246,.08)}.brandmark{background:linear-gradient(145deg,#536d8b,#172b45)!important;border:1px solid rgba(220,205,174,.28)!important}.account-chip{border-radius:99px!important;background:rgba(255,255,255,.045)!important}
+@media(max-width:650px){.hero{min-height:285px;padding:24px 21px}.hero h1{font-size:38px}.featured-strip{grid-template-columns:1fr 1fr;gap:9px;margin:16px 0 25px}.featured-note,.reading-stat{padding:14px;min-height:150px}.featured-note .quote{font-size:14px}.reading-stat strong{font-size:29px}.home-intro h2{font-size:22px}.sectionhead h2{font-size:20px}.player{border-radius:17px!important}}
+@media(max-width:370px){.featured-strip{grid-template-columns:1fr}.featured-note,.reading-stat{min-height:120px}}
+
+
+/* MÜTALAA 5.0 — visual signature */
+:root{--gold:#cdb98f;--gold-soft:rgba(205,185,143,.18);--glass-line:rgba(185,211,243,.16);--ease:cubic-bezier(.2,.78,.2,1)}
+body{
+ background:
+  radial-gradient(ellipse at 12% -8%,rgba(50,91,145,.62),transparent 38%),
+  radial-gradient(ellipse at 100% 60%,rgba(25,57,96,.42),transparent 38%),
+  linear-gradient(145deg,#050d19,#091a30 55%,#071326);
+}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.16;
+ background-image:linear-gradient(30deg,transparent 48.9%,rgba(205,185,143,.18) 49.5%,transparent 50.1%),
+ linear-gradient(150deg,transparent 48.9%,rgba(205,185,143,.13) 49.5%,transparent 50.1%);
+ background-size:46px 80px;mask-image:linear-gradient(180deg,black,transparent 85%)}
+.hero{border-radius:22px;min-height:290px;padding:clamp(24px,4vw,42px);background:linear-gradient(115deg,rgba(22,48,80,.88),rgba(7,22,41,.78));}
+.hero:before{content:"";position:absolute;inset:13px;border:1px solid rgba(205,185,143,.14);border-radius:14px;pointer-events:none}
+.hero:after{width:260px;height:260px;right:-65px;top:-95px;background:#a8c8ed;filter:blur(88px);opacity:.16}
+.hero .editorial-kicker,.editorial-kicker{color:var(--gold);letter-spacing:3px;font-size:9px}
+.hero h1{font:500 clamp(36px,6vw,58px)/1.04 Georgia,"Times New Roman",serif;letter-spacing:-1.4px;margin:22px 0 14px}
+.hero h1 span{color:#d5c39f}
+.hero p{max-width:440px;line-height:1.8}
+.primary{background:linear-gradient(135deg,#cdb98f,#947f59);color:#111c2b;border:1px solid #e5d4b366;box-shadow:0 9px 26px #0004}
+.glass{border-color:var(--glass-line);background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.022));box-shadow:0 18px 48px rgba(0,7,18,.24),inset 0 1px 0 rgba(255,255,255,.05)}
+.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:12px;padding-bottom:11px;border-bottom:1px solid rgba(190,215,246,.1)}
+.sectionhead h2{font:400 22px Georgia,"Times New Roman",serif;letter-spacing:-.3px}
+.sectionhead p{font-size:11px}
+.bookcover{border-radius:5px!important;box-shadow:10px 16px 30px rgba(0,0,0,.42),inset 5px 0 7px rgba(0,0,0,.15)!important;transform-origin:left center;transition:transform .65s var(--ease),box-shadow .65s,border-color .4s!important}
+.bookcover:before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(90deg,rgba(0,0,0,.3),rgba(255,255,255,.13),transparent);z-index:2}
+.bookcover:after{border:1px solid rgba(221,205,169,.34)!important;inset:9px!important;border-radius:1px!important}
+.book:hover .bookcover{transform:perspective(900px) rotateY(-8deg) translateY(-4px)!important;box-shadow:18px 22px 38px rgba(0,0,0,.5)!important}
+.bookcover .brandmini{color:#ddcda9}
+.booktitle{font-size:12px;letter-spacing:.1px}
+.bookactions .secondary{background:rgba(255,255,255,.045);border-color:rgba(190,215,246,.11)}
+.topbar{border-bottom:1px solid rgba(190,215,246,.09);padding-bottom:13px}
+.brandmark{background:linear-gradient(145deg,#536d8b,#172b45)!important;border:1px solid rgba(220,205,174,.28)!important;box-shadow:0 8px 26px #0005}
+.navbtn.active{box-shadow:inset 3px 0 var(--gold),0 8px 22px #06132655}
+.mobile-nav{background:rgba(5,14,27,.86)!important;backdrop-filter:blur(26px) saturate(145%)!important;-webkit-backdrop-filter:blur(26px) saturate(145%)!important;border-top:1px solid rgba(205,185,143,.15)!important}
+.mobile-nav button.active{color:#f5ead4!important;background:linear-gradient(180deg,rgba(205,185,143,.13),transparent)!important}
+.mobile-nav button.active:after{background:var(--gold)!important;box-shadow:0 0 12px #cdb98f88}
+.player{background:linear-gradient(115deg,rgba(18,39,65,.96),rgba(5,16,30,.97))!important;border:1px solid rgba(190,215,246,.18)!important;box-shadow:0 18px 55px #0008,inset 0 1px 0 #ffffff0b!important}
+.playbtn{background:linear-gradient(145deg,#d4c19b,#98835d)!important;color:#101a28!important}
+.mini-cover{border:1px solid #d4c19b55!important}
+.editorial-kicker{display:flex;align-items:center;gap:9px}
+.editorial-kicker:after{content:"";height:1px;width:35px;background:linear-gradient(90deg,var(--gold),transparent)}
+.home-intro{display:flex;align-items:end;justify-content:space-between;margin:25px 0 18px}
+.home-intro h2{font:400 25px Georgia,serif;margin:8px 0 0}
+.home-intro .date{font-size:9px;letter-spacing:2px;color:#a6b8d0}
+.featured-strip{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin:17px 0 28px}
+.featured-note,.reading-stat{padding:19px;min-height:144px;position:relative;overflow:hidden}
+.featured-note{background:linear-gradient(135deg,rgba(27,54,87,.84),rgba(10,25,44,.82))}
+.featured-note:after{content:"م";position:absolute;right:8px;bottom:-42px;font:150px Georgia,serif;color:#d1bd98;opacity:.10}
+.featured-note>*{position:relative;z-index:1}
+.featured-note .quote{font:17px/1.55 Georgia,serif;max-width:280px;margin:15px 0}
+.featured-note .source,.reading-stat span{font-size:9px;color:#a9bad0;letter-spacing:1px}
+.reading-stat{display:flex;flex-direction:column;justify-content:space-between}
+.reading-stat strong{font:400 35px Georgia,serif;color:#e1d0ad}
+.shelf-wrap{margin:30px 0 32px;padding:20px 14px 18px;position:relative;overflow:hidden;border-radius:19px;background:linear-gradient(145deg,rgba(22,43,68,.72),rgba(6,18,34,.48));border:1px solid rgba(190,215,246,.11)}
+.shelf-top{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}
+.shelf-top h3{font:400 20px Georgia,serif;margin:6px 0 0}
+.shelf-stage{perspective:900px;overflow-x:auto;padding:10px 8px 23px;scrollbar-width:thin;scrollbar-color:#536b86 transparent}
+.shelf-books{display:flex;align-items:end;justify-content:center;gap:clamp(9px,2.2vw,22px);min-width:max-content;padding:0 12px 10px;transform-style:preserve-3d}
+.shelf-book{width:clamp(76px,13vw,116px);height:clamp(112px,19vw,166px);padding:0;border:0;background:none;position:relative;transform-style:preserve-3d;transition:transform .55s var(--ease),filter .4s;filter:drop-shadow(8px 12px 9px #0008)}
+.shelf-book:nth-child(2n){height:clamp(120px,20vw,176px)}
+.shelf-book:nth-child(3n){height:clamp(105px,18vw,155px)}
+.shelf-book .bookcover{height:100%;width:100%;aspect-ratio:auto!important}
+.shelf-book:hover{transform:translateY(-10px) rotateY(-9deg) scale(1.035);filter:drop-shadow(12px 18px 12px #0009)}
+.shelf-plank{height:11px;border-radius:3px;background:linear-gradient(180deg,#6d8195,#243a52 45%,#101f32);box-shadow:0 9px 17px #0008;margin:0 1px;position:relative}
+.shelf-plank:after{content:"";position:absolute;left:0;right:0;top:1px;height:1px;background:#d5c6a055}
+.shelf-caption{font-size:9px;color:#8ea4bf;letter-spacing:1.5px;text-align:center;margin-top:11px}
+.detail-hero{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:clamp(20px,4vw,42px);align-items:center;padding:clamp(18px,3vw,30px);position:relative;overflow:hidden;background:linear-gradient(130deg,rgba(24,49,78,.88),rgba(7,20,37,.85))}
+.detail-hero:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:#91b7df;filter:blur(95px);opacity:.12;right:-90px;top:-120px}
+.detail-hero>*{position:relative;z-index:1}
+.detail-cover{max-width:220px;width:100%;margin:auto;filter:drop-shadow(15px 20px 20px #0008);transform:perspective(900px) rotateY(-7deg);transition:transform .7s var(--ease)}
+.detail-cover .bookcover{aspect-ratio:3/4}
+.detail-cover:hover{transform:perspective(900px) rotateY(0deg) scale(1.025)}
+.detail-title{font:400 clamp(26px,4vw,40px)/1.12 Georgia,serif;letter-spacing:-.8px;margin:12px 0}
+.detail-author{color:#b5c5da;font-size:12px}
+.detail-desc{font-size:13px;line-height:1.85;color:#c2cede;max-width:540px}
+.detail-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.detail-meta span{font-size:9px;letter-spacing:1px;color:#cbb98f;border:1px solid #cbb98f33;border-radius:99px;padding:7px 10px}
+.reader-paper{position:relative;margin-top:24px;padding:clamp(20px,5vw,42px);background:linear-gradient(145deg,rgba(21,39,61,.94),rgba(10,23,39,.97));border:1px solid rgba(205,185,143,.17);border-radius:5px 18px 18px 5px;box-shadow:12px 14px 35px #0005,inset 5px 0 12px #0003;overflow:hidden}
+.reader-paper:before{content:"";position:absolute;left:17px;top:0;bottom:0;width:1px;background:rgba(205,185,143,.22)}
+.reader-paper .paper-kicker{font-size:9px;letter-spacing:2.5px;color:var(--gold)}
+.reader-paper .paper-text{font:17px/2 Georgia,serif;color:#e0e7f0;margin:20px 0;min-height:110px}
+.paper-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #ffffff16;padding-top:14px}
+.paper-controls button{font-size:10px}
+.page-count{font-size:10px;color:#9aacc5;letter-spacing:1px}
+.page-flip{animation:paperFlip .42s var(--ease)}
+@keyframes paperFlip{0%{opacity:.35;transform:perspective(800px) rotateY(-8deg)}100%{opacity:1;transform:perspective(800px) rotateY(0)}}
+.splash{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 42%,#1b3657,#071326 65%);transition:opacity .65s var(--ease),visibility .65s;pointer-events:none}
+.splash.hide{opacity:0;visibility:hidden}
+.splash-inner{text-align:center;animation:splashRise .9s var(--ease) both}
+.splash-mark{width:66px;height:66px;margin:0 auto 18px;border:1px solid #cdb98f66;border-radius:20px;display:grid;place-items:center;color:#ddcba5;font:34px Georgia,serif;box-shadow:0 0 55px #8caedc22,inset 0 1px #ffffff18}
+.splash-name{font:500 19px Georgia,serif;letter-spacing:7px;color:#edf2f9}
+.splash-sub{font-size:8px;letter-spacing:3px;color:#a8b9ce;margin-top:10px}
+.splash-line{height:1px;width:95px;margin:23px auto 0;background:linear-gradient(90deg,transparent,#cdb98f,transparent);animation:splashLine 1.4s ease-in-out infinite}
+@keyframes splashRise{from{opacity:0;transform:translateY(13px);letter-spacing:9px}to{opacity:1;transform:none}}
+@keyframes splashLine{50%{transform:scaleX(.5);opacity:.5}}
+.ripple{position:fixed;width:12px;height:12px;border:1px solid rgba(205,185,143,.65);border-radius:50%;pointer-events:none;z-index:999;transform:translate(-50%,-50%);animation:rippleOut .55s ease-out forwards}
+@keyframes rippleOut{to{width:58px;height:58px;opacity:0}}
+@media(max-width:650px){
+ .hero{min-height:275px;padding:23px 20px}.hero h1{font-size:39px}
+ .featured-strip{grid-template-columns:1fr 1fr;gap:9px}.featured-note,.reading-stat{padding:14px;min-height:142px}
+ .featured-note .quote{font-size:14px}.reading-stat strong{font-size:29px}
+ .shelf-wrap{margin:24px 0;padding:16px 9px}.shelf-books{justify-content:flex-start}
+ .detail-hero{grid-template-columns:105px 1fr;gap:17px;padding:16px}
+ .detail-cover{max-width:105px}.detail-title{font-size:24px}.detail-desc{font-size:11px;line-height:1.65}
+ .reader-paper .paper-text{font-size:15px;line-height:1.9}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+
+/* MÜTALAA 5.1 — Calligraphy, widgets, discovery & personalization */
+.calligraphy-hero{position:relative;overflow:hidden;text-align:center;padding:clamp(28px,6vw,64px) 20px;background:radial-gradient(ellipse at 50% 45%,rgba(86,119,159,.22),transparent 60%),linear-gradient(145deg,rgba(22,44,72,.88),rgba(7,19,35,.95));border:1px solid rgba(205,185,143,.2)}
+.calligraphy-hero:before,.calligraphy-hero:after{content:"۞";position:absolute;color:rgba(205,185,143,.16);font-size:100px;top:12px}
+.calligraphy-hero:before{left:18px}.calligraphy-hero:after{right:18px}
+.arabic-calligraphy{font-family:"Amiri","Noto Naskh Arabic","Traditional Arabic",serif;font-size:clamp(36px,8vw,66px);line-height:1.8;color:#e5d5b3;text-shadow:0 4px 24px rgba(205,185,143,.16);direction:rtl;margin:22px auto;max-width:900px}
+.calligraphy-caption{font:italic 15px Georgia,serif;color:#c2cede;letter-spacing:.4px}
+.calligraphy-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:18px}
+.calligraphy-card{padding:20px;text-align:center;cursor:pointer;transition:.3s;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}
+.calligraphy-card:hover{transform:translateY(-4px);border-color:rgba(205,185,143,.4)}
+.calligraphy-card .arabic{font:32px/1.8 "Amiri","Noto Naskh Arabic",serif;color:#dfcfad;direction:rtl}
+.calligraphy-card small{display:block;color:#91a6c1;margin-top:8px;letter-spacing:1px}
+.widget-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 28px}
+.widget-card{min-height:130px;padding:16px;position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(26,49,78,.8),rgba(8,22,40,.82))}
+.widget-card:after{content:attr(data-mark);position:absolute;right:8px;bottom:-25px;font:80px Georgia,serif;color:rgba(205,185,143,.12);pointer-events:none}
+.widget-label{font-size:9px;letter-spacing:1.8px;color:#a8bad0}
+.widget-value{font:29px Georgia,serif;color:#e0d0ae;margin:12px 0 5px}
+.widget-sub{font-size:10px;color:#91a6c1;line-height:1.5}
+.widget-card button{margin-top:9px;font-size:10px}
+.search-panel{padding:18px;margin-bottom:17px;background:linear-gradient(145deg,rgba(23,46,75,.8),rgba(8,21,39,.85))}
+.search-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-top:13px}
+.search-field label,.setting-label{display:block;font-size:9px;letter-spacing:1.5px;color:#9db0c9;margin:0 0 7px}
+.search-field input,.search-field select,.setting-select{width:100%;padding:12px 13px;border-radius:10px;border:1px solid rgba(190,215,246,.15);background:rgba(2,11,23,.45);color:#edf4ff;outline:none}
+.search-field select option,.setting-select option{background:#102039}
+.search-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:17px 0 12px;color:#9fb1c9;font-size:11px}
+.search-chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.search-chips button{font-size:10px;padding:7px 11px;border-radius:99px}
+.settings-layout{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.setting-card{padding:18px}
+.theme-options{display:flex;gap:9px;margin-top:10px}
+.theme-swatch{height:48px;flex:1;border:2px solid transparent;border-radius:12px;position:relative}
+.theme-swatch.active{border-color:#d5c39f;box-shadow:0 0 0 2px rgba(205,185,143,.15)}
+.theme-swatch span{position:absolute;bottom:5px;left:7px;font-size:9px;color:#fff;text-shadow:0 1px 3px #000}
+.font-preview{padding:16px;border-radius:12px;background:rgba(255,255,255,.045);margin-top:12px;color:#dbe5f2;line-height:1.8}
+.setting-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid rgba(190,215,246,.09)}
+.setting-row:last-child{border-bottom:0}
+.toggle{width:43px;height:24px;border-radius:99px;background:#34465d;border:0;position:relative;flex:none}
+.toggle:after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;left:3px;top:3px;background:#dce6f2;transition:.2s}
+.toggle.on{background:#9d8966}.toggle.on:after{left:22px;background:#fff}
+body.theme-charcoal{background:radial-gradient(ellipse at 15% 0%,#313943 0%,transparent 42%),#10151d}
+body.theme-paper{background:radial-gradient(ellipse at 15% 0%,#e7ddc9 0%,transparent 48%),#d6cbb6;color:#182438}
+body.theme-paper .glass,body.theme-paper .widget-card,body.theme-paper .search-panel{background:rgba(255,250,239,.82);border-color:rgba(50,57,68,.15);color:#182438}
+body.theme-paper .sectionhead h2,body.theme-paper .home-intro h2{color:#182438}
+body.theme-paper .muted,body.theme-paper .small{color:#5d6673}
+body.theme-paper .arabic-calligraphy,body.theme-paper .calligraphy-card .arabic{color:#665137}
+body.reader-serif #content{font-family:Georgia,"Times New Roman",serif}
+body.reader-large{font-size:18px}
+@media(max-width:700px){.widget-grid{grid-template-columns:1fr 1fr}.search-grid{grid-template-columns:1fr 1fr}.search-field:first-child{grid-column:1/-1}.settings-layout{grid-template-columns:1fr}.calligraphy-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:390px){.widget-grid{grid-template-columns:1fr}.calligraphy-grid{grid-template-columns:1fr}.search-grid{grid-template-columns:1fr}.search-field:first-child{grid-column:auto}}
+
 </style>
 </head>
 <body>
-<div class="app">
+<div class="splash" id="splash" aria-hidden="true"><div class="splash-inner"><div class="splash-mark">م</div><div class="splash-name">MÜTALAA</div><div class="splash-sub">İLİM · KÜLTÜR · TEFEKKÜR</div><div class="splash-line"></div></div></div>
+<div class="app" id="appShell">
 <aside class="sidebar">
- <div class="brand"><div class="brandmark">م</div><div><div class="brandname">MÜTALAA</div><div class="subbrand">İLİM KÜTÜPHANESİ</div></div></div>
- <div><p class="navtitle">KÜTÜPHANE</p><button class="navbtn active" data-page="home">⌂　 Ana Sayfa</button><button class="navbtn" data-page="library">▤　 Kitaplık</button><button class="navbtn" data-page="risale">✧　 Risale-i Nur</button><button class="navbtn" data-page="map">⌘　 İlim Haritası</button><button class="navbtn" data-page="audio">♫　 Sesli Dersler</button></div>
+ <div class="brand"><div class="brandmark">م</div><div><div class="brandname">MÜTALAA</div><div class="subbrand">İLİM · KÜLTÜR · TEFEKKÜR</div></div></div>
+ <div><p class="navtitle">KÜTÜPHANE</p><button class="navbtn active" data-page="home">⌂　 Ana Sayfa</button><button class="navbtn" data-page="library">▤　 Kitaplık</button><button class="navbtn" data-page="risale">✧　 Risale-i Nur</button><button class="navbtn" data-page="map">⌘　 İlim Haritası</button><button class="navbtn" data-page="audio">♫　 Sesli Dersler</button><button class="navbtn" data-page="hat">✧　 Hat Sanatı</button></div>
  <div><p class="navtitle">KİŞİSEL</p><button class="navbtn" data-page="favorites">♡　 Favorilerim</button><button class="navbtn" data-page="notes">✎　 Notlarım</button><button class="navbtn" data-page="profile">◉　 Profilim</button></div>
  <div class="glass goal"><div style="font-size:12px">Günün Mütalaası</div><p class="small muted">Her gün birkaç sayfa, her gün yeni bir istifade.</p><div class="small muted">BUGÜNÜN HEDEFİ</div><div class="progress" style="margin-top:8px"><div id="goalProgress" style="width:0%"></div></div><div class="small muted" id="goalText" style="margin-top:7px">0 / 20 dakika</div></div>
 </aside>
 <main>
- <header class="topbar"><div class="mobilebrand"><div class="brandmark" style="width:34px;height:34px">م</div>MÜTALAA</div><div class="crumb" id="crumb">MÜTALAA / ANA SAYFA</div><div class="topactions"><button class="secondary" id="searchToggle">⌕ Ara</button><button class="secondary" data-page="profile">◉</button></div></header>
- <div id="searchBox" hidden style="margin-bottom:18px"><input class="searchinput" id="searchInput" type="search" placeholder="Kitap, yazar veya konu ara..."></div>
+ <header class="topbar"><div class="mobilebrand"><div class="brandmark" style="width:34px;height:34px">م</div>MÜTALAA</div><div class="crumb" id="crumb">MÜTALAA / ANA SAYFA</div><div class="topactions"><button class="secondary" id="searchToggle">⌕ Ara</button><button class="secondary account-chip" id="accountButton" data-page="profile">◉ <span class="account-label">Giriş yap</span></button></div></header>
+ <div id="searchBox" hidden style="margin-bottom:18px"><input class="searchinput" id="searchInput" type="search" placeholder="Kitap, yazar veya konu ara..."><button class="secondary" data-page="search" style="margin-top:9px">Gelişmiş arama ve filtreler ↗</button></div>
  <div id="content"></div>
 </main>
 </div>
-<nav class="mobile-nav"><button class="active" data-page="home"><span>⌂</span>Ana Sayfa</button><button data-page="library"><span>▤</span>Kitaplık</button><button data-page="risale"><span>✧</span>Risale</button><button data-page="map"><span>⌘</span>Harita</button><button data-page="favorites"><span>♡</span>Favoriler</button></nav>
+<nav class="mobile-nav"><button class="active" data-page="home"><span>⌂</span>Ana Sayfa</button><button data-page="library"><span>▤</span>Kitaplık</button><button data-page="risale"><span>✧</span>Risale</button><button data-page="map"><span>⌘</span>Harita</button><button data-page="favorites"><span>♡</span>Favoriler</button><button data-page="hat"><span>✧</span>Hat</button></nav>
 <div class="player"><div class="playerrow"><div class="mini-cover" id="miniCover">م</div><div class="now"><strong id="nowTitle">Henüz bir eser seçilmedi</strong><span id="nowAuthor">Dinlemek için bir eser seçin</span></div><button class="secondary" id="back15">↶15</button><div class="mini-wave" id="miniWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><button class="playbtn" id="play">▶</button><button class="secondary" id="forward15">15↷</button><button class="secondary" id="speed">1x</button></div><div class="seekrow"><span id="elapsed">00:00</span><input id="seek" type="range" min="0" max="100" value="0"><span id="duration">--:--</span></div><div class="small muted" id="voiceStatus" style="margin-top:5px">Türkçe sesli okuma cihazınızın ses motorunu kullanır.</div></div>
+<div class="account-modal" id="accountModal" aria-modal="true" role="dialog" aria-label="Mütalaa hesabı">
+ <div class="account-card">
+  <div style="display:flex;align-items:center;justify-content:space-between"><div class="brand"><div class="brandmark" style="width:37px;height:37px">م</div><div><div class="brandname">MÜTALAA</div><div class="subbrand">KİŞİSEL KÜTÜPHANEN</div></div></div><button class="secondary" id="closeAccount" aria-label="Kapat">✕</button></div>
+  <div class="account-tabs"><button id="loginTab" class="active">Giriş yap</button><button id="registerTab">Üye ol</button></div>
+  <form id="accountForm">
+   <div class="account-field" id="nameField" hidden><label for="accountName">Ad soyad</label><input id="accountName" autocomplete="name" placeholder="Adınız soyadınız"></div>
+   <div class="account-field"><label for="accountEmail">E-posta adresi</label><input id="accountEmail" type="email" autocomplete="email" required placeholder="ornek@mail.com"></div>
+   <div class="account-field"><label for="accountPassword">Şifre</label><input id="accountPassword" type="password" autocomplete="current-password" required minlength="6" placeholder="En az 6 karakter"></div>
+   <div class="account-error" id="accountError"></div>
+   <button class="primary" type="submit" id="accountSubmit" style="width:100%">Giriş yap</button>
+  </form>
+  <div class="account-hint">Demo üyelik: bilgiler bu tarayıcıda yerel olarak saklanır. Bu sürüm gerçek sunucu tabanlı hesap güvenliği sağlamaz.</div>
+ </div>
+</div>
 <div class="toast" id="toast"></div>
 <script>
 const books=[
@@ -160,12 +403,59 @@ function cover(b){return `<div class="bookcover" style="background:linear-gradie
 function card(b){return `<article class="book"><button data-open="${b.id}" style="display:block;width:100%;text-align:left;background:none;border:0;padding:0">${cover(b)}<div class="booktitle">${esc(b.title)}</div><div class="bookauthor">${esc(b.author)}</div><div class="bookmeta">${b.time} dk · ${esc(b.cat)}</div></button><div class="bookactions"><button class="secondary" data-play="${b.id}">▶ Dinle</button><button class="secondary" data-fav="${b.id}">${favorites.includes(b.id)?'♥':'♡'}</button></div></article>`}
 function grid(arr){return `<div class="bookgrid">${arr.map(card).join('')}</div>`}
 function heading(t,s){return `<div class="sectionhead"><h2>${t}</h2><p>${s}</p></div>`}
-function home(){return `<section class="hero glass"><div class="eyebrow">BİLGİYE, HAKİKATE, İRFANA</div><h1>Dinle. Oku.<br><span>Mütalaa et.</span></h1><p>Düşünce, ilim ve edebiyat eserlerini keşfet. Kendi dijital kütüphaneni oluştur.</p><button class="primary" data-page="library">Kütüphaneyi keşfet →</button></section><div class="sectionhead"><h2>Kaldığın yerden devam et</h2><p>Dinlemeye hazır eserler</p></div>${grid(books.slice(0,4))}<div class="sectionhead"><h2>Öne çıkan eserler</h2><p>Kütüphaneden seçtiklerimiz</p></div>${grid(books.slice(4))}<div class="glass" style="padding:20px;margin-top:30px"><div class="small muted">GÜNLÜK İSTİFADE</div><b>Bugün ${totalMinutes} dakika dinledin.</b><p class="small muted">Her gün küçük bir adım.</p></div>`}
+function home(){
+ let d=new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'}).toLocaleUpperCase('tr');
+ let favCount=favorites.length, mins=totalMinutes, target=Math.min(100,Math.round(mins/20*100));
+ return `<section class="hero glass"><div class="editorial-kicker">BİLGİYE · HAKİKATE · İRFANA</div><h1>Oku. Dinle.<br><span>Derinleş.</span></h1><p>İlim, düşünce ve irfan yolculuğunda kendi kütüphaneni oluştur. Her eser, yeni bir pencere.</p><button class="primary" data-page="library">Kütüphaneyi keşfet <span aria-hidden="true">↗</span></button><div style="position:absolute;right:24px;bottom:18px;color:#b7c6da55;font:italic 12px Georgia,serif;letter-spacing:2px">MÜTALAA / 01</div></section>
+ <div class="home-intro"><div><div class="date">${d} · GÜNLÜK SEÇKİ</div><h2>Bugün ne okuyalım?</h2></div><span class="muted small">01 / 04</span></div>
+ <div class="featured-strip"><div class="featured-note glass"><div class="editorial-kicker">GÜNÜN MÜTALAASI</div><div class="quote">“İlim, insanın yolunu aydınlatan bir nurdur.”</div><div class="source">MÜTALAA · GÜNLÜK NOT</div></div><div class="reading-stat glass"><span>TOPLAM DİNLEME</span><strong>${mins}<small style="font-size:13px;color:#a9bad0"> dk</small></strong><span>Her gün küçük bir adım.</span><div class="progress"><div style="width:${target}%"></div></div></div></div>
+ <div class="sectionhead"><div><h2>Kişisel panon</h2><p>Kitaplığından kısa bir bakış</p></div><span class="small muted">WIDGETS</span></div>
+ <div class="widget-grid">
+  <div class="widget-card glass" data-mark="◷"><div class="widget-label">OKUMA HEDEFİ</div><div class="widget-value">${mins}<small style="font-size:12px"> dk</small></div><div class="widget-sub">Günlük 20 dakika hedefinin ${target}%'i</div><div class="progress" style="margin-top:11px"><div style="width:${target}%"></div></div></div>
+  <div class="widget-card glass" data-mark="♡"><div class="widget-label">FAVORİLER</div><div class="widget-value">${favCount}</div><div class="widget-sub">Kaydettiğin eser</div><button class="secondary" data-page="favorites">Koleksiyona git ↗</button></div>
+  <div class="widget-card glass" data-mark="✧"><div class="widget-label">GÜNÜN KEŞFİ</div><div class="widget-value" style="font-size:20px">Hat Sanatı</div><div class="widget-sub">Klasik metinlerin estetik dünyası</div><button class="secondary" data-page="hat">Keşfet ↗</button></div>
+ </div>
+ <div class="sectionhead"><div><h2>Kaldığın yerden devam et</h2><p>Okuma yolculuğuna geri dön</p></div><span class="small muted">01</span></div>
+ <section class="shelf-wrap"><div class="shelf-top"><div><div class="editorial-kicker">KİŞİSEL KOLEKSİYON</div><h3>Kütüphanenin rafları</h3></div><span class="small muted">01 — 08</span></div><div class="shelf-stage"><div class="shelf-books">${books.slice(0,8).map(b=>`<button class="shelf-book" data-open="${b.id}" aria-label="${esc(b.title)}"><div class="bookcover" style="background:linear-gradient(145deg,${b.color},#101e35)"><div><div class="symbol">${b.symbol}</div><div class="brandmini">MÜTALAA</div><div class="covername">${esc(b.title)}</div><div class="coverauthor">${esc(b.author)}</div></div></div></button>`).join('')}</div><div class="shelf-plank"></div></div><div class="shelf-caption">BİR ESER SEÇ · YENİ BİR DÜNYA KEŞFET</div></section>
+ <div class="sectionhead"><div><h2>Editörün seçtikleri</h2><p>Kütüphaneden öne çıkan eserler</p></div><span class="small muted">02</span></div>${grid(books.slice(4))}
+ <div class="glass" style="padding:20px;margin-top:28px"><div class="editorial-kicker">KÜÇÜK BİR HATIRLATMA</div><p style="font:italic 17px/1.6 Georgia,serif;color:#d7e0ec;margin:13px 0 4px">“Okumak, düşünmeye açılan kapıdır.”</p><span class="small muted">MÜTALAA NOTLARI</span></div>`;
+}
+function hat(){
+ const samples=[
+  {ar:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',tr:'Rahmân ve Rahîm olan Allah’ın adıyla',kind:'Besmele'},
+  {ar:'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',tr:'Hamd, âlemlerin Rabbi Allah’a mahsustur',kind:'Hamd'},
+  {ar:'رَبِّ زِدْنِي عِلْمًا',tr:'Rabbim, ilmimi artır',kind:'İlim duası'},
+  {ar:'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ',tr:'Allah’ı hamdiyle tesbih ederim',kind:'Tesbih'}
+ ];
+ return `${heading('Hat Sanatı','Klasik metinlerin estetik diliyle buluş.')}<section class="calligraphy-hero glass"><div class="editorial-kicker" style="justify-content:center">MÜTALAA · HAT KOLEKSİYONU</div><div class="arabic-calligraphy">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div><div class="calligraphy-caption">Rahmân ve Rahîm olan Allah’ın adıyla</div><div class="small muted" style="margin-top:18px;letter-spacing:2px">GELENEK · SANAT · TEFEKKÜR</div></section><div class="sectionhead" style="margin-top:25px"><div><h2>Hat seçkisi</h2><p>Seçili metinleri keşfet</p></div><span class="small muted">04 ESER</span></div><div class="calligraphy-grid">${samples.map((s,i)=>`<button class="calligraphy-card glass" data-hat="${i}"><div class="arabic">${s.ar}</div><small>${s.kind}</small><div class="small muted" style="margin-top:8px">${s.tr}</div></button>`).join('')}</div><div class="glass" style="padding:18px;margin-top:18px"><div class="editorial-kicker">TASARIM NOTU</div><p class="small muted" style="line-height:1.8;margin-bottom:0">Bu alandaki Arapça metinler dijital tipografi örnekleridir. Gerçek hat levhaları ve farklı hat ekolleri için lisanslı görsel koleksiyonları ayrıca eklenebilir.</p></div>`;
+}
+function searchPage(){
+ return `${heading('Gelişmiş arama','Eserleri başlık, yazar, kategori ve konuya göre keşfet.')}<section class="search-panel glass"><div class="editorial-kicker">KÜTÜPHANEDE ARA</div><div class="search-grid"><div class="search-field"><label for="advQuery">ARAMA TERİMİ</label><input id="advQuery" type="search" placeholder="Eser, yazar veya anahtar kelime..."></div><div class="search-field"><label for="advCategory">KATEGORİ</label><select id="advCategory"><option value="">Tüm kategoriler</option>${[...new Set(books.map(b=>b.cat))].map(c=>`<option>${esc(c)}</option>`).join('')}</select></div><div class="search-field"><label for="advSort">SIRALAMA</label><select id="advSort"><option value="default">Önerilen</option><option value="title">Eser adına göre</option><option value="author">Yazara göre</option><option value="duration">Süreye göre</option></select></div></div><div class="search-chips"><button class="secondary" data-search-chip="Risale-i Nur">Risale-i Nur</button><button class="secondary" data-search-chip="Tasavvuf">Tasavvuf</button><button class="secondary" data-search-chip="Bediüzzaman">Bediüzzaman</button><button class="secondary" data-search-chip="İslam">İslam düşüncesi</button></div></section><div class="search-meta"><span id="searchCount">${books.length} eser listeleniyor</span><button class="secondary" id="clearSearch">Filtreleri temizle</button></div><div id="advancedResults">${grid(books)}</div>`;
+}
+function customize(){
+ const prefs=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');
+ const theme=prefs.theme||'navy',font=prefs.font||'sans',size=prefs.size||'normal',widgets=prefs.widgets!==false;
+ return `${heading('Görünümü kişiselleştir','MÜTALAA deneyimini kendi okuma alışkanlığına göre düzenle.')}<div class="settings-layout">
+ <section class="setting-card glass"><div class="editorial-kicker">RENK TEMASI</div><h3 style="font:20px Georgia,serif;margin:10px 0 5px">Renk paleti</h3><div class="theme-options"><button class="theme-swatch ${theme==='navy'?'active':''}" data-theme="navy" style="background:linear-gradient(135deg,#071426,#25466b)"><span>Gece</span></button><button class="theme-swatch ${theme==='charcoal'?'active':''}" data-theme="charcoal" style="background:linear-gradient(135deg,#10151d,#46515d)"><span>Grafit</span></button><button class="theme-swatch ${theme==='paper'?'active':''}" data-theme="paper" style="background:linear-gradient(135deg,#e9dfcb,#b6a88e)"><span>Kitap</span></button></div></section>
+ <section class="setting-card glass"><div class="editorial-kicker">OKUMA TERCİHLERİ</div><h3 style="font:20px Georgia,serif;margin:10px 0 13px">Yazı karakteri</h3><label class="setting-label" for="fontChoice">METİN TİPİ</label><select class="setting-select" id="fontChoice"><option value="sans" ${font==='sans'?'selected':''}>Modern Sans</option><option value="serif" ${font==='serif'?'selected':''}>Klasik Serif</option></select><label class="setting-label" for="sizeChoice" style="margin-top:14px">YAZI BOYUTU</label><select class="setting-select" id="sizeChoice"><option value="normal" ${size==='normal'?'selected':''}>Standart</option><option value="large" ${size==='large'?'selected':''}>Büyük</option></select><div class="font-preview" id="fontPreview">İlim, okumak ve tefekkür etmekle derinleşir. Bu alan seçtiğin yazı biçimini önizler.</div></section>
+ <section class="setting-card glass"><div class="editorial-kicker">ANA EKRAN</div><h3 style="font:20px Georgia,serif;margin:10px 0 5px">Widget görünümü</h3><div class="setting-row"><div><b class="small">Kişisel pano kartları</b><div class="small muted">Okuma hedefi, favoriler ve günlük keşif</div></div><button class="toggle ${widgets?'on':''}" id="widgetToggle" aria-label="Widgetları aç veya kapat"></button></div></section>
+ <section class="setting-card glass"><div class="editorial-kicker">ÖNİZLEME</div><h3 style="font:20px Georgia,serif;margin:10px 0 5px">MÜTALAA görünümü</h3><p class="small muted" style="line-height:1.7">Seçimlerin bu tarayıcıda saklanır ve sonraki ziyaretinde uygulanır.</p><button class="secondary" id="resetPrefs">Varsayılan ayarlara dön</button></section></div>`;
+}
+
 function library(){return `${heading('Kitaplık','Eserleri keşfet ve kendi dinleme yolculuğunu başlat.')}<div class="filters">${['Tümü','Risale-i Nur','İslam Düşüncesi','Fikir ve Edebiyat','Tasavvuf ve İrfan'].map((x,i)=>`<button class="secondary filter ${i===0?'selected':''}" data-filter="${x}">${x}</button>`).join('')}</div><div id="catalog">${grid(books)}</div>`}
 function risale(){let a=books.filter(b=>b.cat==='Risale-i Nur');return `<div class="glass" style="padding:25px;margin-bottom:25px"><div class="eyebrow">ÖZEL KOLEKSİYON</div><h1 style="font-size:28px;margin:13px 0">Risale-i Nur Külliyatı</h1><p class="muted" style="font-size:13px;line-height:1.7">İman hakikatleri, tefekkür ve marifet üzerine eserler. Külliyatı kitap ve bahis sırasına göre keşfet.</p><div class="small muted">${a.length} örnek eser · Sesli okuma</div></div>${heading('Külliyattan seçmeler','Eserler ve örnek dinleme içerikleri')}${grid(a)}`}
 function favoritesPage(){let a=books.filter(b=>favorites.includes(b.id));return heading('Favorilerim','Kaydettiğin eserlere buradan ulaş.')+(a.length?grid(a):'<div class="glass empty">Henüz favori eserin yok. Kitaplardan ♡ simgesine dokun.</div>')}
 function notesPage(){return heading('Notlarım','Dinleme sırasında kaydettiğin notlar.')+(notes.length?notes.map((n,i)=>`<div class="glass" style="padding:16px;margin-bottom:12px"><div class="small muted">${esc(n.title)} · ${esc(n.date)}</div><p style="font-size:13px;line-height:1.7">${esc(n.text)}</p><button class="secondary" data-delete-note="${i}">Notu sil</button></div>`).join(''):'<div class="glass empty">Henüz not eklemedin.</div>')}
-function profile(){return `${heading('Profilim','Kişisel dinleme alanın')}<div class="glass" style="padding:20px;margin-bottom:13px"><div class="small muted">TOPLAM DİNLEME</div><div style="font-size:32px;font-weight:650;margin:8px 0">${totalMinutes} <span class="small muted">dakika</span></div><div class="progress"><div style="width:${Math.min(100,totalMinutes/20*100)}%"></div></div><p class="small muted">Günlük 20 dakika hedefi</p></div><div class="glass" style="padding:20px"><b style="font-size:13px">Kütüphane bilgileri</b><p class="small muted">Favoriler: ${favorites.length} eser</p><p class="small muted">Kişisel notlar: ${notes.length}</p><p class="small muted">Veriler bu tarayıcıda saklanır.</p></div><button class="secondary" style="margin-top:14px" id="reset">Dinleme istatistiklerini sıfırla</button>`}
+function profile(){
+ const u=getUser();
+ if(!u)return `${heading('Profilim','Kişisel alanına erişmek için giriş yap.')}<div class="glass empty"><div style="font-size:28px;margin-bottom:12px">◉</div><b style="color:#edf4ff">MÜTALAA hesabını oluştur</b><p>Dinleme geçmişini, notlarını ve favorilerini hesabınla ilişkilendir.</p><button class="primary" id="openAccount">Giriş yap / Üye ol</button><button class="secondary" data-page="customize" style="margin-top:10px">Görünümü kişiselleştir</button></div>`;
+ const initial=(u.name||u.email||'M').trim().charAt(0).toLocaleUpperCase('tr');
+ return `${heading('Hesabım','Kişisel dinleme ve mütalaa alanın')}
+ <div class="glass profile-head"><div class="profile-big-avatar">${esc(initial)}</div><div style="min-width:0"><b>${esc(u.name||'Mütalaa üyesi')}</b><div class="small muted" style="margin-top:4px">${esc(u.email)}</div><div class="small" style="color:#9fc8fa;margin-top:5px">MÜTALAA ÜYESİ</div></div></div>
+ <div class="glass" style="padding:19px;margin-top:13px"><div class="small muted">TOPLAM DİNLEME</div><div style="font-size:32px;font-weight:650;margin:8px 0">${totalMinutes} <span class="small muted">dakika</span></div><div class="progress"><div style="width:${Math.min(100,totalMinutes/20*100)}%"></div></div><p class="small muted">Günlük 20 dakika hedefi</p></div>
+ <div class="glass" style="padding:8px 17px;margin-top:13px"><button class="profile-action" data-page="customize">Görünümü kişiselleştir <span>✧</span></button><button class="profile-action" data-page="hat">Hat sanatı koleksiyonu <span>✧</span></button><button class="profile-action" id="editAccountName">Adını düzenle <span>›</span></button><button class="profile-action" id="accountStats">Kütüphane istatistikleri <span>♡ ${favorites.length} favori</span></button><button class="profile-action" id="logout">Oturumu kapat <span>↗</span></button></div>
+ <p class="small muted" style="line-height:1.6;margin:13px 3px">Bu prototipte hesap bilgileri yalnızca bu cihazın tarayıcısında saklanır. Gerçek çok kullanıcılı üyelik için güvenli sunucu ve kimlik doğrulama servisi gerekir.</p>`;
+}
 function audio(){return heading('Sesli Dersler','Dinlemeye hazır eserler ve örnek okumalar.')+grid(books.slice(0,6))}
 
 const mapNodes=[
@@ -207,16 +497,38 @@ function map(){
 }
 function selectMapNode(id){if(!mapNodes.some(n=>n.id===id))return;selectedMapNode=id;$('mapDetail').innerHTML=mapDetail();document.querySelectorAll('.map-svg .map-node').forEach(el=>el.classList.toggle('selected',el.dataset.node===id));document.querySelectorAll('.map-edge').forEach(el=>el.classList.remove('active'));const pos=Object.fromEntries(mapNodes.map(n=>[n.id,n]));document.querySelectorAll('.map-svg .map-edge').forEach((el,i)=>{if(mapEdges[i].includes(id))el.classList.add('active')});}
 
+
+let accountMode='login';
+const getUser=()=>{try{return JSON.parse(localStorage.getItem('mutalaa-current-user')||'null')}catch(e){return null}};
+function openAccount(mode='login'){accountMode=mode;$('accountModal').classList.add('open');setAccountMode(mode);$('accountError').textContent='';}
+function closeAccount(){$('accountModal').classList.remove('open')}
+function setAccountMode(mode){accountMode=mode;$('loginTab').classList.toggle('active',mode==='login');$('registerTab').classList.toggle('active',mode==='register');$('nameField').hidden=mode!=='register';$('accountName').required=mode==='register';$('accountSubmit').textContent=mode==='register'?'Hesap oluştur':'Giriş yap';$('accountPassword').autocomplete=mode==='register'?'new-password':'current-password';}
+function updateAccountChip(){let u=getUser();let btn=$('accountButton');if(!btn)return;btn.innerHTML=u?`<span class="account-avatar">${esc((u.name||u.email||'M').charAt(0).toLocaleUpperCase('tr'))}</span><span class="account-label">${esc((u.name||'Hesabım').split(' ')[0])}</span>`:'◉ <span class="account-label">Giriş yap</span>';btn.title=u?'Hesabım':'Giriş yap';}
+function accountSubmit(e){
+ e.preventDefault();let email=$('accountEmail').value.trim().toLowerCase(),password=$('accountPassword').value,name=$('accountName').value.trim();
+ let users={};try{users=JSON.parse(localStorage.getItem('mutalaa-users')||'{}')}catch(e){}
+ if(accountMode==='register'){
+  if(!name){$('accountError').textContent='Lütfen adınızı yazın.';return}
+  if(password.length<6){$('accountError').textContent='Şifre en az 6 karakter olmalı.';return}
+  if(users[email]){$('accountError').textContent='Bu e-posta ile zaten hesap oluşturulmuş.';return}
+  users[email]={name,email,password};localStorage.setItem('mutalaa-users',JSON.stringify(users));
+  localStorage.setItem('mutalaa-current-user',JSON.stringify({name,email}));
+  closeAccount();updateAccountChip();render('profile');toast('MÜTALAA hesabın oluşturuldu.');return;
+ }
+ if(!users[email]||users[email].password!==password){$('accountError').textContent='E-posta veya şifre hatalı.';return}
+ localStorage.setItem('mutalaa-current-user',JSON.stringify({name:users[email].name,email}));
+ closeAccount();updateAccountChip();render('profile');toast('Hoş geldin, '+users[email].name.split(' ')[0]+'.');
+}
+
 function render(p){
  const target=p||page;
  const content=$('content');
- if(target===page && content.dataset.rendered==='1'){return;}
  page=target;
- const names={home:'ANA SAYFA',library:'KİTAPLIK',risale:'RİSALE-İ NUR',map:'İLİM HARİTASI',audio:'SESLİ DERSLER',favorites:'FAVORİLERİM',notes:'NOTLARIM',profile:'PROFİLİM'};
+ const names={home:'ANA SAYFA',library:'KİTAPLIK',risale:'RİSALE-İ NUR',map:'İLİM HARİTASI',audio:'SESLİ DERSLER',favorites:'FAVORİLERİM',notes:'NOTLARIM',profile:'PROFİLİM',hat:'HAT SANATI',search:'GELİŞMİŞ ARAMA',customize:'KİŞİSELLEŞTİRME',hat:'HAT SANATI',search:'GELİŞMİŞ ARAMA',customize:'KİŞİSELLEŞTİRME'};
  $('crumb').textContent='MÜTALAA / '+(names[page]||'');
  document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
  const draw=()=>{
-   content.innerHTML=({home,library,risale,map,audio,favorites:favoritesPage,notes:notesPage,profile})[page]();
+   content.innerHTML=({home,library,risale,map,audio,favorites:favoritesPage,notes:notesPage,profile,hat,search:searchPage,customize})[page]();
    content.dataset.rendered='1';
    content.classList.remove('page-leave');
    content.classList.add('page');
@@ -227,7 +539,26 @@ function render(p){
    setTimeout(draw,150);
  }else draw();
 }
-function detail(b){$('content').innerHTML=`<button class="secondary" id="goBack" style="margin-bottom:20px">← Geri dön</button><div class="detailgrid page"><div>${cover(b)}</div><div><div class="small muted">${esc(b.cat)}</div><h1 style="font-size:26px;margin:9px 0">${esc(b.title)}</h1><p class="muted" style="font-size:13px">${esc(b.author)}</p><p class="detailtext">${esc(b.desc)}</p><div class="small muted">${b.time} dakika · Örnek metin</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:18px"><button class="primary" id="detailPlay">▶ Dinlemeye başla</button><button class="secondary" id="detailFav">${favorites.includes(b.id)?'♥':'♡'} Favorilere ekle</button></div></div></div><div class="glass" style="padding:20px;margin-top:28px"><div class="eyebrow">ESERDEN BİR BÖLÜM</div><p class="detailtext">${esc(b.text)}</p><button class="secondary" id="saveQuote">✎ Bu metinden not oluştur</button></div>`;$('goBack').onclick=()=>render('library');$('detailPlay').onclick=()=>start(b);$('detailFav').onclick=()=>toggleFav(b.id);$('saveQuote').onclick=()=>{notes.unshift({title:b.title,text:b.text,date:new Date().toLocaleDateString('tr-TR')});save();toast('Metin notlarına eklendi.')}}
+function detail(b){
+ const chunks = b.text.match(/.{1,190}(?:\s|$)/g)||[b.text];
+ let activeChunk=0;
+ $('content').innerHTML=`<button class="secondary" id="goBack" style="margin-bottom:16px">← Kütüphaneye dön</button>
+ <section class="detail-hero glass page">
+  <div class="detail-cover">${cover(b)}</div>
+  <div><div class="editorial-kicker">${esc(b.cat)}</div><h1 class="detail-title">${esc(b.title)}</h1><div class="detail-author">${esc(b.author)}</div><p class="detail-desc">${esc(b.desc)}</p>
+   <div class="detail-meta"><span>${b.time} DAKİKA</span><span>SESLİ OKUMA</span><span>MÜTALAA KOLEKSİYONU</span></div>
+   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:19px"><button class="primary" id="detailPlay">▶ Dinlemeye başla</button><button class="secondary" id="detailFav">${favorites.includes(b.id)?'♥':'♡'} Kaydet</button></div>
+  </div>
+ </section>
+ <section class="reader-paper" id="readerPaper"><div class="paper-kicker">ESERDEN BİR BÖLÜM · OKUMA MODU</div><div class="paper-text page-flip" id="paperText">${esc(chunks[0])}</div><div class="paper-controls"><button class="secondary" id="paperPrev" disabled>← Önceki</button><span class="page-count" id="paperCount">01 / ${String(chunks.length).padStart(2,'0')}</span><button class="secondary" id="paperNext">Sonraki →</button></div></section>
+ <div class="small muted" style="text-align:center;margin:12px 0 26px">Örnek metin · Sayfa geçişleriyle okuma deneyimi</div>`;
+ $('goBack').onclick=()=>render('library');
+ $('detailPlay').onclick=()=>start(b);
+ $('detailFav').onclick=()=>toggleFav(b.id);
+ const showChunk=()=>{$('paperText').classList.remove('page-flip');void $('paperText').offsetWidth;$('paperText').textContent=chunks[activeChunk];$('paperText').classList.add('page-flip');$('paperCount').textContent=String(activeChunk+1).padStart(2,'0')+' / '+String(chunks.length).padStart(2,'0');$('paperPrev').disabled=activeChunk===0;$('paperNext').disabled=activeChunk===chunks.length-1};
+ $('paperPrev').onclick=()=>{if(activeChunk>0){activeChunk--;showChunk()}};
+ $('paperNext').onclick=()=>{if(activeChunk<chunks.length-1){activeChunk++;showChunk()}};
+}
 function toast(t){$('toast').textContent=t;$('toast').style.opacity=1;setTimeout(()=>$('toast').style.opacity=0,1800)}
 function save(){localStorage.setItem('mutalaa-favs',JSON.stringify(favorites));localStorage.setItem('mutalaa-notes',JSON.stringify(notes));localStorage.setItem('mutalaa-minutes',totalMinutes)}
 function toggleFav(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];save();render(page);toast('Favori listen güncellendi.')}
@@ -236,7 +567,30 @@ function update(){ document.querySelector('.player').classList.toggle('is-playin
 function start(b){current=b;elapsed=0;duration=b.time*60;$('nowTitle').textContent=b.title;$('nowAuthor').textContent=b.author;$('miniCover').textContent=b.symbol;$('duration').textContent=fmt(duration);playSpeech()}
 function playSpeech(){if(!current){toast('Önce bir eser seçmelisin.');return}if(!('speechSynthesis'in window)){toast('Tarayıcı sesli okumayı desteklemiyor.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(current.text);u.lang='tr-TR';u.rate=speed;let v=speechSynthesis.getVoices().find(x=>x.lang.toLowerCase().startsWith('tr'));if(v)u.voice=v;u.onstart=()=>{$('voiceStatus').textContent='Türkçe sesli okuma aktif'};u.onend=()=>{playing=false;update()};u.onerror=()=>{$('voiceStatus').textContent='Ses motoru okuma sırasında durdu.'};playing=true;update();speechSynthesis.speak(u)}
 function pause(){speechSynthesis.cancel();playing=false;update()}
+
+function applyPrefs(){
+ const p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');
+ document.body.classList.toggle('theme-charcoal',p.theme==='charcoal');
+ document.body.classList.toggle('theme-paper',p.theme==='paper');
+ document.body.classList.toggle('reader-serif',p.font==='serif');
+ document.body.classList.toggle('reader-large',p.size==='large');
+ const w=document.querySelector('.widget-grid');if(w&&p.widgets===false)w.hidden=true;
+}
+function updateAdvancedSearch(){
+ const q=($('advQuery')?.value||'').trim().toLocaleLowerCase('tr'),cat=$('advCategory')?.value||'',sort=$('advSort')?.value||'default';
+ let arr=books.filter(b=>(!cat||b.cat===cat)&&(!q||(b.title+' '+b.author+' '+b.cat+' '+b.desc+' '+b.text).toLocaleLowerCase('tr').includes(q)));
+ if(sort==='title')arr.sort((a,b)=>a.title.localeCompare(b.title,'tr'));
+ if(sort==='author')arr.sort((a,b)=>a.author.localeCompare(b.author,'tr'));
+ if(sort==='duration')arr.sort((a,b)=>a.time-b.time);
+ $('searchCount').textContent=arr.length+' eser bulundu';
+ $('advancedResults').innerHTML=arr.length?grid(arr):'<div class="glass empty">Bu ölçütlerle eşleşen eser bulunamadı.</div>';
+}
+function savePrefs(p){localStorage.setItem('mutalaa-prefs',JSON.stringify(p));applyPrefs()}
+
 document.addEventListener('click',e=>{
+let hc=e.target.closest('[data-hat]');if(hc){let texts=['بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ','الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ','رَبِّ زِدْنِي عِلْمًا','سُبْحَانَ اللَّهِ وَبِحَمْدِهِ'];let captions=['Rahmân ve Rahîm olan Allah’ın adıyla','Hamd, âlemlerin Rabbi Allah’a mahsustur','Rabbim, ilmimi artır','Allah’ı hamdiyle tesbih ederim'];let i=+hc.dataset.hat;document.querySelectorAll('.calligraphy-card').forEach(x=>x.style.borderColor='');hc.style.borderColor='rgba(205,185,143,.65)';let hero=document.querySelector('.calligraphy-hero .arabic-calligraphy');if(hero)hero.textContent=texts[i];let cap=document.querySelector('.calligraphy-hero .calligraphy-caption');if(cap)cap.textContent=captions[i];return}
+let th=e.target.closest('[data-theme]');if(th){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.theme=th.dataset.theme;savePrefs(p);render('customize');return}
+let chip=e.target.closest('[data-search-chip]');if(chip){$('advQuery').value=chip.dataset.searchChip;updateAdvancedSearch();return}
 let mn=e.target.closest('[data-node]');if(mn){selectMapNode(mn.dataset.node);return}
 let mf=e.target.closest('[data-map-filter]');if(mf){mapFilter=mf.dataset.mapFilter;render('map');return}
 let p=e.target.closest('[data-page]');if(p){render(p.dataset.page);return}
@@ -246,6 +600,27 @@ let f=e.target.closest('[data-fav]');if(f){toggleFav(+f.dataset.fav);return}
 let fl=e.target.closest('[data-filter]');if(fl){document.querySelectorAll('.filter').forEach(x=>x.classList.remove('selected'));fl.classList.add('selected');let arr=fl.dataset.filter==='Tümü'?books:books.filter(b=>b.cat===fl.dataset.filter);$('catalog').innerHTML=grid(arr);return}
 let d=e.target.closest('[data-delete-note]');if(d){notes.splice(+d.dataset.deleteNote,1);save();render('notes')}
 });
+$('accountButton').onclick=(e)=>{e.preventDefault();if(getUser())render('profile');else openAccount('login')};
+$('closeAccount').onclick=closeAccount;
+$('accountModal').addEventListener('click',e=>{if(e.target===$('accountModal'))closeAccount()});
+$('loginTab').onclick=()=>setAccountMode('login');
+$('registerTab').onclick=()=>setAccountMode('register');
+$('accountForm').addEventListener('submit',accountSubmit);
+$('content').addEventListener('input',e=>{
+ if(['advQuery','advCategory','advSort'].includes(e.target.id))updateAdvancedSearch();
+});
+$('content').addEventListener('change',e=>{
+ if(e.target.id==='fontChoice'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.font=e.target.value;savePrefs(p);render('customize')}
+ if(e.target.id==='sizeChoice'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.size=e.target.value;savePrefs(p);render('customize')}
+});
+$('content').addEventListener('click',e=>{
+ if(e.target.id==='widgetToggle'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.widgets=p.widgets===false?true:false;savePrefs(p);render('customize')}
+ if(e.target.id==='resetPrefs'){localStorage.removeItem('mutalaa-prefs');applyPrefs();render('customize')}
+ if(e.target.id==='clearSearch'){if($('advQuery'))$('advQuery').value='';if($('advCategory'))$('advCategory').value='';if($('advSort'))$('advSort').value='default';updateAdvancedSearch()}
+ if(e.target.id==='openAccount')openAccount('register');
+ if(e.target.id==='logout'){localStorage.removeItem('mutalaa-current-user');updateAccountChip();render('profile');toast('Oturum kapatıldı.')}
+ if(e.target.id==='editAccountName'){let u=getUser();if(!u)return;let n=prompt('Yeni adınız',u.name||'');if(n&&n.trim()){u.name=n.trim();localStorage.setItem('mutalaa-current-user',JSON.stringify(u));let users=JSON.parse(localStorage.getItem('mutalaa-users')||'{}');if(users[u.email]){users[u.email].name=u.name;localStorage.setItem('mutalaa-users',JSON.stringify(users))}updateAccountChip();render('profile')}}
+});
 $('play').onclick=()=>{if(!current){toast('Dinlemek için bir eser seç.');return}playing?pause():playSpeech()};
 $('speed').onclick=()=>{speed=speed===1?1.25:speed===1.25?1.5:speed===1.5?1.75:speed===1.75?2:1;$('speed').textContent=speed+'x';if(playing)playSpeech()};
 $('back15').onclick=()=>{if(current){elapsed=Math.max(0,elapsed-15);playSpeech()}};
@@ -253,12 +628,21 @@ $('forward15').onclick=()=>{if(current){elapsed=Math.min(duration,elapsed+15);pl
 $('seek').oninput=()=>{elapsed=Math.round(duration*$('seek').value/100);$('elapsed').textContent=fmt(elapsed)};
 $('seek').onchange=()=>{if(playing)playSpeech()};
 $('searchToggle').onclick=()=>{$('searchBox').hidden=!$('searchBox').hidden;if(!$('searchBox').hidden)$('searchInput').focus()};
-$('searchInput').oninput=()=>{let q=$('searchInput').value.toLocaleLowerCase('tr');let arr=books.filter(b=>(b.title+' '+b.author+' '+b.cat).toLocaleLowerCase('tr').includes(q));$('content').innerHTML=heading('Arama sonuçları','Aradığın eserler')+(arr.length?grid(arr):'<div class="glass empty">Sonuç bulunamadı.</div>')};
+$('searchInput').oninput=()=>{let q=$('searchInput').value.toLocaleLowerCase('tr');let arr=books.filter(b=>(b.title+' '+b.author+' '+b.cat+' '+b.desc+' '+b.text).toLocaleLowerCase('tr').includes(q));$('content').innerHTML=heading('Arama sonuçları','Aradığın eserler')+(arr.length?grid(arr):'<div class="glass empty">Sonuç bulunamadı.</div>')};
 $('content').addEventListener('input',e=>{if(e.target.id==='mapSearch'){mapSearch=e.target.value;let stage=document.querySelector('.map-stage');if(stage)stage.innerHTML=mapSvg();}});
 $('content').addEventListener('click',e=>{if(e.target.id==='reset'&&confirm('Dinleme istatistiklerini sıfırlamak istiyor musun?')){totalMinutes=0;save();render('profile')}});
 setInterval(()=>{if(playing&&current){elapsed++;if(elapsed%60===0){totalMinutes++;save()}if(elapsed>=duration)pause();update()}},1000);
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('.map-node'))selectMapNode(e.target.dataset.node)});
-render('home');update();
+
+// Branded entrance and restrained touch feedback.
+window.addEventListener('load',()=>{const s=$('splash');if(s)setTimeout(()=>s.classList.add('hide'),1050)});
+document.addEventListener('click',e=>{
+ const target=e.target.closest('button');
+ if(!target || window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const r=document.createElement('span');r.className='ripple';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';document.body.appendChild(r);setTimeout(()=>r.remove(),600);
+});
+
+updateAccountChip();applyPrefs();render('home');update();
 </script>
 </body>
 </html>
