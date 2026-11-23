@@ -1001,10 +1001,8 @@ button:active{transform:none!important}
 </div>
 <nav class="mobile-nav" aria-label="Ana gezinme">
  <button class="active" data-page="home" aria-label="Ana Sayfa"><span class="nav-icon">⌂</span><small>Ana Sayfa</small></button>
- <button data-page="library" aria-label="Kütüphane"><span class="nav-icon">▤</span><small>Kütüphane</small></button>
+ <button data-page="library" aria-label="Kitaplık"><span class="nav-icon">▤</span><small>Kitaplık</small></button>
  <button data-page="audio" aria-label="Dinle"><span class="nav-icon">♫</span><small>Dinle</small></button>
- <button data-page="favorites" aria-label="Kaydedilenler"><span class="nav-icon">♡</span><small>Kaydedilenler</small></button>
- <button data-page="profile" aria-label="Profil"><span class="nav-icon">◯</span><small>Profil</small></button>
 </nav>
 <div class="player"><div class="playerrow"><div class="mini-cover" id="miniCover">م</div><div class="now"><strong id="nowTitle">Henüz bir eser seçilmedi</strong><span id="nowAuthor">Dinlemek için bir eser seçin</span></div><button class="secondary" id="back15">↶15</button><div class="mini-wave" id="miniWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><button class="playbtn" id="play">▶</button><button class="secondary" id="forward15">15↷</button><button class="secondary" id="speed">1x</button></div><div class="seekrow"><span id="elapsed">00:00</span><input id="seek" type="range" min="0" max="100" value="0"><span id="duration">--:--</span></div><div class="small muted" id="voiceStatus" style="margin-top:5px">Türkçe sesli okuma cihazınızın ses motorunu kullanır.</div></div>
 <div class="account-modal" id="accountModal" aria-modal="true" role="dialog" aria-label="Mütalaa hesabı">
@@ -1041,41 +1039,26 @@ function card(b){return `<article class="book"><button data-open="${b.id}" style
 function grid(arr){return `<div class="bookgrid">${arr.map(card).join('')}</div>`}
 function heading(t,s){return `<div class="sectionhead"><h2>${t}</h2><p>${s}</p></div>`}
 function home(){
- const d=new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});
- const mins=totalMinutes, target=Math.min(100,Math.round(mins/20*100));
- const featured=books[0];
+ const d=new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'});
+ const lastId=Number(localStorage.getItem('mutalaa-last-book')||0);
+ const featured=books.find(b=>b.id===lastId)||books[0];
  return `
- <section class="home-hero">
-  <div class="home-copy">
-   <div class="eyebrow">MÜTALAA · DİJİTAL KÜTÜPHANE</div>
-   <div class="home-date">${d}</div>
-   <h1>Bilginin izinde,<br><em>derinleşerek.</em></h1>
-   <p>İlim, düşünce ve irfan dünyasından eserleri keşfet. Kendi okuma yolculuğunu oluştur.</p>
-   <button class="primary" data-page="library">Kitaplığı keşfet <span>↗</span></button>
+ <section class="simple-welcome">
+  <div class="eyebrow">${d}</div>
+  <h1>Bugün ne okuyacağız?</h1>
+ </section>
+ <button class="continue-book" data-open="${featured.id}">
+  <div class="continue-cover">${cover(featured)}</div>
+  <div class="continue-info">
+   <span class="eyebrow">${lastId?'SON BAKTIĞIN ESER':'BUGÜNÜN ÖNERİSİ'}</span>
+   <strong>${esc(featured.title)}</strong>
+   <small>${esc(featured.author)}</small>
+   <span class="continue-link">${lastId?'Kitaba dön':'Eseri keşfet'} <b>→</b></span>
   </div>
-  <button class="home-featured" data-open="${featured.id}" aria-label="${esc(featured.title)} eserini aç">
-   <div class="featured-label">ÖNE ÇIKAN ESER</div>
-   ${cover(featured)}
-   <div class="featured-info"><b>${esc(featured.title)}</b><span>${esc(featured.author)}</span></div>
-  </button>
- </section>
- <section class="home-progress">
-  <div><span class="eyebrow">OKUMA YOLCULUĞUN</span><strong>${mins} <small>dk</small></strong><span class="muted">Toplam dinleme süresi</span></div>
-  <div class="progress-side"><div class="progress-copy"><span>Günlük hedef</span><b>${target}%</b></div><div class="progress"><div style="width:${target}%"></div></div><span class="muted">20 dakikalık hedef</span></div>
-  <button class="text-link" data-page="stats">İstatistikler <span>→</span></button>
- </section>
- <section class="home-selection">
-  <div class="sectionhead"><div><span class="eyebrow">SEÇKİ</span><h2>Kitaplıktan seçtiklerimiz</h2><p>Okumaya değer eserlerden bir seçki.</p></div><button class="text-link" data-page="library">Tüm kitaplar <span>→</span></button></div>
-  ${grid(books.slice(0,4))}
- </section>
- <section class="home-quote">
-  <span class="eyebrow">GÜNÜN MÜTALAASI</span>
-  <p>${dailyReflection().quote}</p>
-  <span class="small muted">${dailyReflection().prompt}</span>
- </section>
- <section class="home-selection" style="margin-top:24px">
-  <div class="sectionhead"><div><span class="eyebrow">KENDİ ROTANI ÇİZ</span><h2>İlim Yolculuğu</h2><p>Bir konu seç, başlangıçtan derinleşmeye doğru ilerle.</p></div><button class="text-link" data-page="journey">Keşfet →</button></div>
-  <div class="journey-shortcuts"><button class="journey-chip" data-page="journey">İman ve tevhid <span>→</span></button><button class="journey-chip" data-page="journey">İslam düşüncesi <span>→</span></button><button class="journey-chip" data-page="journey">Tasavvuf ve irfan <span>→</span></button></div>
+ </button>
+ <section class="simple-library-preview">
+  <div class="simple-section-head"><h2>Kitaplıktan seçtiklerimiz</h2><button class="text-link" data-page="library">Tümünü gör →</button></div>
+  ${grid(books.slice(0,3))}
  </section>`;
 }
 
@@ -1103,13 +1086,12 @@ function customize(){
 
 function library(){
  return `
- <section class="library-heading">
-  <div><span class="eyebrow">MÜTALAA KOLEKSİYONU</span><h1>Kitaplık</h1><p>İlgi duyduğun alanda bir eser seç ve keşfetmeye başla.</p></div>
-  <div class="library-count"><strong>${books.length}</strong><span>ESER</span></div>
+ <section class="library-heading simple-library-heading">
+  <div><span class="eyebrow">MÜTALAA KOLEKSİYONU</span><h1>Kitaplık</h1></div>
+  <button class="saved-link" data-page="favorites">♡ Kaydedilenler</button>
  </section>
- <div class="library-tools">
+ <div class="library-tools simple-library-tools">
   <div class="filters">${['Tümü','Risale-i Nur','İslam Düşüncesi','Fikir ve Edebiyat','Tasavvuf ve İrfan'].map((x,i)=>`<button class="secondary filter ${i===0?'selected':''}" data-filter="${x}">${x}</button>`).join('')}</div>
-  <span class="library-note">Bir eser seçerek ayrıntılarına ulaşabilirsin.</span>
  </div>
  <div id="catalog">${grid(books)}</div>`;
 }
@@ -1127,38 +1109,24 @@ function profile(){
  <div class="glass" style="padding:8px 17px;margin-top:13px"><button class="profile-action" data-page="stats">Okuma istatistikleri <span>↗</span></button><button class="profile-action" data-page="journey">İlim Yolculuğu <span>→</span></button><button class="profile-action" data-page="customize">Görünümü kişiselleştir <span>✧</span></button><button class="profile-action" data-page="hat">Hat sanatı koleksiyonu <span>✧</span></button><button class="profile-action" id="editAccountName">Adını düzenle <span>›</span></button><button class="profile-action" id="accountStats">Kütüphane istatistikleri <span>♡ ${favorites.length} favori</span></button><button class="profile-action" id="logout">Oturumu kapat <span>↗</span></button></div>
  <p class="small muted" style="line-height:1.6;margin:13px 3px">Bu prototipte hesap bilgileri yalnızca bu cihazın tarayıcısında saklanır. Gerçek çok kullanıcılı üyelik için güvenli sunucu ve kimlik doğrulama servisi gerekir.</p>`;
 }
-function audio(){return `${heading('Dinle','Sesli eserlerini burada yönet.')}
- <section class="audio-control-panel glass">
-  <div class="eyebrow">DİNLEME AYARLARI</div>
+function audio(){
+ return `${heading('Dinle','Sesli eserler ve dinleme ayarları.')}
+ <section class="now-playing-card glass">
+  <div class="eyebrow">ŞİMDİ DİNLENİYOR</div>
+  <div class="now-playing-main">
+   <div class="now-playing-art" id="audioArtwork">م</div>
+   <div><strong id="audioCurrentTitle">${current?esc(current.title):'Henüz eser seçilmedi'}</strong><small id="audioCurrentAuthor">${current?esc(current.author):'Dinlemek için bir eser seç'}</small></div>
+  </div>
+  <div class="now-playing-actions"><button class="primary" id="audioMainPlay">${playing?'Ⅱ Duraklat':'▶ Dinlemeye başla'}</button><button class="secondary" data-page="library">Kitaplığa git</button></div>
+ </section>
+ <details class="audio-settings">
+  <summary>Dinleme ayarları</summary>
   <div class="audio-control-row"><div><b>Uyku zamanlayıcısı</b><p class="small muted">Süre dolduğunda dinleme durur.</p></div><select id="sleepTimer"><option value="0">Kapalı</option><option value="15">15 dakika</option><option value="30">30 dakika</option><option value="45">45 dakika</option><option value="60">1 saat</option></select></div>
   <div class="audio-control-row"><div><b>Okuma hızı</b><p class="small muted">Dinleme hızını ayarla.</p></div><select id="audioSpeed"><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="1.75">1.75×</option><option value="2">2×</option></select></div>
   <p class="small muted" id="sleepStatus">Zamanlayıcı kapalı.</p>
- </section>
- ${heading('Dinlemeye devam et','Koleksiyondan bir eser seç.')}
- ${grid(books.slice(0,8))}`;}
-
-const mapNodes=[
-{id:'ilim',label:'İLİM',sub:'Merkez',x:450,y:265,cat:'Merkez',desc:'Bilginin, öğrenmenin ve hakikati arayışın merkez kavramı. Haritadaki diğer alanlara buradan ulaşabilirsin.',books:[3,4,7]},
-{id:'iman',label:'İman',sub:'İnanç esasları',x:265,y:135,cat:'İnanç',desc:'İman, insanın varlık ve hayatla kurduğu temel anlam ilişkisini şekillendirir. Bu başlık altında iman esasları ve iman hakikatleri ele alınır.',books:[1,2,3]},
-{id:'tevhid',label:'Tevhid',sub:'Birlik ve yaratılış',x:450,y:85,cat:'İnanç',desc:'Allah’ın birliğini, kâinattaki birlik ve düzen üzerinden düşünmeye açılan temel kavram.',books:[1,3]},
-{id:'tefekkür',label:'Tefekkür',sub:'Düşünme ve tezekkür',x:640,y:135,cat:'Düşünce',desc:'İnsan, kâinat ve yaratılış üzerine derin düşünme. Bilgiyi anlamlandırma ve ibret nazarıyla bakma pratiği.',books:[1,3,8]},
-{id:'marifet',label:'Marifetullah',sub:'Allah’ı tanıma',x:710,y:285,cat:'İrfan',desc:'Allah’ı isimleri, sıfatları ve eserleri üzerinden tanıma ve bilme çabası.',books:[3,4]},
-{id:'ahlak',label:'Ahlak',sub:'Güzel davranış',x:600,y:425,cat:'Ahlak',desc:'İnsanın karakterini, davranışlarını ve başkalarıyla ilişkisini şekillendiren değerler bütünü.',books:[4,7]},
-{id:'tasavvuf',label:'Tasavvuf',sub:'Kalp ve nefis terbiyesi',x:365,y:445,cat:'İrfan',desc:'Kalbin arınması, ihlas, zühd, nefis terbiyesi ve manevi olgunlaşma konuları.',books:[4]},
-{id:'siyer',label:'Siyer',sub:'Nebevî hayat',x:175,y:335,cat:'Tarih',desc:'Hz. Muhammed’in hayatı, örnekliği ve İslam’ın ilk döneminin tarihî bağlamı.',books:[]},
-{id:'medeniyet',label:'Medeniyet',sub:'Tarih ve toplum',x:285,y:265,cat:'Tarih',desc:'İslam medeniyetinin düşünce, ilim, sanat, şehir ve toplum tecrübesi.',books:[6,8]},
-{id:'insan',label:'İnsan',sub:'Şahsiyet ve sorumluluk',x:485,y:465,cat:'Düşünce',desc:'İnsanın anlam arayışı, iradesi, sorumluluğu ve ahlaki gelişimi.',books:[5,7,8]},
-{id:'dua',label:'Dua',sub:'Kulluk ve yöneliş',x:105,y:205,cat:'İbadet',desc:'Kulun Allah’a yönelişi, niyazı ve kulluk bilinci.',books:[1,4]},
-{id:'kader',label:'Kader',sub:'İrade ve takdir',x:790,y:190,cat:'İnanç',desc:'İrade, sorumluluk ve ilahi takdir üzerine düşünme alanı.',books:[3]}
-];
-const mapEdges=[['ilim','iman'],['ilim','tevhid'],['ilim','tefekkür'],['ilim','marifet'],['ilim','ahlak'],['ilim','tasavvuf'],['ilim','medeniyet'],['ilim','insan'],['iman','tevhid'],['iman','dua'],['iman','kader'],['tevhid','tefekkür'],['tefekkür','marifet'],['marifet','ahlak'],['ahlak','insan'],['tasavvuf','insan'],['tasavvuf','ahlak'],['siyer','medeniyet'],['siyer','ahlak'],['medeniyet','insan'],['dua','iman'],['kader','insan']];
-let selectedMapNode='ilim',mapFilter='Tümü',mapSearch='';
-function mapSvg(){
- const pos=Object.fromEntries(mapNodes.map(n=>[n.id,n]));
- const edges=mapEdges.map(([a,b])=>{let x=pos[a],y=pos[b];return `<line class="map-edge ${selectedMapNode===a||selectedMapNode===b?'active':''}" x1="${x.x}" y1="${x.y}" x2="${y.x}" y2="${y.y}"/>`}).join('');
- const visible=mapNodes.filter(n=>(mapFilter==='Tümü'||n.cat===mapFilter||n.cat==='Merkez')&&(!mapSearch||(n.label+' '+n.sub+' '+n.desc).toLocaleLowerCase('tr').includes(mapSearch)));
- const nodes=visible.map(n=>`<g class="map-node ${n.id===selectedMapNode?'selected':''} ${n.id==='ilim'?'central':''}" data-node="${n.id}" tabindex="0" role="button" aria-label="${n.label}"><circle cx="${n.x}" cy="${n.y}" r="${n.id==='ilim'?43:34}"/><text x="${n.x}" y="${n.y-2}">${n.label}</text><text class="node-sub" x="${n.x}" y="${n.y+14}">${n.sub}</text></g>`).join('');
- return `<svg class="map-svg" viewBox="0 0 900 550" role="img" aria-label="Etkileşimli ilim kavramları haritası"><defs><radialGradient id="nodeGlow"><stop stop-color="#8cb9f3" stop-opacity=".24"/><stop offset="1" stop-color="#8cb9f3" stop-opacity="0"/></radialGradient></defs><circle cx="450" cy="265" r="85" fill="url(#nodeGlow)"/>${edges}${nodes}</svg>`;
+ </details>
+ ${heading('Sesli eserler','Bir eser seçerek dinlemeye başla.')}
+ ${grid(books.slice(0,8))}`;
 }
 function mapDetail(){
  const n=mapNodes.find(x=>x.id===selectedMapNode)||mapNodes[0];
@@ -1226,6 +1194,7 @@ function render(p){
  }else draw();
 }
 function detail(b){
+ localStorage.setItem('mutalaa-last-book',String(b.id));
  const chunks=b.text.match(/.{1,190}(?:\s|$)/g)||[b.text];
  let activeChunk=0;
  $('content').innerHTML=`
@@ -1246,12 +1215,13 @@ function detail(b){
   <div class="paper-text page-flip" id="paperText">${esc(chunks[0])}</div>
   <div class="paper-controls"><button class="secondary" id="paperPrev" disabled>← Önceki</button><span class="page-count" id="paperCount">01 / ${String(chunks.length).padStart(2,'0')}</span><button class="secondary" id="paperNext">Sonraki →</button></div>
  </section>
- <section class="reader-notes glass">
+ <details class="reader-notes glass">
+  <summary>Kişisel not ekle</summary>
   <div class="eyebrow">KİŞİSEL MÜTALAA</div><h3>Bu bölümden aklında kalanlar</h3>
   <p class="small muted">Kendi notunu yazabilir veya metinden seçtiğin bir cümleyi notlarına ekleyebilirsin.</p>
   <textarea id="readerNote" rows="3" placeholder="Düşünceni buraya yaz..."></textarea>
   <div class="reader-note-actions"><button class="secondary" id="saveSelection">Seçili cümleyi ekle</button><button class="primary" id="saveReaderNote">Notu kaydet</button></div>
- </section>
+ </details>
  <p class="reading-disclaimer">Örnek metin · Sayfa geçişleriyle okuma deneyimi</p>`;
  $('goBack').onclick=()=>render('library');
  $('detailPlay').onclick=()=>start(b);
@@ -1395,6 +1365,7 @@ $('content').addEventListener('click',e=>{
  if(e.target.id==='editAccountName'){let u=getUser();if(!u)return;let n=prompt('Yeni adınız',u.name||'');if(n&&n.trim()){u.name=n.trim();localStorage.setItem('mutalaa-current-user',JSON.stringify(u));let users=JSON.parse(localStorage.getItem('mutalaa-users')||'{}');if(users[u.email]){users[u.email].name=u.name;localStorage.setItem('mutalaa-users',JSON.stringify(users))}updateAccountChip();render('profile')}}
 });
 $('play').onclick=()=>{if(!current){toast('Dinlemek için bir eser seç.');return}playing?pause():playSpeech()};
+document.addEventListener('click',e=>{if(e.target.closest('#audioMainPlay')){if(!current){render('library');return}playing?pause():playSpeech();const b=$('audioMainPlay');if(b)b.textContent=playing?'Ⅱ Duraklat':'▶ Dinlemeye başla';}});
 $('speed').onclick=()=>{speed=speed===1?1.25:speed===1.25?1.5:speed===1.5?1.75:speed===1.75?2:1;$('speed').textContent=speed+'x';if(playing)playSpeech()};
 $('back15').onclick=()=>{if(current){elapsed=Math.max(0,elapsed-15);playSpeech()}};
 $('forward15').onclick=()=>{if(current){elapsed=Math.min(duration,elapsed+15);playSpeech()}};
@@ -1679,6 +1650,81 @@ button,input,select,textarea{font-family:inherit}
 }
 @media(prefers-reduced-motion:reduce){
   .page,.page-leave,.ui-tap{animation:none!important;transition:none!important}
+}
+</style>
+
+
+<style id="mutalaa-8-4-simplified">
+@media(max-width:850px){
+ main{padding-top:calc(env(safe-area-inset-top) + 12px);padding-bottom:calc(166px + env(safe-area-inset-bottom))}
+ .topbar{border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:10px;margin-bottom:20px}
+ .mobilebrand{display:flex!important;align-items:center;gap:9px;font-size:12px;letter-spacing:2px;font-weight:700}
+ .mobilebrand .brandmark{width:31px!important;height:31px!important;border-radius:9px!important}
+ .crumb{display:none}
+ .topactions button{width:35px;height:35px;padding:0;display:grid;place-items:center;font-size:0}
+ #searchToggle:before{content:'⌕';font-size:21px}
+ #accountButton:before{content:'◉';font-size:17px}
+ #accountButton .account-label{display:none}
+ .simple-welcome{padding:4px 0 18px}
+ .simple-welcome .eyebrow{font-size:9px;text-transform:capitalize;letter-spacing:.5px}
+ .simple-welcome h1{font-family:Georgia,serif;font-size:clamp(25px,7vw,32px);font-weight:500;line-height:1.16;margin:9px 0 0;color:#f1eee8}
+ .continue-book{width:100%;display:flex;align-items:center;gap:15px;text-align:left;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);padding:12px;border-radius:15px}
+ .continue-cover{width:74px;flex:0 0 74px}
+ .continue-cover .bookcover{width:74px;aspect-ratio:3/4.2}
+ .continue-cover .bookcover .symbol{font-size:20px}
+ .continue-cover .bookcover .covername{font-size:10px}
+ .continue-cover .bookcover .coverauthor{font-size:7px}
+ .continue-info{display:flex;min-width:0;flex-direction:column;gap:6px}
+ .continue-info .eyebrow{font-size:8px;letter-spacing:1px;color:#bca77f}
+ .continue-info strong{font-size:15px;line-height:1.25}
+ .continue-info small{font-size:10px;color:var(--muted)}
+ .continue-link{font-size:10px;color:#d2c19d;margin-top:3px}
+ .continue-link b{font-size:14px;margin-left:5px}
+ .simple-library-preview{padding-top:27px}
+ .simple-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px}
+ .simple-section-head h2{font-size:17px;font-weight:550;margin:0}
+ .simple-section-head .text-link{font-size:10px;white-space:nowrap}
+ .simple-library-preview .bookgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:11px!important}
+ .simple-library-preview .bookactions{display:none}
+ .simple-library-preview .booktitle{font-size:10px}
+ .simple-library-preview .bookauthor,.simple-library-preview .bookmeta{font-size:8px}
+ .simple-library-heading{border:0;padding:3px 0 14px}
+ .simple-library-heading h1{font-size:29px!important;margin:7px 0 0}
+ .saved-link{border:0;background:transparent;color:#c7b58f;font-size:11px;padding:8px 0}
+ .simple-library-tools{padding:0 0 15px}
+ .simple-library-tools .filters{gap:7px}
+ .simple-library-tools .filter{font-size:10px;padding:8px 11px}
+ .library-note{display:none}
+ .home-hero,.home-progress,.home-quote,.journey-shortcuts{display:none!important}
+ .home-selection:not(.simple-library-preview){display:none!important}
+ .audio-control-panel{display:none}
+ .now-playing-card{padding:17px;border-radius:16px;margin-bottom:15px}
+ .now-playing-main{display:flex;align-items:center;gap:12px;margin:15px 0}
+ .now-playing-art{width:53px;height:62px;border-radius:8px;background:linear-gradient(145deg,#315d8d,#101e35);display:grid;place-items:center;font-size:24px;color:#e8ddc7}
+ .now-playing-main strong,.now-playing-main small{display:block}
+ .now-playing-main strong{font-size:14px}
+ .now-playing-main small{font-size:10px;color:var(--muted);margin-top:5px}
+ .now-playing-actions{display:flex;gap:8px}
+ .now-playing-actions button{flex:1;font-size:10px;padding:10px}
+ .audio-settings{border-bottom:1px solid var(--line);padding:12px 2px;margin-bottom:22px}
+ .audio-settings summary,.reader-notes summary{font-size:12px;color:#cbb990;cursor:pointer;list-style:none}
+ .audio-settings summary:after,.reader-notes summary:after{content:'＋';float:right;color:var(--muted)}
+ .audio-settings[open] summary:after,.reader-notes[open] summary:after{content:'−'}
+ .audio-settings .audio-control-row{padding:12px 0}
+ .reader-notes{margin-top:14px}
+ .reader-notes summary{font-size:11px}
+ .reader-notes[open] summary{margin-bottom:14px}
+ .mobile-nav{grid-template-columns:repeat(3,minmax(0,1fr));height:calc(59px + env(safe-area-inset-bottom));padding:4px 22px calc(4px + env(safe-area-inset-bottom));background:rgba(8,19,31,.97)}
+ .mobile-nav button{height:47px;gap:2px}
+ .mobile-nav button .nav-icon{font-size:19px;line-height:21px}
+ .mobile-nav button small{font-size:9px}
+ .player{bottom:calc(65px + env(safe-area-inset-bottom));left:10px;right:10px;padding:7px 9px}
+ .player #voiceStatus{display:none!important}
+}
+@media(max-width:390px){
+ .simple-library-preview .bookgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .continue-cover,.continue-cover .bookcover{width:66px;flex-basis:66px}
+ .continue-book{gap:12px;padding:10px}
 }
 </style>
 
