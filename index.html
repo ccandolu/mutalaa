@@ -1913,7 +1913,7 @@ function toggleFav(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==
 function fmt(n){return String(Math.floor(n/60)).padStart(2,'0')+':'+String(Math.floor(n%60)).padStart(2,'0')}
 function update(){ document.querySelector('.player').classList.toggle('is-playing',playing); $('elapsed').textContent=fmt(elapsed);$('seek').value=duration?elapsed/duration*100:0;$('play').textContent=playing?'Ⅱ':'▶';$('goalProgress').style.width=Math.min(100,totalMinutes/20*100)+'%';$('goalText').textContent=totalMinutes+' / 20 dakika'}
 
-const MUTALAA_TTS_ENDPOINT = 'https://YOUR-WORKER-NAME.YOUR-SUBDOMAIN.workers.dev/tts';
+const MUTALAA_TTS_ENDPOINT = 'https://mutalaa.ccandolu.workers.dev/tts';
 let mutalaaAudioUrl = '';
 let mutalaaTtsLoading = false;
 function splitForTTS(text,max=4300){
