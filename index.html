@@ -1319,7 +1319,7 @@ input,textarea,select{accent-color:#cdb184}
  <button data-page="library" aria-label="Kitaplık"><span class="nav-icon">▤</span><small>Kitaplık</small></button>
  <button data-page="audio" aria-label="Dinle"><span class="nav-icon">♫</span><small>Dinle</small></button>
 </nav>
-<div class="player"><div class="playerrow"><div class="mini-cover" id="miniCover">م</div><div class="now"><strong id="nowTitle">Henüz bir eser seçilmedi</strong><span id="nowAuthor">Dinlemek için bir eser seçin</span></div><button class="secondary" id="back15">↶15</button><div class="mini-wave" id="miniWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><button class="playbtn" id="play">▶</button><button class="secondary" id="forward15">15↷</button><button class="secondary" id="speed">1x</button></div><div class="seekrow"><span id="elapsed">00:00</span><input id="seek" type="range" min="0" max="100" value="0"><span id="duration">--:--</span></div><div class="small muted" id="voiceStatus" style="margin-top:5px">Türkçe sesli okuma cihazınızın ses motorunu kullanır.</div></div>
+<div class="player"><div class="playerrow"><div class="mini-cover" id="miniCover">م</div><div class="now"><strong id="nowTitle">Henüz bir eser seçilmedi</strong><span id="nowAuthor">Dinlemek için bir eser seçin</span></div><button class="secondary" id="back15">↶15</button><div class="mini-wave" id="miniWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><button class="playbtn" id="play">▶</button><button class="secondary" id="forward15">15↷</button><button class="secondary" id="speed">1x</button></div><div class="seekrow"><span id="elapsed">00:00</span><input id="seek" type="range" min="0" max="100" value="0"><span id="duration">--:--</span></div><div class="small muted" id="voiceStatus" style="margin-top:5px">ElevenLabs seslendirme bağlantısı yapılandırılmayı bekliyor.</div><audio id="mutalaaAudio" preload="none"></audio></div>
 <div class="account-modal" id="accountModal" aria-modal="true" role="dialog" aria-label="Mütalaa hesabı">
  <div class="account-card">
   <div style="display:flex;align-items:center;justify-content:space-between"><div class="brand"><div class="brandmark" style="width:37px;height:37px">م</div><div><div class="brandname">MÜTALAA</div><div class="subbrand">KİŞİSEL KÜTÜPHANEN</div></div></div><button class="secondary" id="closeAccount" aria-label="Kapat">✕</button></div>
@@ -1912,9 +1912,87 @@ function save(){localStorage.setItem('mutalaa-favs',JSON.stringify(favorites));l
 function toggleFav(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];save();render(page);toast('Favori listen güncellendi.')}
 function fmt(n){return String(Math.floor(n/60)).padStart(2,'0')+':'+String(Math.floor(n%60)).padStart(2,'0')}
 function update(){ document.querySelector('.player').classList.toggle('is-playing',playing); $('elapsed').textContent=fmt(elapsed);$('seek').value=duration?elapsed/duration*100:0;$('play').textContent=playing?'Ⅱ':'▶';$('goalProgress').style.width=Math.min(100,totalMinutes/20*100)+'%';$('goalText').textContent=totalMinutes+' / 20 dakika'}
-function start(b){current=b;elapsed=0;duration=b.time*60;$('nowTitle').textContent=b.title;$('nowAuthor').textContent=b.author;$('miniCover').textContent=b.symbol;$('duration').textContent=fmt(duration);playSpeech()}
-function playSpeech(){if(!current){toast('Önce bir eser seçmelisin.');return}adminRecord('listen-start',current.title+' sesli okumaya başladı');if(!('speechSynthesis'in window)){toast('Tarayıcı sesli okumayı desteklemiyor.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(current.text);u.lang='tr-TR';u.rate=speed;let v=speechSynthesis.getVoices().find(x=>x.lang.toLowerCase().startsWith('tr'));if(v)u.voice=v;u.onstart=()=>{$('voiceStatus').textContent='Türkçe sesli okuma aktif'};u.onend=()=>{playing=false;update()};u.onerror=()=>{$('voiceStatus').textContent='Ses motoru okuma sırasında durdu.'};playing=true;update();speechSynthesis.speak(u)}
-function pause(){speechSynthesis.cancel();playing=false;update()}
+
+const MUTALAA_TTS_ENDPOINT = 'https://YOUR-WORKER-NAME.YOUR-SUBDOMAIN.workers.dev/tts';
+let mutalaaAudioUrl = '';
+let mutalaaTtsLoading = false;
+function splitForTTS(text,max=4300){
+ const clean=String(text||'').replace(/\s+/g,' ').trim();
+ if(!clean)return [];
+ const parts=[];let rest=clean;
+ while(rest.length>max){
+  let cut=Math.max(rest.lastIndexOf('. ',max),rest.lastIndexOf('? ',max),rest.lastIndexOf('! ',max),rest.lastIndexOf('; ',max),rest.lastIndexOf(', ',max),rest.lastIndexOf(' ',max));
+  if(cut<Math.floor(max*.55))cut=max;
+  parts.push(rest.slice(0,cut+1).trim());rest=rest.slice(cut+1).trim();
+ }
+ if(rest)parts.push(rest);
+ return parts;
+}
+async function createElevenLabsAudio(){
+ const endpoint=MUTALAA_TTS_ENDPOINT;
+ if(endpoint.includes('YOUR-WORKER-NAME')){
+  $('voiceStatus').textContent='Önce Cloudflare Worker adresini eklemelisin.';
+  toast('ElevenLabs bağlantısı henüz yapılandırılmadı.');
+  return null;
+ }
+ const chunks=splitForTTS(current?.text);
+ if(!chunks.length)throw new Error('Bu eser için seslendirilecek metin bulunamadı.');
+ const audioParts=[];
+ for(let i=0;i<chunks.length;i++){
+  $('voiceStatus').textContent=`ElevenLabs ses üretiyor · ${i+1}/${chunks.length}`;
+  const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:chunks[i]})});
+  if(!response.ok){
+   let detail='Ses üretilemedi.';
+   try{const data=await response.json();detail=data.error||detail}catch(e){}
+   throw new Error(detail+' (HTTP '+response.status+')');
+  }
+  audioParts.push(await response.blob());
+ }
+ const blob=new Blob(audioParts,{type:'audio/mpeg'});
+ if(mutalaaAudioUrl)URL.revokeObjectURL(mutalaaAudioUrl);
+ mutalaaAudioUrl=URL.createObjectURL(blob);
+ const audio=$('mutalaaAudio');audio.src=mutalaaAudioUrl;audio.playbackRate=speed;
+ await new Promise((resolve,reject)=>{audio.onloadedmetadata=resolve;audio.onerror=()=>reject(new Error('Üretilen ses dosyası açılamadı.'))});
+ duration=Math.floor(audio.duration)||duration;elapsed=0;$('duration').textContent=fmt(duration);
+ return audio;
+}
+function start(b){
+ const audio=$('mutalaaAudio');audio.pause();audio.removeAttribute('src');audio.load();
+ current=b;elapsed=0;duration=b.time*60;
+ $('nowTitle').textContent=b.title;$('nowAuthor').textContent=b.author;$('miniCover').textContent=b.symbol;$('duration').textContent=fmt(duration);
+ playSpeech();
+}
+async function playSpeech(){
+ if(!current){toast('Önce bir eser seçmelisin.');return}
+ const audio=$('mutalaaAudio');
+ if(audio.src){
+  audio.playbackRate=speed;
+  try{await audio.play();playing=true;$('voiceStatus').textContent='ElevenLabs seslendirmesi oynatılıyor.';update()}catch(e){$('voiceStatus').textContent='Ses oynatılamadı: '+e.message}
+  return;
+ }
+ if(mutalaaTtsLoading)return;
+ mutalaaTtsLoading=true;playing=false;update();
+ adminRecord('listen-start',current.title+' ElevenLabs ile seslendiriliyor');
+ try{
+  const generated=await createElevenLabsAudio();
+  if(!generated)return;
+  generated.playbackRate=speed;
+  await generated.play();
+  playing=true;$('voiceStatus').textContent='ElevenLabs seslendirmesi oynatılıyor.';update();
+ }catch(error){
+  $('voiceStatus').textContent='Seslendirme hatası: '+error.message;
+  toast('ElevenLabs seslendirme başarısız oldu.');
+ }finally{mutalaaTtsLoading=false}
+}
+function pause(){const audio=$('mutalaaAudio');audio.pause();playing=false;update()}
+$('mutalaaAudio').addEventListener('timeupdate',()=>{
+ const audio=$('mutalaaAudio');if(!audio.duration||!isFinite(audio.duration))return;
+ elapsed=Math.floor(audio.currentTime);duration=Math.floor(audio.duration);$('elapsed').textContent=fmt(elapsed);$('duration').textContent=fmt(duration);$('seek').value=duration?elapsed/duration*100:0;
+});
+$('mutalaaAudio').addEventListener('ended',()=>{playing=false;elapsed=duration;update();$('voiceStatus').textContent='Eserin seslendirmesi tamamlandı.'});
+$('mutalaaAudio').addEventListener('play',()=>{playing=true;update()});
+$('mutalaaAudio').addEventListener('pause',()=>{playing=false;update()});
+
 
 function applyPrefs(){
  const p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');
@@ -1997,15 +2075,15 @@ $('content').addEventListener('click',e=>{
 $('play').onclick=()=>{if(!current){toast('Dinlemek için bir eser seç.');return}playing?pause():playSpeech()};
 document.addEventListener('click',e=>{if(e.target.closest('#audioMainPlay')){if(!current){render('library');return}playing?pause():playSpeech();const b=$('audioMainPlay');if(b)b.textContent=playing?'Ⅱ Duraklat':'▶ Dinlemeye başla';}});
 $('speed').onclick=()=>{speed=speed===1?1.25:speed===1.25?1.5:speed===1.5?1.75:speed===1.75?2:1;$('speed').textContent=speed+'x';if(playing)playSpeech()};
-$('back15').onclick=()=>{if(current){elapsed=Math.max(0,elapsed-15);playSpeech()}};
-$('forward15').onclick=()=>{if(current){elapsed=Math.min(duration,elapsed+15);playSpeech()}};
+$('back15').onclick=()=>{if(current){const a=$('mutalaaAudio');if(a.src)a.currentTime=Math.max(0,a.currentTime-15);else{elapsed=Math.max(0,elapsed-15);$('elapsed').textContent=fmt(elapsed)}}};
+$('forward15').onclick=()=>{if(current){const a=$('mutalaaAudio');if(a.src)a.currentTime=Math.min(duration,a.currentTime+15);else{elapsed=Math.min(duration,elapsed+15);$('elapsed').textContent=fmt(elapsed)}}};
 $('seek').oninput=()=>{elapsed=Math.round(duration*$('seek').value/100);$('elapsed').textContent=fmt(elapsed)};
-$('seek').onchange=()=>{if(playing)playSpeech()};
+$('seek').onchange=()=>{const a=$('mutalaaAudio');if(a.src&&duration)a.currentTime=duration*$('seek').value/100};
 $('searchToggle').onclick=()=>{$('searchBox').hidden=!$('searchBox').hidden;if(!$('searchBox').hidden)$('searchInput').focus()};
 $('searchInput').oninput=()=>{let q=$('searchInput').value.toLocaleLowerCase('tr');let arr=books.filter(b=>(b.title+' '+b.author+' '+b.cat+' '+b.desc+' '+b.text).toLocaleLowerCase('tr').includes(q));$('content').innerHTML=heading('Arama sonuçları','Aradığın eserler')+(arr.length?grid(arr):'<div class="glass empty">Sonuç bulunamadı.</div>')};
 $('content').addEventListener('input',e=>{if(e.target.id==='mapSearch'){mapSearch=e.target.value;let stage=document.querySelector('.map-stage');if(stage)stage.innerHTML=mapSvg();}});
 $('content').addEventListener('click',e=>{if(e.target.id==='reset'&&confirm('Dinleme istatistiklerini sıfırlamak istiyor musun?')){totalMinutes=0;save();render('profile')}});
-setInterval(()=>{if(playing&&current){elapsed++;if(elapsed%60===0){totalMinutes++;recordDailyMinute();save()}if(elapsed>=duration)pause();update()}},1000);
+setInterval(()=>{if(playing&&current){if(elapsed>0&&elapsed%60===0){totalMinutes++;recordDailyMinute();save()}if(!$('mutalaaAudio').src){elapsed++;if(elapsed>=duration)pause();update()}}},1000);
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('.map-node'))selectMapNode(e.target.dataset.node)});
 
 // Branded entrance and restrained touch feedback.
