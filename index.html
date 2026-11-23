@@ -1062,15 +1062,20 @@ function home(){
  <section class="home-progress">
   <div><span class="eyebrow">OKUMA YOLCULUĞUN</span><strong>${mins} <small>dk</small></strong><span class="muted">Toplam dinleme süresi</span></div>
   <div class="progress-side"><div class="progress-copy"><span>Günlük hedef</span><b>${target}%</b></div><div class="progress"><div style="width:${target}%"></div></div><span class="muted">20 dakikalık hedef</span></div>
-  <button class="text-link" data-page="profile">İstatistikler <span>→</span></button>
+  <button class="text-link" data-page="stats">İstatistikler <span>→</span></button>
  </section>
  <section class="home-selection">
   <div class="sectionhead"><div><span class="eyebrow">SEÇKİ</span><h2>Kitaplıktan seçtiklerimiz</h2><p>Okumaya değer eserlerden bir seçki.</p></div><button class="text-link" data-page="library">Tüm kitaplar <span>→</span></button></div>
   ${grid(books.slice(0,4))}
  </section>
  <section class="home-quote">
-  <span class="eyebrow">MÜTALAA'DAN BİR NOT</span>
-  <p>“Oku. Dinle. Düşün. Derinleş.”</p>
+  <span class="eyebrow">GÜNÜN MÜTALAASI</span>
+  <p>${dailyReflection().quote}</p>
+  <span class="small muted">${dailyReflection().prompt}</span>
+ </section>
+ <section class="home-selection" style="margin-top:24px">
+  <div class="sectionhead"><div><span class="eyebrow">KENDİ ROTANI ÇİZ</span><h2>İlim Yolculuğu</h2><p>Bir konu seç, başlangıçtan derinleşmeye doğru ilerle.</p></div><button class="text-link" data-page="journey">Keşfet →</button></div>
+  <div class="journey-shortcuts"><button class="journey-chip" data-page="journey">İman ve tevhid <span>→</span></button><button class="journey-chip" data-page="journey">İslam düşüncesi <span>→</span></button><button class="journey-chip" data-page="journey">Tasavvuf ve irfan <span>→</span></button></div>
  </section>`;
 }
 
@@ -1119,10 +1124,18 @@ function profile(){
  return `${heading('Hesabım','Kişisel dinleme ve mütalaa alanın')}
  <div class="glass profile-head"><div class="profile-big-avatar">${esc(initial)}</div><div style="min-width:0"><b>${esc(u.name||'Mütalaa üyesi')}</b><div class="small muted" style="margin-top:4px">${esc(u.email)}</div><div class="small" style="color:#9fc8fa;margin-top:5px">MÜTALAA ÜYESİ</div></div></div>
  <div class="glass" style="padding:19px;margin-top:13px"><div class="small muted">TOPLAM DİNLEME</div><div style="font-size:32px;font-weight:650;margin:8px 0">${totalMinutes} <span class="small muted">dakika</span></div><div class="progress"><div style="width:${Math.min(100,totalMinutes/20*100)}%"></div></div><p class="small muted">Günlük 20 dakika hedefi</p></div>
- <div class="glass" style="padding:8px 17px;margin-top:13px"><button class="profile-action" data-page="customize">Görünümü kişiselleştir <span>✧</span></button><button class="profile-action" data-page="hat">Hat sanatı koleksiyonu <span>✧</span></button><button class="profile-action" id="editAccountName">Adını düzenle <span>›</span></button><button class="profile-action" id="accountStats">Kütüphane istatistikleri <span>♡ ${favorites.length} favori</span></button><button class="profile-action" id="logout">Oturumu kapat <span>↗</span></button></div>
+ <div class="glass" style="padding:8px 17px;margin-top:13px"><button class="profile-action" data-page="stats">Okuma istatistikleri <span>↗</span></button><button class="profile-action" data-page="journey">İlim Yolculuğu <span>→</span></button><button class="profile-action" data-page="customize">Görünümü kişiselleştir <span>✧</span></button><button class="profile-action" data-page="hat">Hat sanatı koleksiyonu <span>✧</span></button><button class="profile-action" id="editAccountName">Adını düzenle <span>›</span></button><button class="profile-action" id="accountStats">Kütüphane istatistikleri <span>♡ ${favorites.length} favori</span></button><button class="profile-action" id="logout">Oturumu kapat <span>↗</span></button></div>
  <p class="small muted" style="line-height:1.6;margin:13px 3px">Bu prototipte hesap bilgileri yalnızca bu cihazın tarayıcısında saklanır. Gerçek çok kullanıcılı üyelik için güvenli sunucu ve kimlik doğrulama servisi gerekir.</p>`;
 }
-function audio(){return heading('Sesli Dersler','Dinlemeye hazır eserler ve örnek okumalar.')+grid(books.slice(0,6))}
+function audio(){return `${heading('Dinle','Sesli eserlerini burada yönet.')}
+ <section class="audio-control-panel glass">
+  <div class="eyebrow">DİNLEME AYARLARI</div>
+  <div class="audio-control-row"><div><b>Uyku zamanlayıcısı</b><p class="small muted">Süre dolduğunda dinleme durur.</p></div><select id="sleepTimer"><option value="0">Kapalı</option><option value="15">15 dakika</option><option value="30">30 dakika</option><option value="45">45 dakika</option><option value="60">1 saat</option></select></div>
+  <div class="audio-control-row"><div><b>Okuma hızı</b><p class="small muted">Dinleme hızını ayarla.</p></div><select id="audioSpeed"><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="1.75">1.75×</option><option value="2">2×</option></select></div>
+  <p class="small muted" id="sleepStatus">Zamanlayıcı kapalı.</p>
+ </section>
+ ${heading('Dinlemeye devam et','Koleksiyondan bir eser seç.')}
+ ${grid(books.slice(0,8))}`;}
 
 const mapNodes=[
 {id:'ilim',label:'İLİM',sub:'Merkez',x:450,y:265,cat:'Merkez',desc:'Bilginin, öğrenmenin ve hakikati arayışın merkez kavramı. Haritadaki diğer alanlara buradan ulaşabilirsin.',books:[3,4,7]},
@@ -1192,7 +1205,7 @@ function render(p){
  const target=p||page;
  const content=$('content');
  page=target;
- const names={home:'ANA SAYFA',library:'KİTAPLIK',risale:'RİSALE-İ NUR',map:'İLİM HARİTASI',audio:'SESLİ DERSLER',favorites:'FAVORİLERİM',notes:'NOTLARIM',profile:'PROFİLİM',hat:'HAT SANATI',search:'GELİŞMİŞ ARAMA',customize:'KİŞİSELLEŞTİRME'};
+ const names={home:'ANA SAYFA',library:'KİTAPLIK',risale:'RİSALE-İ NUR',map:'İLİM HARİTASI',audio:'SESLİ DERSLER',favorites:'FAVORİLERİM',notes:'NOTLARIM',profile:'PROFİLİM',hat:'HAT SANATI',search:'GELİŞMİŞ ARAMA',customize:'KİŞİSELLEŞTİRME',journey:'İLİM YOLCULUĞU',stats:'OKUMA İSTATİSTİKLERİ'};
  $('crumb').textContent='MÜTALAA / '+(names[page]||'');
  document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
  if(renderTimer){clearTimeout(renderTimer);renderTimer=null;}
@@ -1200,7 +1213,7 @@ function render(p){
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  const draw=()=>{
    if(sequence!==renderSequence)return;
-   content.innerHTML=({home,library,risale,map,audio,favorites:favoritesPage,notes:notesPage,profile,hat,search:searchPage,customize})[page]();
+   content.innerHTML=({home,library,risale,map,audio,favorites:favoritesPage,notes:notesPage,profile,hat,search:searchPage,customize,journey:journeyPage,stats:statsPage})[page]();
    content.dataset.rendered='1';
    content.classList.remove('page-leave');
    content.classList.add('page');
@@ -1233,6 +1246,12 @@ function detail(b){
   <div class="paper-text page-flip" id="paperText">${esc(chunks[0])}</div>
   <div class="paper-controls"><button class="secondary" id="paperPrev" disabled>← Önceki</button><span class="page-count" id="paperCount">01 / ${String(chunks.length).padStart(2,'0')}</span><button class="secondary" id="paperNext">Sonraki →</button></div>
  </section>
+ <section class="reader-notes glass">
+  <div class="eyebrow">KİŞİSEL MÜTALAA</div><h3>Bu bölümden aklında kalanlar</h3>
+  <p class="small muted">Kendi notunu yazabilir veya metinden seçtiğin bir cümleyi notlarına ekleyebilirsin.</p>
+  <textarea id="readerNote" rows="3" placeholder="Düşünceni buraya yaz..."></textarea>
+  <div class="reader-note-actions"><button class="secondary" id="saveSelection">Seçili cümleyi ekle</button><button class="primary" id="saveReaderNote">Notu kaydet</button></div>
+ </section>
  <p class="reading-disclaimer">Örnek metin · Sayfa geçişleriyle okuma deneyimi</p>`;
  $('goBack').onclick=()=>render('library');
  $('detailPlay').onclick=()=>start(b);
@@ -1247,6 +1266,55 @@ function detail(b){
  $('paperNext').onclick=()=>{if(activeChunk<chunks.length-1){activeChunk++;showChunk()}};
 }
 
+
+// MÜTALAA 8.2 — personal reading layer (local-first prototype).
+const routeSets = [
+ {id:'iman',title:'İman ve Tevhid',desc:'İman esaslarından tevhid düşüncesine uzanan bir başlangıç rotası.',ids:[1,2,3]},
+ {id:'dusunce',title:'İslam Düşüncesi',desc:'İslam düşünce geleneğini temel metinlerle tanımak için.',ids:[3,4,5,6]},
+ {id:'irfan',title:'Tasavvuf ve İrfan',desc:'Kalp, ahlak ve marifet ekseninde bir okuma yolu.',ids:[7,8]},
+ {id:'edebiyat',title:'Fikir ve Edebiyat',desc:'Düşünce ve edebiyatın kesiştiği eserlerden bir seçki.',ids:[4,5,6]}
+];
+const reflections = [
+ {quote:'“İnsan, bildiğiyle değil; bildiği üzerinde düşündüğüyle derinleşir.”',prompt:'Bugün öğrendiğin hangi bilgi davranışına yansıyabilir?'},
+ {quote:'“Okumak biriktirmek, mütalaa etmek anlamlandırmaktır.”',prompt:'Bugün okuduğun bir cümleyi kendi hayatınla ilişkilendir.'},
+ {quote:'“Hakikate giden yol, samimi bir soruyla başlar.”',prompt:'Bugün zihninde hangi soruya yer açmak istersin?'},
+ {quote:'“Az ama devamlı olan, zamanla köklü bir iz bırakır.”',prompt:'Bugün kendine ayıracağın 10 dakikayı belirle.'},
+ {quote:'“Düşünce, üzerinde duruldukça berraklaşır.”',prompt:'Bugün hangi fikri biraz daha derinleştirebilirsin?'}
+];
+function dailyReflection(){const day=Math.floor(Date.now()/86400000);return reflections[((day%reflections.length)+reflections.length)%reflections.length]}
+function journeyPage(){
+ return `${heading('İlim Yolculuğu','İlgi alanına göre hazırlanmış okuma rotaları.')}
+ <div class="journey-intro glass"><span class="eyebrow">ADIM ADIM OKUMA</span><h2>Bir konudan başla,<br><em>derinleşerek ilerle.</em></h2><p>Bu rotalar, kütüphanedeki mevcut eserlerden oluşturulmuş örnek okuma sıralarıdır.</p></div>
+ <div class="journey-list">${routeSets.map((r,i)=>`<section class="journey-card glass"><div class="journey-card-top"><span class="journey-index">0${i+1}</span><span class="small muted">${r.ids.length} ESERLİK ROTA</span></div><h3>${r.title}</h3><p>${r.desc}</p><div class="journey-books">${r.ids.map((id,j)=>{const b=books.find(v=>v.id===id);return b?`<button class="journey-book" data-open="${b.id}"><span>${j+1}</span><span>${esc(b.title)}<small>${esc(b.author)}</small></span><b>›</b></button>`:''}).join('')}</div></section>`).join('')}</div>`;
+}
+function statsPage(){
+ const log=JSON.parse(localStorage.getItem('mutalaa-daily-log')||'{}');
+ const days=Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));const key=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');return {key,label:d.toLocaleDateString('tr-TR',{weekday:'short'}),mins:Number(log[key]||0)}});
+ const max=Math.max(20,...days.map(d=>d.mins));
+ const active=days.filter(d=>d.mins>0).length;
+ return `${heading('Okuma istatistikleri','Kendi ilerlemeni takip et.')}
+ <div class="stats-overview"><div class="glass stat-tile"><span>TOPLAM DİNLEME</span><strong>${totalMinutes}</strong><small>dakika</small></div><div class="glass stat-tile"><span>KAYDEDİLEN ESER</span><strong>${favorites.length}</strong><small>favori</small></div><div class="glass stat-tile"><span>AKTİF GÜN</span><strong>${active}</strong><small>son 7 gün</small></div></div>
+ <section class="glass weekly-chart"><div class="eyebrow">SON 7 GÜN</div><h3>Dinleme süren</h3><div class="week-bars">${days.map(d=>`<div class="week-day"><div class="week-bar-track"><div class="week-bar" style="height:${Math.max(4,d.mins/max*100)}%" title="${d.mins} dakika"></div></div><b>${d.mins}</b><small>${d.label}</small></div>`).join('')}</div></section>
+ <section class="glass stats-goal"><div><b>Günlük hedef</b><span class="small muted">20 dakika</span></div><div class="progress"><div style="width:${Math.min(100,(days[6].mins/20)*100)}%"></div></div><p class="small muted">Bugün ${days[6].mins} / 20 dakika</p></section>
+ <button class="secondary" data-page="journey">Bir okuma rotası seç →</button>`;
+}
+let sleepTimerHandle=null;
+function setSleepTimer(minutes){
+ if(sleepTimerHandle)clearTimeout(sleepTimerHandle);
+ sleepTimerHandle=null;
+ const status=$('sleepStatus');
+ if(!minutes){if(status)status.textContent='Zamanlayıcı kapalı.';return}
+ if(status)status.textContent=`${minutes} dakika sonra dinleme duracak.`;
+ sleepTimerHandle=setTimeout(()=>{pause();sleepTimerHandle=null;const s=$('sleepStatus');if(s)s.textContent='Uyku zamanlayıcısı tamamlandı.';toast('Dinleme zamanlayıcısı tamamlandı.');},minutes*60000);
+}
+function recordDailyMinute(){
+ const log=JSON.parse(localStorage.getItem('mutalaa-daily-log')||'{}');
+ const now=new Date();const key=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
+ log[key]=(Number(log[key])||0)+1;
+ const keys=Object.keys(log).sort();
+ keys.slice(0,Math.max(0,keys.length-45)).forEach(k=>delete log[k]);
+ localStorage.setItem('mutalaa-daily-log',JSON.stringify(log));
+}
 function toast(t){$('toast').textContent=t;$('toast').style.opacity=1;setTimeout(()=>$('toast').style.opacity=0,1800)}
 function save(){localStorage.setItem('mutalaa-favs',JSON.stringify(favorites));localStorage.setItem('mutalaa-notes',JSON.stringify(notes));localStorage.setItem('mutalaa-minutes',totalMinutes)}
 function toggleFav(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];save();render(page);toast('Favori listen güncellendi.')}
@@ -1287,6 +1355,21 @@ let pl=e.target.closest('[data-play]');if(pl){start(books.find(b=>b.id==pl.datas
 let f=e.target.closest('[data-fav]');if(f){toggleFav(+f.dataset.fav);return}
 let fl=e.target.closest('[data-filter]');if(fl){document.querySelectorAll('.filter').forEach(x=>x.classList.remove('selected'));fl.classList.add('selected');let arr=fl.dataset.filter==='Tümü'?books:books.filter(b=>b.cat===fl.dataset.filter);$('catalog').innerHTML=grid(arr);return}
 let d=e.target.closest('[data-delete-note]');if(d){notes.splice(+d.dataset.deleteNote,1);save();render('notes')}
+ if(e.target.closest('#saveReaderNote')){
+   const field=$('readerNote'), text=(field?.value||'').trim();
+   if(!text){toast('Önce notunu yaz.');return}
+   const title=document.querySelector('.detail-title')?.textContent||current?.title||'Okuma notu';
+   notes.unshift({title,text,date:new Date().toLocaleDateString('tr-TR')});
+   save();field.value='';toast('Notların arasına kaydedildi.');
+ }
+ if(e.target.closest('#saveSelection')){
+   const selected=(window.getSelection()?.toString()||'').trim();
+   if(!selected){toast('Önce metinden bir cümle seç.');return}
+   const field=$('readerNote');if(field)field.value=(field.value?field.value+'\\n':'')+'“'+selected+'”';
+   toast('Seçili cümle nota eklendi.');
+ }
+ if(e.target.closest('#sleepTimer')){}
+ if(e.target.closest('#audioSpeed')){}
 });
 $('accountButton').onclick=(e)=>{e.preventDefault();if(getUser())render('profile');else openAccount('login')};
 $('closeAccount').onclick=closeAccount;
@@ -1298,6 +1381,8 @@ $('content').addEventListener('input',e=>{
  if(['advQuery','advCategory','advSort'].includes(e.target.id))updateAdvancedSearch();
 });
 $('content').addEventListener('change',e=>{
+ if(e.target.id==='sleepTimer')setSleepTimer(Number(e.target.value));
+ if(e.target.id==='audioSpeed'){speed=Number(e.target.value)||1;$('speed').textContent=speed+'x';if(playing)playSpeech()}
  if(e.target.id==='fontChoice'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.font=e.target.value;savePrefs(p);render('customize')}
  if(e.target.id==='sizeChoice'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.size=e.target.value;savePrefs(p);render('customize')}
 });
@@ -1319,7 +1404,7 @@ $('searchToggle').onclick=()=>{$('searchBox').hidden=!$('searchBox').hidden;if(!
 $('searchInput').oninput=()=>{let q=$('searchInput').value.toLocaleLowerCase('tr');let arr=books.filter(b=>(b.title+' '+b.author+' '+b.cat+' '+b.desc+' '+b.text).toLocaleLowerCase('tr').includes(q));$('content').innerHTML=heading('Arama sonuçları','Aradığın eserler')+(arr.length?grid(arr):'<div class="glass empty">Sonuç bulunamadı.</div>')};
 $('content').addEventListener('input',e=>{if(e.target.id==='mapSearch'){mapSearch=e.target.value;let stage=document.querySelector('.map-stage');if(stage)stage.innerHTML=mapSvg();}});
 $('content').addEventListener('click',e=>{if(e.target.id==='reset'&&confirm('Dinleme istatistiklerini sıfırlamak istiyor musun?')){totalMinutes=0;save();render('profile')}});
-setInterval(()=>{if(playing&&current){elapsed++;if(elapsed%60===0){totalMinutes++;save()}if(elapsed>=duration)pause();update()}},1000);
+setInterval(()=>{if(playing&&current){elapsed++;if(elapsed%60===0){totalMinutes++;recordDailyMinute();save()}if(elapsed>=duration)pause();update()}},1000);
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('.map-node'))selectMapNode(e.target.dataset.node)});
 
 // Branded entrance and restrained touch feedback.
@@ -1424,6 +1509,176 @@ button{touch-action:manipulation}
 @media(prefers-reduced-motion:no-preference){
  .mobile-nav button{transition:background .18s ease,color .18s ease}
  .mobile-nav button:active{transform:scale(.96)!important}
+}
+</style>
+
+
+<style id="mutalaa-8-2-features">
+.journey-intro,.journey-card,.reader-notes,.audio-control-panel,.weekly-chart,.stats-goal{padding:20px;border-radius:18px}
+.journey-intro{margin-bottom:15px;background:linear-gradient(135deg,rgba(35,61,88,.72),rgba(14,29,46,.76))}
+.journey-intro h2{font-family:Georgia,serif;font-size:clamp(25px,4vw,38px);font-weight:500;line-height:1.15;margin:13px 0}
+.journey-intro h2 em{color:#c7b18a}
+.journey-intro p,.journey-card p{font-size:13px;line-height:1.7;color:var(--muted)}
+.journey-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.journey-card h3{font-size:18px;margin:12px 0 5px}
+.journey-card-top{display:flex;align-items:center;justify-content:space-between}
+.journey-index{font-family:Georgia,serif;font-size:24px;color:#c4ae85}
+.journey-books{margin-top:13px;border-top:1px solid var(--line)}
+.journey-book{width:100%;display:grid;grid-template-columns:25px 1fr 15px;gap:8px;align-items:center;text-align:left;padding:12px 0;border:0;border-bottom:1px solid var(--line);background:transparent;font-size:12px}
+.journey-book>span:first-child{color:#bda477;font-family:Georgia,serif}
+.journey-book small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.journey-book b{font-size:18px;color:var(--muted)}
+.journey-shortcuts{display:flex;gap:9px;flex-wrap:wrap}
+.journey-chip{border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.035);padding:10px 13px;font-size:11px;color:#dce5ef}
+.journey-chip span{color:#c4ad83;margin-left:8px}
+.reader-notes{margin-top:16px}
+.reader-notes h3,.weekly-chart h3{font-size:17px;margin:9px 0}
+.reader-notes textarea{width:100%;resize:vertical;min-height:85px;padding:13px;border:1px solid var(--line);border-radius:12px;background:rgba(0,0,0,.16);color:inherit;font:inherit;font-size:13px;line-height:1.6}
+.reader-note-actions{display:flex;justify-content:space-between;gap:10px;margin-top:10px;flex-wrap:wrap}
+.audio-control-panel{margin-bottom:23px}
+.audio-control-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.audio-control-row b{font-size:13px}
+.audio-control-row p{margin:4px 0 0}
+.audio-control-row select{max-width:145px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#102238;color:#eef3f8}
+.stats-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-bottom:14px}
+.stat-tile{padding:16px;border-radius:15px;display:flex;flex-direction:column;gap:5px}
+.stat-tile span{font-size:9px;letter-spacing:1px;color:var(--muted)}
+.stat-tile strong{font-size:29px;font-weight:600}
+.stat-tile small{font-size:10px;color:var(--muted)}
+.weekly-chart{margin-bottom:13px}
+.week-bars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:9px;align-items:end;height:150px;margin-top:18px}
+.week-day{display:flex;flex-direction:column;align-items:center;justify-content:end;gap:6px;height:100%;font-size:10px;color:var(--muted)}
+.week-bar-track{height:105px;width:min(24px,70%);display:flex;align-items:end;border-radius:8px;background:rgba(255,255,255,.045);overflow:hidden}
+.week-bar{width:100%;min-height:3px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,#c8b48e,#8d7958)}
+.week-day b{font-size:9px;color:#dfe6ee}
+.week-day small{font-size:9px}
+.stats-goal{margin-bottom:15px}
+.stats-goal>div:first-child{display:flex;justify-content:space-between;margin-bottom:12px}
+.home-quote .small{display:block;margin-top:10px;line-height:1.6}
+@media(max-width:650px){
+ .journey-list{grid-template-columns:1fr}
+ .journey-card{padding:17px}
+ .reader-notes,.audio-control-panel,.weekly-chart,.stats-goal{padding:16px}
+ .stats-overview{gap:7px}
+ .stat-tile{padding:12px 10px}
+ .stat-tile span{font-size:8px;letter-spacing:.4px}
+ .stat-tile strong{font-size:24px}
+ .week-bars{gap:5px}
+ .reader-note-actions>*{flex:1}
+}
+@media(hover:none){button:hover{transform:none;filter:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+
+
+<style id="mutalaa-8-3-mobile-cleanup">
+html,body{max-width:100%;overflow-x:hidden}
+img,svg,video{max-width:100%}
+button,input,select,textarea{font-family:inherit}
+@media(max-width:850px){
+  body{font-size:14px}
+  main{padding-left:18px;padding-right:18px;padding-bottom:calc(178px + env(safe-area-inset-bottom))}
+  .topbar{margin-bottom:18px;padding-bottom:12px}
+  .crumb{font-size:9px;letter-spacing:1.25px}
+  .topactions{gap:7px}
+  .topactions button{width:36px;height:36px}
+  #content{min-height:0}
+  .sectionhead{margin-bottom:14px}
+  .sectionhead h2{font-size:20px!important}
+  .sectionhead p{font-size:11px;line-height:1.55}
+  .home-hero{grid-template-columns:minmax(0,1fr) 104px;gap:12px;padding:12px 0 19px}
+  .home-copy h1{font-size:clamp(27px,7vw,34px)!important;line-height:1.08}
+  .home-copy p{font-size:11px;line-height:1.6;max-width:34ch}
+  .home-copy .eyebrow{font-size:8px;letter-spacing:1.1px}
+  .home-date{font-size:10px}
+  .home-featured{width:100px}
+  .home-progress{grid-template-columns:1fr 1.2fr;gap:10px;padding:13px 0}
+  .home-progress .text-link{grid-column:1/-1;margin-top:0}
+  .home-progress strong{font-size:23px}
+  .home-progress .eyebrow{font-size:8px}
+  .home-progress .muted,.progress-copy{font-size:9px}
+  .home-selection{padding-top:19px}
+  .home-selection .sectionhead{align-items:end;gap:8px}
+  .home-selection .sectionhead h2{font-size:18px!important}
+  .home-selection .sectionhead p{font-size:10px}
+  .home-selection .sectionhead>.text-link{font-size:10px;white-space:nowrap}
+  .home-selection .bookgrid,#catalog .bookgrid,.bookgrid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:17px 13px!important
+  }
+  .book{min-width:0;border-radius:13px}
+  .bookcover{aspect-ratio:3/4.15}
+  .booktitle{font-size:12px;line-height:1.35}
+  .bookauthor,.bookmeta{font-size:9px;line-height:1.45}
+  .bookactions{display:flex;gap:7px;margin-top:8px}
+  .bookactions button{flex:1;min-width:0;padding:8px 7px;font-size:10px}
+  .home-quote{margin-top:21px;padding:15px 0}
+  .home-quote p{font-size:15px;line-height:1.5}
+  .home-quote .small{font-size:10px}
+  .journey-shortcuts{gap:7px}
+  .journey-chip{font-size:10px;padding:9px 11px}
+  .library-heading{align-items:center;padding:5px 0 15px}
+  .library-heading h1{font-size:30px!important}
+  .library-heading p{font-size:11px;line-height:1.55;max-width:29ch}
+  .library-count{flex:0 0 auto}
+  .library-tools{padding:11px 0 14px}
+  .library-tools .filters{gap:7px}
+  .library-tools .filter{font-size:10px;padding:8px 11px}
+  .reader-back{margin-bottom:10px}
+  .reader-heading{grid-template-columns:92px minmax(0,1fr);gap:14px;padding:15px 0}
+  .reader-cover .bookcover{width:92px}
+  .reader-intro h1{font-size:23px!important;line-height:1.15}
+  .reader-intro .detail-desc{font-size:11px;line-height:1.55}
+  .reader-facts{font-size:9px;gap:8px}
+  .reader-actions{gap:7px}
+  .reader-actions button{font-size:10px;padding:9px 11px}
+  .reading-area{padding:20px 16px!important;border-radius:15px}
+  .reading-area .paper-text{font-size:16px;line-height:1.85}
+  .reading-top{font-size:8px}
+  .reader-notes,.journey-intro,.journey-card,.audio-control-panel,.weekly-chart,.stats-goal{padding:15px;border-radius:15px}
+  .journey-list{gap:10px}
+  .journey-card h3{font-size:16px}
+  .journey-card p{font-size:11px}
+  .audio-control-row{padding:11px 0}
+  .audio-control-row b{font-size:12px}
+  .audio-control-row p{font-size:10px}
+  .audio-control-row select{font-size:12px;padding:9px}
+  .stats-overview{gap:7px}
+  .stat-tile{padding:12px 9px}
+  .stat-tile span{font-size:8px;letter-spacing:.25px}
+  .stat-tile strong{font-size:23px}
+  .week-bars{height:135px}
+  .mobile-nav{grid-template-columns:repeat(5,minmax(0,1fr));height:calc(65px + env(safe-area-inset-bottom));padding:5px 8px calc(5px + env(safe-area-inset-bottom))}
+  .mobile-nav button{height:49px;gap:2px;border-radius:11px}
+  .mobile-nav button .nav-icon{font-size:20px;line-height:22px}
+  .mobile-nav button small{font-size:9px}
+  .player{left:10px;right:10px;bottom:calc(72px + env(safe-area-inset-bottom));padding:8px 9px;border-radius:13px}
+  .playerrow{gap:8px}
+  .mini-cover{width:34px;height:37px}
+  .now strong{font-size:10px}
+  .now span{font-size:9px}
+  .playbtn{width:33px;height:33px}
+  .player .secondary{padding:6px 7px;font-size:9px}
+  .seekrow{margin-top:4px}
+  input[type="search"],input[type="text"],input[type="email"],input[type="password"],textarea,select{font-size:16px}
+}
+@media(max-width:390px){
+  main{padding-left:15px;padding-right:15px}
+  .home-hero{grid-template-columns:minmax(0,1fr) 88px;gap:9px}
+  .home-featured{width:86px}
+  .home-copy h1{font-size:27px!important}
+  .home-copy p{font-size:10px}
+  .reader-heading{grid-template-columns:80px minmax(0,1fr);gap:11px}
+  .reader-cover .bookcover{width:80px}
+  .reader-intro h1{font-size:20px!important}
+  .mobile-nav button small{font-size:8px}
+  .player .secondary#back15,.player .secondary#forward15{display:none}
+}
+@media(min-width:651px) and (max-width:850px){
+  .home-selection .bookgrid,#catalog .bookgrid,.bookgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .page,.page-leave,.ui-tap{animation:none!important;transition:none!important}
 }
 </style>
 
