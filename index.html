@@ -351,6 +351,27 @@ body.reader-large{font-size:18px}
 @media(max-width:700px){.widget-grid{grid-template-columns:1fr 1fr}.search-grid{grid-template-columns:1fr 1fr}.search-field:first-child{grid-column:1/-1}.settings-layout{grid-template-columns:1fr}.calligraphy-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:390px){.widget-grid{grid-template-columns:1fr}.calligraphy-grid{grid-template-columns:1fr}.search-grid{grid-template-columns:1fr}.search-field:first-child{grid-column:auto}}
 
+
+/* iOS-inspired navigation and tactile motion */
+.topbar{position:sticky;top:0;z-index:30;backdrop-filter:saturate(180%) blur(22px);-webkit-backdrop-filter:saturate(180%) blur(22px);background:rgba(7,20,38,.78);border-bottom:1px solid rgba(255,255,255,.075);padding-top:max(12px,env(safe-area-inset-top))}
+.back-control{width:36px;height:36px;flex:0 0 36px;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:rgba(255,255,255,.075);font-size:27px;line-height:1;color:#e9f1fc;display:grid;place-items:center;padding:0;transition:background .2s,transform .22s cubic-bezier(.2,.8,.2,1)}
+.back-control:active{transform:scale(.88);background:rgba(255,255,255,.17)}
+.topbar{gap:12px}
+#content.page{animation:iosPageIn .34s cubic-bezier(.22,.8,.25,1) both;transform-origin:50% 10%}
+#content.page-leave{animation:iosPageOut .11s ease both}
+@keyframes iosPageIn{from{opacity:.35;transform:translate3d(13px,0,0) scale(.992);filter:blur(2px)}to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}}
+@keyframes iosPageOut{to{opacity:.25;transform:translate3d(-9px,0,0) scale(.995)}}
+button,.navbtn,.book-card,.widget-card,.glass{ -webkit-tap-highlight-color:transparent}
+button:active{transform:scale(.97);filter:brightness(1.12)}
+.mobile-nav{padding-bottom:max(7px,env(safe-area-inset-bottom));backdrop-filter:saturate(180%) blur(24px);-webkit-backdrop-filter:saturate(180%) blur(24px);background:rgba(5,17,33,.84)}
+@media(max-width:700px){
+ .topbar{min-height:62px;padding-left:14px;padding-right:14px}
+ .back-control{width:34px;height:34px;flex-basis:34px}
+ .crumb{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ main{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+}
+@media(prefers-reduced-motion:reduce){#content.page,#content.page-leave{animation:none!important}button{transition:none!important}}
+
 </style>
 
 <style id="mutalaa-6-design-system">
@@ -983,6 +1004,73 @@ button:active{transform:none!important}
 }
 </style>
 
+
+<style id="mutalaa-8-9-motion-performance">
+:root{
+ --motion-ease:cubic-bezier(.22,.8,.22,1);
+ --motion-spring:cubic-bezier(.18,.85,.25,1);
+ --motion-fast:160ms;
+ --motion-normal:280ms;
+}
+html{scroll-behavior:smooth;overscroll-behavior-y:contain}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,a,[role="button"]{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button{transition:transform var(--motion-fast) var(--motion-spring),background-color var(--motion-fast) ease,border-color var(--motion-fast) ease,box-shadow var(--motion-fast) ease,opacity var(--motion-fast) ease}
+button:active{transform:scale(.965)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid rgba(140,185,243,.8);outline-offset:3px}
+#content.page{animation:mutalaaPageIn 300ms var(--motion-spring) both;will-change:transform,opacity}
+#content.page-leave{animation:mutalaaPageOut 105ms ease both;will-change:transform,opacity}
+@keyframes mutalaaPageIn{
+ from{opacity:0;transform:translate3d(0,13px,0) scale(.994)}
+ to{opacity:1;transform:translate3d(0,0,0) scale(1)}
+}
+@keyframes mutalaaPageOut{
+ to{opacity:0;transform:translate3d(-7px,0,0) scale(.997)}
+}
+.sectionhead,.hero,.glass,.book{animation:mutalaaElementIn 380ms var(--motion-spring) both}
+@keyframes mutalaaElementIn{from{opacity:0;transform:translate3d(0,9px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+.bookgrid .book:nth-child(2){animation-delay:25ms}
+.bookgrid .book:nth-child(3){animation-delay:50ms}
+.bookgrid .book:nth-child(4){animation-delay:75ms}
+.bookgrid .book:nth-child(5){animation-delay:100ms}
+.bookgrid .book:nth-child(6){animation-delay:125ms}
+.bookgrid .book:nth-child(n+7){animation-delay:0ms}
+.book,.glass,.widget-card,.bookcover,.navbtn,.mobile-nav button,.player{
+ transition:transform var(--motion-normal) var(--motion-spring),background-color var(--motion-normal) ease,border-color var(--motion-normal) ease,box-shadow var(--motion-normal) ease;
+}
+@media(hover:hover){
+ .book:hover,.widget-card:hover{transform:translateY(-3px)}
+ .glass:hover{border-color:rgba(160,198,245,.2)}
+ .navbtn:hover{background:rgba(91,148,224,.09)}
+}
+.navbtn.active{position:relative;transition:background var(--motion-normal) ease,color var(--motion-normal) ease}
+.navbtn.active:before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:3px;border-radius:5px;background:#9fc6f7;animation:navIndicator 220ms var(--motion-spring) both}
+@keyframes navIndicator{from{transform:scaleY(.3);opacity:0}to{transform:scaleY(1);opacity:1}}
+.mobile-nav button{position:relative;transition:color var(--motion-normal) ease,transform var(--motion-fast) var(--motion-spring)}
+.mobile-nav button.active{color:#b9d6ff}
+.mobile-nav button.active .nav-icon{transform:translateY(-2px) scale(1.08)}
+.mobile-nav .nav-icon{display:inline-block;transition:transform 220ms var(--motion-spring)}
+.progress>div{transition:width 500ms var(--motion-spring)}
+.player{transition:transform 260ms var(--motion-spring),opacity 220ms ease,box-shadow 260ms ease}
+.toast{transition:opacity 220ms ease,transform 260ms var(--motion-spring)}
+.back-control{transition:transform 180ms var(--motion-spring),background 180ms ease,opacity 180ms ease}
+.back-control:active{transform:scale(.88)}
+/* Keep long catalogs responsive while scrolling */
+.bookgrid .book{content-visibility:auto;contain-intrinsic-size:280px 360px}
+img{max-width:100%;height:auto}
+::selection{background:rgba(105,157,224,.35);color:#fff}
+@media(max-width:700px){
+ html{scroll-behavior:smooth}
+ .bookgrid .book{contain-intrinsic-size:260px 340px}
+ .mobile-nav{transform:translateZ(0)}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+ #content.page,#content.page-leave{animation:none!important;will-change:auto}
+}
+</style>
+
 </head>
 <body>
 <div class="splash" id="splash" aria-hidden="true"><div class="splash-inner"><div class="splash-mark">م</div><div class="splash-name">MÜTALAA</div><div class="splash-sub">İLİM · KÜLTÜR · TEFEKKÜR</div><div class="splash-line"></div></div></div>
@@ -994,7 +1082,7 @@ button:active{transform:none!important}
  <div class="glass goal"><div style="font-size:12px">Günün Mütalaası</div><p class="small muted">Her gün birkaç sayfa, her gün yeni bir istifade.</p><div class="small muted">BUGÜNÜN HEDEFİ</div><div class="progress" style="margin-top:8px"><div id="goalProgress" style="width:0%"></div></div><div class="small muted" id="goalText" style="margin-top:7px">0 / 20 dakika</div></div>
 </aside>
 <main>
- <header class="topbar"><div class="mobilebrand"><div class="brandmark" style="width:34px;height:34px">م</div>MÜTALAA</div><div class="crumb" id="crumb">MÜTALAA / ANA SAYFA</div><div class="topactions"><button class="secondary" id="searchToggle">⌕ Ara</button><button class="secondary account-chip" id="accountButton" data-page="profile">◉ <span class="account-label">Giriş yap</span></button></div></header>
+ <header class="topbar"><button class="back-control" id="backControl" aria-label="Geri dön" title="Geri dön">‹</button><div class="mobilebrand"><div class="brandmark" style="width:34px;height:34px">م</div>MÜTALAA</div><div class="crumb" id="crumb">MÜTALAA / ANA SAYFA</div><div class="topactions"><button class="secondary" id="searchToggle">⌕ Ara</button><button class="secondary account-chip" id="accountButton" data-page="profile">◉ <span class="account-label">Giriş yap</span></button></div></header>
  <div id="searchBox" hidden style="margin-bottom:18px"><input class="searchinput" id="searchInput" type="search" placeholder="Kitap, yazar veya konu ara..."><button class="secondary" data-page="search" style="margin-top:9px">Gelişmiş arama ve filtreler ↗</button></div>
  <div id="content"></div>
 </main>
@@ -1176,9 +1264,33 @@ function accountSubmit(e){
 
 let renderTimer=null;
 let renderSequence=0;
+const navigationStack=[];
+let restoringNavigation=false;
+function goBack(){
+ if(navigationStack.length){
+   const previous=navigationStack.pop();
+   restoringNavigation=true;
+   render(previous);
+   restoringNavigation=false;
+   try{history.replaceState({mutalaa:true,page:previous},'','#'+previous)}catch(_){}
+ }else if(page!=='home'){restoringNavigation=true;render('home');restoringNavigation=false}
+}
+window.addEventListener('popstate',()=>{
+ const previous=navigationStack.pop();
+ if(previous){restoringNavigation=true;render(previous);restoringNavigation=false}
+ else if(page!=='home'){restoringNavigation=true;render('home');restoringNavigation=false}
+});
+document.addEventListener('click',e=>{
+ const back=e.target.closest('#backControl');
+ if(back){goBack();return}
+});
 function render(p){
  const target=p||page;
  const content=$('content');
+ if(target!==page&&!restoringNavigation){
+   if(page)navigationStack.push(page);
+   try{history.pushState({mutalaa:true,page:target},'','#'+target)}catch(_){}
+ }
  page=target;
  const names={home:'ANA SAYFA',library:'KİTAPLIK',risale:'RİSALE-İ NUR',map:'İLİM HARİTASI',audio:'SESLİ DERSLER',favorites:'FAVORİLERİM',notes:'NOTLARIM',profile:'PROFİLİM',hat:'HAT SANATI',search:'GELİŞMİŞ ARAMA',customize:'KİŞİSELLEŞTİRME',journey:'İLİM YOLCULUĞU',stats:'OKUMA İSTATİSTİKLERİ',readingLists:'OKUMA LİSTELERİ',glossary:'KAVRAM SÖZLÜĞÜ',calendar:'OKUMA TAKVİMİ',daily:'GÜNÜN İSTİFADESİ',offline:'ÇEVRİMDIŞI ESERLER'};
  $('crumb').textContent='MÜTALAA / '+(names[page]||'');
@@ -1195,6 +1307,12 @@ function render(p){
    content.dataset.rendered='1';
    content.classList.remove('page-leave');
    content.classList.add('page');
+   content.addEventListener('animationend',()=>{content.style.willChange='auto';},{once:true});
+   content.style.willChange='transform,opacity';
+   content.querySelectorAll('img').forEach((img,index)=>{
+     if(!img.hasAttribute('loading'))img.loading=index<2?'eager':'lazy';
+     img.decoding='async';
+   });
    window.scrollTo({top:0,behavior:reduced?'instant':'auto'});
    applyPrefs();
  };
@@ -1492,6 +1610,19 @@ updateAccountChip();applyPrefs();render('home');update();
     setTimeout(()=>el.classList.remove('ui-tap'),360);
   });
 })();
+
+let touchStartX=0,touchStartY=0,touchTracking=false;
+document.addEventListener('touchstart',e=>{
+ const t=e.touches&&e.touches[0];if(!t)return;
+ touchStartX=t.clientX;touchStartY=t.clientY;touchTracking=t.clientX<34;
+},{passive:true});
+document.addEventListener('touchend',e=>{
+ if(!touchTracking)return;touchTracking=false;
+ const t=e.changedTouches&&e.changedTouches[0];if(!t)return;
+ const dx=t.clientX-touchStartX,dy=Math.abs(t.clientY-touchStartY);
+ if(dx>85&&dy<70)goBack();
+},{passive:true});
+
 </script>
 <style id="mutalaa-6-interaction-style">
 .glass,.widget-card,.setting-card,.calligraphy-card,.book{position:relative;isolation:isolate}
