@@ -990,7 +990,7 @@ button:active{transform:none!important}
 <aside class="sidebar">
  <div class="brand"><div class="brandmark">م</div><div><div class="brandname">MÜTALAA</div><div class="subbrand">İLİM · KÜLTÜR · TEFEKKÜR</div></div></div>
  <div><p class="navtitle">KÜTÜPHANE</p><button class="navbtn active" data-page="home">⌂　 Ana Sayfa</button><button class="navbtn" data-page="library">▤　 Kitaplık</button><button class="navbtn" data-page="risale">✧　 Risale-i Nur</button><button class="navbtn" data-page="map">⌘　 İlim Haritası</button><button class="navbtn" data-page="audio">♫　 Sesli Dersler</button><button class="navbtn" data-page="hat">✧　 Hat Sanatı</button></div>
- <div><p class="navtitle">KİŞİSEL</p><button class="navbtn" data-page="favorites">♡　 Favorilerim</button><button class="navbtn" data-page="notes">✎　 Notlarım</button><button class="navbtn" data-page="profile">◉　 Profilim</button></div>
+ <div><p class="navtitle">KİŞİSEL</p><button class="navbtn" data-page="favorites">♡　 Favorilerim</button><button class="navbtn" data-page="notes">✎　 Notlarım</button><button class="navbtn" data-page="profile">◉　 Profilim</button><button class="navbtn" data-page="readingLists">☷　 Okuma listelerim</button><button class="navbtn" data-page="glossary">⌕　 Kavram sözlüğü</button><button class="navbtn" data-page="calendar">▦　 Okuma takvimi</button><button class="navbtn" data-page="daily">✧　 Günün istifadesi</button><button class="navbtn" data-page="offline">↓　 Çevrimdışı eserler</button></div>
  <div class="glass goal"><div style="font-size:12px">Günün Mütalaası</div><p class="small muted">Her gün birkaç sayfa, her gün yeni bir istifade.</p><div class="small muted">BUGÜNÜN HEDEFİ</div><div class="progress" style="margin-top:8px"><div id="goalProgress" style="width:0%"></div></div><div class="small muted" id="goalText" style="margin-top:7px">0 / 20 dakika</div></div>
 </aside>
 <main>
@@ -1059,6 +1059,12 @@ function home(){
  <section class="simple-library-preview">
   <div class="simple-section-head"><h2>Kitaplıktan seçtiklerimiz</h2><button class="text-link" data-page="library">Tümünü gör →</button></div>
   ${grid(books.slice(0,3))}
+ </section>
+ <section class="home-tools">
+  <button data-page="readingLists"><span>☷</span><b>Okuma listelerim</b><small>Kendi seçkilerini oluştur</small></button>
+  <button data-page="glossary"><span>⌕</span><b>Kavram sözlüğü</b><small>Terimleri keşfet</small></button>
+  <button data-page="calendar"><span>▦</span><b>Okuma takvimi</b><small>İlerlemeni gör</small></button>
+  <button data-page="daily"><span>✧</span><b>Günün istifadesi</b><small>Bugünün düşüncesi</small></button>
  </section>`;
 }
 
@@ -1088,7 +1094,7 @@ function library(){
  return `
  <section class="library-heading simple-library-heading">
   <div><span class="eyebrow">MÜTALAA KOLEKSİYONU</span><h1>Kitaplık</h1></div>
-  <button class="saved-link" data-page="favorites">♡ Kaydedilenler</button>
+  <div class="library-shortcuts"><button class="saved-link" data-page="favorites">♡ Kaydedilenler</button><button class="saved-link" data-page="offline">↓ Çevrimdışı</button></div>
  </section>
  <div class="library-tools simple-library-tools">
   <div class="filters">${['Tümü','Risale-i Nur','İslam Düşüncesi','Fikir ve Edebiyat','Tasavvuf ve İrfan'].map((x,i)=>`<button class="secondary filter ${i===0?'selected':''}" data-filter="${x}">${x}</button>`).join('')}</div>
@@ -1106,7 +1112,7 @@ function profile(){
  return `${heading('Hesabım','Kişisel dinleme ve mütalaa alanın')}
  <div class="glass profile-head"><div class="profile-big-avatar">${esc(initial)}</div><div style="min-width:0"><b>${esc(u.name||'Mütalaa üyesi')}</b><div class="small muted" style="margin-top:4px">${esc(u.email)}</div><div class="small" style="color:#9fc8fa;margin-top:5px">MÜTALAA ÜYESİ</div></div></div>
  <div class="glass" style="padding:19px;margin-top:13px"><div class="small muted">TOPLAM DİNLEME</div><div style="font-size:32px;font-weight:650;margin:8px 0">${totalMinutes} <span class="small muted">dakika</span></div><div class="progress"><div style="width:${Math.min(100,totalMinutes/20*100)}%"></div></div><p class="small muted">Günlük 20 dakika hedefi</p></div>
- <div class="glass" style="padding:8px 17px;margin-top:13px"><button class="profile-action" data-page="stats">Okuma istatistikleri <span>↗</span></button><button class="profile-action" data-page="journey">İlim Yolculuğu <span>→</span></button><button class="profile-action" data-page="customize">Görünümü kişiselleştir <span>✧</span></button><button class="profile-action" data-page="hat">Hat sanatı koleksiyonu <span>✧</span></button><button class="profile-action" id="editAccountName">Adını düzenle <span>›</span></button><button class="profile-action" id="accountStats">Kütüphane istatistikleri <span>♡ ${favorites.length} favori</span></button><button class="profile-action" id="logout">Oturumu kapat <span>↗</span></button></div>
+ <div class="glass" style="padding:8px 17px;margin-top:13px"><button class="profile-action" data-page="stats">Okuma istatistikleri <span>↗</span></button><button class="profile-action" data-page="journey">İlim Yolculuğu <span>→</span></button><button class="profile-action" data-page="readingLists">Okuma listelerim <span>→</span></button><button class="profile-action" data-page="calendar">Okuma takvimi <span>→</span></button><button class="profile-action" data-page="glossary">Kavram sözlüğü <span>→</span></button><button class="profile-action" data-page="offline">Çevrimdışı eserler <span>→</span></button><button class="profile-action" data-page="customize">Görünümü kişiselleştir <span>✧</span></button><button class="profile-action" data-page="hat">Hat sanatı koleksiyonu <span>✧</span></button><button class="profile-action" id="editAccountName">Adını düzenle <span>›</span></button><button class="profile-action" id="accountStats">Kütüphane istatistikleri <span>♡ ${favorites.length} favori</span></button><button class="profile-action" id="logout">Oturumu kapat <span>↗</span></button></div>
  <p class="small muted" style="line-height:1.6;margin:13px 3px">Bu prototipte hesap bilgileri yalnızca bu cihazın tarayıcısında saklanır. Gerçek çok kullanıcılı üyelik için güvenli sunucu ve kimlik doğrulama servisi gerekir.</p>`;
 }
 function audio(){
@@ -1173,7 +1179,7 @@ function render(p){
  const target=p||page;
  const content=$('content');
  page=target;
- const names={home:'ANA SAYFA',library:'KİTAPLIK',risale:'RİSALE-İ NUR',map:'İLİM HARİTASI',audio:'SESLİ DERSLER',favorites:'FAVORİLERİM',notes:'NOTLARIM',profile:'PROFİLİM',hat:'HAT SANATI',search:'GELİŞMİŞ ARAMA',customize:'KİŞİSELLEŞTİRME',journey:'İLİM YOLCULUĞU',stats:'OKUMA İSTATİSTİKLERİ'};
+ const names={home:'ANA SAYFA',library:'KİTAPLIK',risale:'RİSALE-İ NUR',map:'İLİM HARİTASI',audio:'SESLİ DERSLER',favorites:'FAVORİLERİM',notes:'NOTLARIM',profile:'PROFİLİM',hat:'HAT SANATI',search:'GELİŞMİŞ ARAMA',customize:'KİŞİSELLEŞTİRME',journey:'İLİM YOLCULUĞU',stats:'OKUMA İSTATİSTİKLERİ',readingLists:'OKUMA LİSTELERİ',glossary:'KAVRAM SÖZLÜĞÜ',calendar:'OKUMA TAKVİMİ',daily:'GÜNÜN İSTİFADESİ',offline:'ÇEVRİMDIŞI ESERLER'};
  $('crumb').textContent='MÜTALAA / '+(names[page]||'');
  document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
  if(renderTimer){clearTimeout(renderTimer);renderTimer=null;}
@@ -1208,12 +1214,14 @@ function detail(b){
    <p class="detail-desc">${esc(b.desc)}</p>
    <div class="reader-facts"><span>${b.time} dakika</span><span>Sesli okuma</span></div>
    <div class="reader-actions"><button class="primary" id="detailPlay">▶ Dinlemeye başla</button><button class="secondary" id="detailFav">${favorites.includes(b.id)?'♥ Kaydedildi':'♡ Kaydet'}</button></div>
+   <div class="reader-extra-actions"><button class="secondary" id="saveOffline">${offlineIds.includes(b.id)?'✓ Çevrimdışı kaydedildi':'↓ Çevrimdışı kaydet'}</button><button class="secondary" id="addToList">＋ Listeye ekle</button><button class="secondary" id="markRead">${completedIds.includes(b.id)?'✓ Tamamlandı':'✓ Okudum olarak işaretle'}</button></div>
   </div>
  </section>
  <section class="reading-area" id="readerPaper">
   <div class="reading-top"><span>ESERDEN BİR BÖLÜM</span><span>OKUMA MODU</span></div>
   <div class="paper-text page-flip" id="paperText">${esc(chunks[0])}</div>
-  <div class="paper-controls"><button class="secondary" id="paperPrev" disabled>← Önceki</button><span class="page-count" id="paperCount">01 / ${String(chunks.length).padStart(2,'0')}</span><button class="secondary" id="paperNext">Sonraki →</button></div>
+  <div class="paper-controls"><button class="secondary" id="paperPrev" ${activeChunk===0?'disabled':''}>← Önceki</button><span class="page-count" id="paperCount">${String(activeChunk+1).padStart(2,'0')} / ${String(chunks.length).padStart(2,'0')}</span><button class="secondary" id="paperNext" ${activeChunk===chunks.length-1?'disabled':''}>Sonraki →</button></div>
+  <div class="reading-progress-line"><span id="readingProgressFill" style="width:${Math.round((activeChunk+1)/chunks.length*100)}%"></span></div>
  </section>
  <details class="reader-notes glass">
   <summary>Kişisel not ekle</summary>
@@ -1226,14 +1234,20 @@ function detail(b){
  $('goBack').onclick=()=>render('library');
  $('detailPlay').onclick=()=>start(b);
  $('detailFav').onclick=()=>toggleFav(b.id);
+ $('saveOffline').onclick=()=>saveOfflineBook(b.id);
+ $('markRead').onclick=()=>{let ids=JSON.parse(localStorage.getItem('mutalaa-completed-books')||'[]');if(!ids.includes(b.id))ids.push(b.id);localStorage.setItem('mutalaa-completed-books',JSON.stringify(ids));$('markRead').textContent='✓ Tamamlandı';toast('Eser tamamlandı olarak işaretlendi.')};
  const showChunk=()=>{
   $('paperText').classList.remove('page-flip');void $('paperText').offsetWidth;
   $('paperText').textContent=chunks[activeChunk];$('paperText').classList.add('page-flip');
   $('paperCount').textContent=String(activeChunk+1).padStart(2,'0')+' / '+String(chunks.length).padStart(2,'0');
   $('paperPrev').disabled=activeChunk===0;$('paperNext').disabled=activeChunk===chunks.length-1;
+  $('readingProgressFill').style.width=((activeChunk+1)/chunks.length*100)+'%';
+  const progress=JSON.parse(localStorage.getItem('mutalaa-reading-progress')||'{}');progress[b.id]=activeChunk;localStorage.setItem('mutalaa-reading-progress',JSON.stringify(progress));
+  recordReadingDay();
  };
  $('paperPrev').onclick=()=>{if(activeChunk>0){activeChunk--;showChunk()}};
  $('paperNext').onclick=()=>{if(activeChunk<chunks.length-1){activeChunk++;showChunk()}};
+ showChunk();
 }
 
 
@@ -1252,6 +1266,71 @@ const reflections = [
  {quote:'“Düşünce, üzerinde duruldukça berraklaşır.”',prompt:'Bugün hangi fikri biraz daha derinleştirebilirsin?'}
 ];
 function dailyReflection(){const day=Math.floor(Date.now()/86400000);return reflections[((day%reflections.length)+reflections.length)%reflections.length]}
+
+// MÜTALAA kişisel gelişim alanları — cihaz üzerinde saklanır.
+function readJSON(key,fallback){try{return JSON.parse(localStorage.getItem(key)||'null')??fallback}catch(e){return fallback}}
+function saveOfflineBook(id){
+ const b=books.find(x=>x.id===Number(id));if(!b)return;
+ const ids=readJSON('mutalaa-offline-books',[]);
+ if(!ids.includes(b.id))ids.push(b.id);
+ localStorage.setItem('mutalaa-offline-books',JSON.stringify(ids));
+ const cached=readJSON('mutalaa-offline-content',{});
+ cached[b.id]={id:b.id,title:b.title,author:b.author,category:b.cat,text:b.text,savedAt:new Date().toISOString()};
+ localStorage.setItem('mutalaa-offline-content',JSON.stringify(cached));
+ toast('Eser çevrimdışı koleksiyonuna eklendi.');
+ const btn=$('saveOffline');if(btn)btn.textContent='✓ Çevrimdışı kaydedildi';
+}
+function recordReadingDay(){
+ const log=readJSON('mutalaa-reading-days',{}),d=new Date(),key=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');
+ log[key]=(Number(log[key])||0)+1;localStorage.setItem('mutalaa-reading-days',JSON.stringify(log));
+}
+function readingListsPage(){
+ const lists=readJSON('mutalaa-reading-lists',[]);
+ return `${heading('Okuma listelerim','Kendi eser seçkilerini oluştur ve düzenle.')}
+ <section class="glass list-create"><div><b>Yeni bir liste oluştur</b><p class="small muted">Okumak istediklerini konuya veya hedefe göre grupla.</p></div><button class="primary" id="createReadingList">＋ Liste oluştur</button></section>
+ ${lists.length?lists.map((l,i)=>`<section class="glass personal-list"><div class="personal-list-head"><div><h3>${esc(l.name)}</h3><small class="muted">${l.ids.length} eser</small></div><button class="secondary" data-remove-list="${i}">Listeyi sil</button></div>${l.ids.length?l.ids.map(id=>{const b=books.find(x=>x.id===id);return b?`<button class="journey-book" data-open="${b.id}"><span>▤</span><span>${esc(b.title)}<small>${esc(b.author)}</small></span><b>›</b></button>`:''}).join(''):'<p class="small muted">Bu liste henüz boş. Bir eser açıp “Listeye ekle” seçeneğini kullan.</p>'}<button class="secondary" data-add-list="${i}">＋ Kitap ekle</button></section>`).join(''):'<div class="glass empty">Henüz bir okuma listen yok. İlk listeni oluşturarak başlayabilirsin.</div>'}`;
+}
+const glossaryTerms=[
+ ['Tevhid','Allah’ın bir ve tek olduğuna iman etmek; O’nu zatında, sıfatlarında ve fiillerinde bir bilmektir.'],
+ ['Tefekkür','Varlık, hayat ve hadiseler üzerinde anlam arayışıyla derin düşünmek.'],
+ ['Marifet','Tanıma ve bilme; özellikle Allah’ı isim ve sıfatlarıyla tanımaya yönelik bilgi.'],
+ ['İrfan','Bilgiyle birlikte idrak, tecrübe ve hikmet boyutu taşıyan derin kavrayış.'],
+ ['Tevekkül','Gerekli çabayı gösterdikten sonra sonucu Allah’a bırakıp O’na güvenmek.'],
+ ['İhlas','Amel ve niyeti gösterişten uzak, samimiyetle yalnız Allah rızası için yapmak.'],
+ ['Siyer','Hz. Muhammed’in hayatını, örnekliğini ve yaşadığı dönemin tarihini inceleyen alan.'],
+ ['Tahkik','Bir bilgiyi araştırma, delilleri değerlendirme ve sağlam biçimde doğrulama.'],
+ ['Muhasebe','Kişinin niyetlerini, davranışlarını ve gün içindeki hâlini samimiyetle gözden geçirmesi.'],
+ ['İstikamet','İnançta, niyette ve davranışta doğru çizgiyi korumak.']
+];
+function glossaryPage(){
+ return `${heading('Kavram sözlüğü','İlim ve düşünce geleneğinde sık karşılaşılan kavramlar.')}
+ <div class="glass glossary-search"><input id="glossaryQuery" type="search" placeholder="Bir kavram ara..."></div>
+ <div class="glossary-list" id="glossaryList">${glossaryTerms.map(([term,desc])=>`<article class="glass glossary-item" data-term="${esc((term+' '+desc).toLocaleLowerCase('tr'))}"><h3>${esc(term)}</h3><p>${esc(desc)}</p></article>`).join('')}</div>
+ <p class="small muted">Açıklamalar kısa başvuru notlarıdır; kapsamlı ilmî değerlendirme yerine geçmez.</p>`;
+}
+function calendarPage(){
+ const listen=readJSON('mutalaa-daily-log',{}),read=readJSON('mutalaa-reading-days',{});
+ const now=new Date(),year=now.getFullYear(),month=now.getMonth(),first=new Date(year,month,1),offset=(first.getDay()+6)%7,days=new Date(year,month+1,0).getDate();
+ const cells=Array(offset).fill('<span class="calendar-empty"></span>');
+ for(let d=1;d<=days;d++){const key=[year,String(month+1).padStart(2,'0'),String(d).padStart(2,'0')].join('-');const active=Number(listen[key]||0)>0||Number(read[key]||0)>0;cells.push(`<span class="calendar-day ${active?'active':''} ${d===now.getDate()?'today':''}" title="${active?'Bu gün okuma veya dinleme kaydı var':'Kayıt yok'}">${d}</span>`)}
+ const activeCount=Object.keys({...listen,...read}).filter(k=>k.startsWith(`${year}-${String(month+1).padStart(2,'0')}-`)&&(Number(listen[k]||0)>0||Number(read[k]||0)>0)).length;
+ return `${heading('Okuma takvimi','Düzenli okumayı küçük adımlarla takip et.')}
+ <section class="glass calendar-card"><div class="calendar-head"><b>${now.toLocaleDateString('tr-TR',{month:'long',year:'numeric'})}</b><span class="small muted">${activeCount} aktif gün</span></div><div class="calendar-grid">${['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'].map(x=>`<span class="calendar-weekday">${x}</span>`).join('')}${cells.join('')}</div><div class="calendar-legend"><span class="calendar-dot"></span><small class="muted">Okuma veya dinleme kaydı</small></div></section>
+ <div class="small muted">Takvim kayıtları bu tarayıcıda saklanır. Okuma sayfası ilerlemesi ve dinleme dakikaları etkin günleri işaretler.</div>`;
+}
+function dailyPage(){
+ const d=dailyReflection();
+ return `${heading('Günün istifadesi','Bir düşünce, bir soru, kısa bir mütalaa.')}
+ <section class="daily-card glass"><div class="eyebrow">MÜTALAA · BUGÜNÜN NOTU</div><blockquote>${esc(d.quote)}</blockquote><div class="daily-source">MÜTALAA EDİTORYAL NOTU</div><div class="divider-line"></div><h3>Üzerine düşün</h3><p>${esc(d.prompt)}</p><textarea id="dailyAnswer" rows="4" placeholder="Bugünkü düşünceni buraya yaz..."></textarea><button class="primary" id="saveDailyAnswer">Düşüncemi kaydet</button></section>
+ <div class="small muted">Bu bölümdeki sözler MÜTALAA için hazırlanmış editoryal düşünce notlarıdır; tarihî şahsiyetlere veya eserlere ait doğrudan alıntı değildir.</div>`;
+}
+function offlinePage(){
+ const ids=readJSON('mutalaa-offline-books',[]),arr=ids.map(id=>books.find(b=>b.id===id)).filter(Boolean);
+ return `${heading('Çevrimdışı eserler','Kaydettiğin eserleri bu cihazdaki kişisel koleksiyonunda tut.')}
+ <section class="glass offline-info"><b>Bu cihazda saklanır</b><p class="small muted">Seçtiğin eserlerin metinleri tarayıcı depolamasında tutulur. Tarayıcı verilerini temizlersen bu kayıtlar silinebilir.</p><button class="secondary" data-page="library">Kitaplıktan eser seç</button></section>
+ ${arr.length?grid(arr):'<div class="glass empty">Henüz çevrimdışı eser kaydetmedin. Bir kitabı açıp “Çevrimdışı kaydet” seçeneğine dokun.</div>'}`;
+}
+
 function journeyPage(){
  return `${heading('İlim Yolculuğu','İlgi alanına göre hazırlanmış okuma rotaları.')}
  <div class="journey-intro glass"><span class="eyebrow">ADIM ADIM OKUMA</span><h2>Bir konudan başla,<br><em>derinleşerek ilerle.</em></h2><p>Bu rotalar, kütüphanedeki mevcut eserlerden oluşturulmuş örnek okuma sıralarıdır.</p></div>
@@ -1263,7 +1342,7 @@ function statsPage(){
  const max=Math.max(20,...days.map(d=>d.mins));
  const active=days.filter(d=>d.mins>0).length;
  return `${heading('Okuma istatistikleri','Kendi ilerlemeni takip et.')}
- <div class="stats-overview"><div class="glass stat-tile"><span>TOPLAM DİNLEME</span><strong>${totalMinutes}</strong><small>dakika</small></div><div class="glass stat-tile"><span>KAYDEDİLEN ESER</span><strong>${favorites.length}</strong><small>favori</small></div><div class="glass stat-tile"><span>AKTİF GÜN</span><strong>${active}</strong><small>son 7 gün</small></div></div>
+ <div class="stats-overview"><div class="glass stat-tile"><span>TOPLAM DİNLEME</span><strong>${totalMinutes}</strong><small>dakika</small></div><div class="glass stat-tile"><span>KAYDEDİLEN ESER</span><strong>${favorites.length}</strong><small>favori</small></div><div class="glass stat-tile"><span>AKTİF GÜN</span><strong>${active}</strong><small>son 7 gün</small></div><div class="glass stat-tile"><span>TAMAMLANAN ESER</span><strong>${readJSON('mutalaa-completed-books',[]).length}</strong><small>eser</small></div></div>
  <section class="glass weekly-chart"><div class="eyebrow">SON 7 GÜN</div><h3>Dinleme süren</h3><div class="week-bars">${days.map(d=>`<div class="week-day"><div class="week-bar-track"><div class="week-bar" style="height:${Math.max(4,d.mins/max*100)}%" title="${d.mins} dakika"></div></div><b>${d.mins}</b><small>${d.label}</small></div>`).join('')}</div></section>
  <section class="glass stats-goal"><div><b>Günlük hedef</b><span class="small muted">20 dakika</span></div><div class="progress"><div style="width:${Math.min(100,(days[6].mins/20)*100)}%"></div></div><p class="small muted">Bugün ${days[6].mins} / 20 dakika</p></section>
  <button class="secondary" data-page="journey">Bir okuma rotası seç →</button>`;
@@ -1324,6 +1403,8 @@ let o=e.target.closest('[data-open]');if(o){detail(books.find(b=>b.id==o.dataset
 let pl=e.target.closest('[data-play]');if(pl){start(books.find(b=>b.id==pl.dataset.play));return}
 let f=e.target.closest('[data-fav]');if(f){toggleFav(+f.dataset.fav);return}
 let fl=e.target.closest('[data-filter]');if(fl){document.querySelectorAll('.filter').forEach(x=>x.classList.remove('selected'));fl.classList.add('selected');let arr=fl.dataset.filter==='Tümü'?books:books.filter(b=>b.cat===fl.dataset.filter);$('catalog').innerHTML=grid(arr);return}
+let addList=e.target.closest('[data-add-list]');if(addList){const idx=Number(addList.dataset.addList),lists=readJSON('mutalaa-reading-lists',[]);const choices=books.map(b=>`${b.id}: ${b.title}`).join('\n');const raw=prompt('Eklemek istediğin eser numarasını yaz:\n'+choices);const id=Number(raw);if(books.some(b=>b.id===id)&&lists[idx]&&!lists[idx].ids.includes(id)){lists[idx].ids.push(id);localStorage.setItem('mutalaa-reading-lists',JSON.stringify(lists));render('readingLists');toast('Eser listeye eklendi.')}return}
+let removeList=e.target.closest('[data-remove-list]');if(removeList){const lists=readJSON('mutalaa-reading-lists',[]);lists.splice(Number(removeList.dataset.removeList),1);localStorage.setItem('mutalaa-reading-lists',JSON.stringify(lists));render('readingLists');return}
 let d=e.target.closest('[data-delete-note]');if(d){notes.splice(+d.dataset.deleteNote,1);save();render('notes')}
  if(e.target.closest('#saveReaderNote')){
    const field=$('readerNote'), text=(field?.value||'').trim();
@@ -1349,6 +1430,7 @@ $('registerTab').onclick=()=>setAccountMode('register');
 $('accountForm').addEventListener('submit',accountSubmit);
 $('content').addEventListener('input',e=>{
  if(['advQuery','advCategory','advSort'].includes(e.target.id))updateAdvancedSearch();
+ if(e.target.id==='glossaryQuery'){const q=e.target.value.toLocaleLowerCase('tr');document.querySelectorAll('.glossary-item').forEach(x=>x.hidden=!x.dataset.term.includes(q))}
 });
 $('content').addEventListener('change',e=>{
  if(e.target.id==='sleepTimer')setSleepTimer(Number(e.target.value));
@@ -1360,6 +1442,9 @@ $('content').addEventListener('click',e=>{
  if(e.target.id==='widgetToggle'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.widgets=p.widgets===false?true:false;savePrefs(p);render('customize')}
  if(e.target.id==='resetPrefs'){localStorage.removeItem('mutalaa-prefs');applyPrefs();render('customize')}
  if(e.target.id==='clearSearch'){if($('advQuery'))$('advQuery').value='';if($('advCategory'))$('advCategory').value='';if($('advSort'))$('advSort').value='default';updateAdvancedSearch()}
+ if(e.target.id==='addToList'){const lists=readJSON('mutalaa-reading-lists',[]);if(!lists.length){const name=prompt('Önce yeni listenin adını yaz:');if(name&&name.trim()){lists.push({name:name.trim(),ids:[]})}}if(lists.length){const options=lists.map((l,i)=>`${i+1}. ${l.name}`).join('\\n');const pick=Number(prompt('Hangi listeye eklensin?\\n'+options));const idx=pick-1;if(lists[idx]){const id=Number(localStorage.getItem('mutalaa-last-book')||0);if(id&&!lists[idx].ids.includes(id))lists[idx].ids.push(id);localStorage.setItem('mutalaa-reading-lists',JSON.stringify(lists));toast('Eser listene eklendi.')}}}
+ if(e.target.id==='createReadingList'){const name=prompt('Yeni listenin adı:');if(name&&name.trim()){const lists=readJSON('mutalaa-reading-lists',[]);lists.push({name:name.trim(),ids:[]});localStorage.setItem('mutalaa-reading-lists',JSON.stringify(lists));render('readingLists');toast('Okuma listen oluşturuldu.')}} 
+ if(e.target.id==='saveDailyAnswer'){const value=($('dailyAnswer')?.value||'').trim();if(!value){toast('Önce düşünceni yaz.');return}const entries=readJSON('mutalaa-daily-answers',[]);entries.unshift({date:new Date().toLocaleDateString('tr-TR'),text:value});localStorage.setItem('mutalaa-daily-answers',JSON.stringify(entries));$('dailyAnswer').value='';toast('Günün mütalaası kaydedildi.')}
  if(e.target.id==='openAccount')openAccount('register');
  if(e.target.id==='logout'){localStorage.removeItem('mutalaa-current-user');updateAccountChip();render('profile');toast('Oturum kapatıldı.')}
  if(e.target.id==='editAccountName'){let u=getUser();if(!u)return;let n=prompt('Yeni adınız',u.name||'');if(n&&n.trim()){u.name=n.trim();localStorage.setItem('mutalaa-current-user',JSON.stringify(u));let users=JSON.parse(localStorage.getItem('mutalaa-users')||'{}');if(users[u.email]){users[u.email].name=u.name;localStorage.setItem('mutalaa-users',JSON.stringify(users))}updateAccountChip();render('profile')}}
@@ -1857,6 +1942,72 @@ button{touch-action:manipulation}
 @media(prefers-reduced-motion:reduce){
  html{scroll-behavior:auto}
  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+
+
+<style id="mutalaa-8-6-all-features">
+.library-shortcuts{display:flex;gap:14px;align-items:center}
+.reader-extra-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}
+.reader-extra-actions button{font-size:10px;padding:8px 10px}
+.reading-progress-line{height:3px;background:#ffffff12;border-radius:9px;margin-top:18px;overflow:hidden}
+.reading-progress-line span{display:block;height:100%;background:#c5ae83;transition:width .2s}
+.home-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:26px}
+.home-tools button{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:14px;border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;color:inherit;min-width:0}
+.home-tools button>span{font-size:18px;color:#c7b18a}
+.home-tools b{font-size:12px;font-weight:600}
+.home-tools small{font-size:10px;color:var(--muted);line-height:1.4}
+.list-create,.personal-list,.calendar-card,.daily-card,.offline-info,.glossary-search{padding:19px;margin-bottom:14px;border-radius:16px}
+.list-create{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.list-create p{margin:5px 0 0}
+.personal-list h3{font-size:17px;margin:0 0 5px}
+.personal-list-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.personal-list .journey-book{width:100%}
+.glossary-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.glossary-item{padding:17px;border:1px solid var(--line);border-radius:14px}
+.glossary-item h3{font-size:16px;margin:0 0 8px;color:#e7d7b6}
+.glossary-item p{font-size:12px;line-height:1.7;color:var(--muted);margin:0}
+.glossary-item[hidden]{display:none}
+.glossary-search input{width:100%;background:transparent;border:0;color:inherit;outline:0}
+.calendar-card{max-width:650px}
+.calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.calendar-weekday{text-align:center;font-size:10px;color:var(--muted);padding:7px 0}
+.calendar-day,.calendar-empty{aspect-ratio:1;display:grid;place-items:center;border-radius:10px;font-size:12px}
+.calendar-day{background:rgba(255,255,255,.035);border:1px solid transparent}
+.calendar-day.active{background:rgba(190,166,119,.2);border-color:rgba(190,166,119,.35);color:#ead8b2}
+.calendar-day.today{outline:1px solid #8fb6e7;outline-offset:2px}
+.calendar-legend{display:flex;align-items:center;gap:8px;margin-top:17px}
+.calendar-dot{width:9px;height:9px;border-radius:50%;background:#c5ae83}
+.daily-card{max-width:760px;padding:clamp(18px,4vw,34px)}
+.daily-card blockquote{font:clamp(23px,4vw,34px)/1.35 Georgia,serif;color:#f0e7d6;margin:22px 0}
+.daily-source{font-size:9px;letter-spacing:1.5px;color:#c5ae83}
+.divider-line{height:1px;background:var(--line);margin:24px 0}
+.daily-card h3{font-size:15px;margin:0 0 8px}
+.daily-card p{font-size:13px;line-height:1.7;color:var(--muted)}
+.daily-card textarea{width:100%;margin:10px 0 12px;background:#ffffff08;border:1px solid var(--line);border-radius:11px;color:inherit;padding:12px}
+.offline-info{max-width:680px}
+.offline-info p{line-height:1.7}
+@media(max-width:850px){
+ .home-tools{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:22px}
+ .home-tools button{padding:12px}
+ .home-tools b{font-size:11px}
+ .home-tools small{font-size:9px}
+ .glossary-list{grid-template-columns:1fr}
+ .list-create{align-items:flex-start;flex-direction:column}
+ .list-create button{width:100%}
+ .calendar-card{padding:14px}
+ .calendar-grid{gap:4px}
+ .calendar-day,.calendar-empty{border-radius:7px;font-size:11px}
+ .daily-card{padding:19px}
+ .library-shortcuts{gap:8px}
+ .reader-extra-actions button{font-size:9px}
+}
+@media(max-width:390px){
+ .home-tools{gap:7px}
+ .home-tools button{padding:10px}
+ .library-shortcuts{flex-direction:column;align-items:flex-end;gap:0}
+ .calendar-weekday{font-size:9px}
 }
 </style>
 
