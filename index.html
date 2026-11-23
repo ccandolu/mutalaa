@@ -1032,7 +1032,8 @@ const books=[
 {id:8,title:'Diriliş Neslinin Amentüsü',author:'Sezai Karakoç',cat:'Fikir ve Edebiyat',desc:'Diriliş düşüncesi ve medeniyet tasavvuru.',color:'#4a5778',symbol:'د',time:12,text:'Diriliş, insanın kendi özüne dönüşüdür. Bir medeniyetin yeniden doğuşu, önce insanın ruhunda başlar. Gelecek, inanç ve sorumlulukla inşa edilir.'}
 ];
 let page='home',current=null,playing=false,elapsed=0,duration=0,speed=1,interval=null;
-let favorites=JSON.parse(localStorage.getItem('mutalaa-favs')||'[]'),notes=JSON.parse(localStorage.getItem('mutalaa-notes')||'[]'),totalMinutes=Number(localStorage.getItem('mutalaa-minutes')||0);
+const safeRead=(key,fallback)=>{try{const v=JSON.parse(localStorage.getItem(key)||'null');return v===null?fallback:v}catch(e){return fallback}};
+let favorites=safeRead('mutalaa-favs',[]),notes=safeRead('mutalaa-notes',[]),totalMinutes=Number(localStorage.getItem('mutalaa-minutes')||0);
 const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function cover(b){return `<div class="bookcover" style="background:linear-gradient(145deg,${b.color},#101e35)"><div><div class="symbol">${b.symbol}</div><div class="brandmini">MÜTALAA</div><div class="covername">${esc(b.title)}</div><div class="coverauthor">${esc(b.author)}</div></div></div>`}
 function card(b){return `<article class="book"><button data-open="${b.id}" style="display:block;width:100%;text-align:left;background:none;border:0;padding:0">${cover(b)}<div class="booktitle">${esc(b.title)}</div><div class="bookauthor">${esc(b.author)}</div><div class="bookmeta">${b.time} dk · ${esc(b.cat)}</div></button><div class="bookactions"><button class="secondary" data-play="${b.id}">▶ Dinle</button><button class="secondary" data-fav="${b.id}">${favorites.includes(b.id)?'♥':'♡'}</button></div></article>`}
@@ -1187,7 +1188,10 @@ function render(p){
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  const draw=()=>{
    if(sequence!==renderSequence)return;
-   content.innerHTML=({home,library,risale,map,audio,favorites:favoritesPage,notes:notesPage,profile,hat,search:searchPage,customize,journey:journeyPage,stats:statsPage})[page]();
+   const pageRenderers={home,library,risale,map,audio,favorites:favoritesPage,notes:notesPage,profile,hat,search:searchPage,customize,journey:journeyPage,stats:statsPage,readingLists:readingListsPage,glossary:glossaryPage,calendar:calendarPage,daily:dailyPage,offline:offlinePage};
+   const renderer=pageRenderers[page]||home;
+   if(!pageRenderers[page]){page='home';toast('Sayfa bulunamadı; ana sayfaya dönüldü.')}
+   content.innerHTML=renderer();
    content.dataset.rendered='1';
    content.classList.remove('page-leave');
    content.classList.add('page');
@@ -1202,7 +1206,10 @@ function render(p){
 function detail(b){
  localStorage.setItem('mutalaa-last-book',String(b.id));
  const chunks=b.text.match(/.{1,190}(?:\s|$)/g)||[b.text];
- let activeChunk=0;
+ const savedProgress=readJSON('mutalaa-reading-progress',{});
+ let activeChunk=Math.min(Math.max(0,Number(savedProgress[b.id]||0)),chunks.length-1);
+ const completedIds=readJSON('mutalaa-completed-books',[]);
+ const offlineIds=readJSON('mutalaa-offline-books',[]);
  $('content').innerHTML=`
  <div class="reader-back"><button class="text-link" id="goBack">← Kitaplığa dön</button><span class="eyebrow">${esc(b.cat)}</span></div>
  <section class="reader-heading">
@@ -1398,8 +1405,8 @@ let th=e.target.closest('[data-theme]');if(th){let p=JSON.parse(localStorage.get
 let chip=e.target.closest('[data-search-chip]');if(chip){$('advQuery').value=chip.dataset.searchChip;updateAdvancedSearch();return}
 let mn=e.target.closest('[data-node]');if(mn){selectMapNode(mn.dataset.node);return}
 let mf=e.target.closest('[data-map-filter]');if(mf){mapFilter=mf.dataset.mapFilter;render('map');return}
-let p=e.target.closest('[data-page]');if(p){render(p.dataset.page);return}
-let o=e.target.closest('[data-open]');if(o){detail(books.find(b=>b.id==o.dataset.open));return}
+let p=e.target.closest('[data-page]');if(p){if(p.dataset.page)render(p.dataset.page);return}
+let o=e.target.closest('[data-open]');if(o){const book=books.find(b=>b.id==o.dataset.open);if(book)detail(book);else toast('Bu eser bulunamadı.');return}
 let pl=e.target.closest('[data-play]');if(pl){start(books.find(b=>b.id==pl.dataset.play));return}
 let f=e.target.closest('[data-fav]');if(f){toggleFav(+f.dataset.fav);return}
 let fl=e.target.closest('[data-filter]');if(fl){document.querySelectorAll('.filter').forEach(x=>x.classList.remove('selected'));fl.classList.add('selected');let arr=fl.dataset.filter==='Tümü'?books:books.filter(b=>b.cat===fl.dataset.filter);$('catalog').innerHTML=grid(arr);return}
@@ -1439,15 +1446,17 @@ $('content').addEventListener('change',e=>{
  if(e.target.id==='sizeChoice'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.size=e.target.value;savePrefs(p);render('customize')}
 });
 $('content').addEventListener('click',e=>{
- if(e.target.id==='widgetToggle'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.widgets=p.widgets===false?true:false;savePrefs(p);render('customize')}
- if(e.target.id==='resetPrefs'){localStorage.removeItem('mutalaa-prefs');applyPrefs();render('customize')}
- if(e.target.id==='clearSearch'){if($('advQuery'))$('advQuery').value='';if($('advCategory'))$('advCategory').value='';if($('advSort'))$('advSort').value='default';updateAdvancedSearch()}
- if(e.target.id==='addToList'){const lists=readJSON('mutalaa-reading-lists',[]);if(!lists.length){const name=prompt('Önce yeni listenin adını yaz:');if(name&&name.trim()){lists.push({name:name.trim(),ids:[]})}}if(lists.length){const options=lists.map((l,i)=>`${i+1}. ${l.name}`).join('\\n');const pick=Number(prompt('Hangi listeye eklensin?\\n'+options));const idx=pick-1;if(lists[idx]){const id=Number(localStorage.getItem('mutalaa-last-book')||0);if(id&&!lists[idx].ids.includes(id))lists[idx].ids.push(id);localStorage.setItem('mutalaa-reading-lists',JSON.stringify(lists));toast('Eser listene eklendi.')}}}
- if(e.target.id==='createReadingList'){const name=prompt('Yeni listenin adı:');if(name&&name.trim()){const lists=readJSON('mutalaa-reading-lists',[]);lists.push({name:name.trim(),ids:[]});localStorage.setItem('mutalaa-reading-lists',JSON.stringify(lists));render('readingLists');toast('Okuma listen oluşturuldu.')}} 
- if(e.target.id==='saveDailyAnswer'){const value=($('dailyAnswer')?.value||'').trim();if(!value){toast('Önce düşünceni yaz.');return}const entries=readJSON('mutalaa-daily-answers',[]);entries.unshift({date:new Date().toLocaleDateString('tr-TR'),text:value});localStorage.setItem('mutalaa-daily-answers',JSON.stringify(entries));$('dailyAnswer').value='';toast('Günün mütalaası kaydedildi.')}
- if(e.target.id==='openAccount')openAccount('register');
- if(e.target.id==='logout'){localStorage.removeItem('mutalaa-current-user');updateAccountChip();render('profile');toast('Oturum kapatıldı.')}
- if(e.target.id==='editAccountName'){let u=getUser();if(!u)return;let n=prompt('Yeni adınız',u.name||'');if(n&&n.trim()){u.name=n.trim();localStorage.setItem('mutalaa-current-user',JSON.stringify(u));let users=JSON.parse(localStorage.getItem('mutalaa-users')||'{}');if(users[u.email]){users[u.email].name=u.name;localStorage.setItem('mutalaa-users',JSON.stringify(users))}updateAccountChip();render('profile')}}
+ const action=e.target.closest('button,[role="button"]');
+ if(!action)return;
+ if(action.id==='widgetToggle'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.widgets=p.widgets===false?true:false;savePrefs(p);render('customize')}
+ if(action.id==='resetPrefs'){localStorage.removeItem('mutalaa-prefs');applyPrefs();render('customize')}
+ if(action.id==='clearSearch'){if($('advQuery'))$('advQuery').value='';if($('advCategory'))$('advCategory').value='';if($('advSort'))$('advSort').value='default';updateAdvancedSearch()}
+ if(action.id==='addToList'){const lists=readJSON('mutalaa-reading-lists',[]);if(!lists.length){const name=prompt('Önce yeni listenin adını yaz:');if(name&&name.trim()){lists.push({name:name.trim(),ids:[]})}}if(lists.length){const options=lists.map((l,i)=>`${i+1}. ${l.name}`).join('\\n');const pick=Number(prompt('Hangi listeye eklensin?\\n'+options));const idx=pick-1;if(lists[idx]){const id=Number(localStorage.getItem('mutalaa-last-book')||0);if(id&&!lists[idx].ids.includes(id))lists[idx].ids.push(id);localStorage.setItem('mutalaa-reading-lists',JSON.stringify(lists));toast('Eser listene eklendi.')}}}
+ if(action.id==='createReadingList'){const name=prompt('Yeni listenin adı:');if(name&&name.trim()){const lists=readJSON('mutalaa-reading-lists',[]);lists.push({name:name.trim(),ids:[]});localStorage.setItem('mutalaa-reading-lists',JSON.stringify(lists));render('readingLists');toast('Okuma listen oluşturuldu.')}} 
+ if(action.id==='saveDailyAnswer'){const value=($('dailyAnswer')?.value||'').trim();if(!value){toast('Önce düşünceni yaz.');return}const entries=readJSON('mutalaa-daily-answers',[]);entries.unshift({date:new Date().toLocaleDateString('tr-TR'),text:value});localStorage.setItem('mutalaa-daily-answers',JSON.stringify(entries));$('dailyAnswer').value='';toast('Günün mütalaası kaydedildi.')}
+ if(action.id==='openAccount')openAccount('register');
+ if(action.id==='logout'){localStorage.removeItem('mutalaa-current-user');updateAccountChip();render('profile');toast('Oturum kapatıldı.')}
+ if(action.id==='editAccountName'){let u=getUser();if(!u)return;let n=prompt('Yeni adınız',u.name||'');if(n&&n.trim()){u.name=n.trim();localStorage.setItem('mutalaa-current-user',JSON.stringify(u));let users=JSON.parse(localStorage.getItem('mutalaa-users')||'{}');if(users[u.email]){users[u.email].name=u.name;localStorage.setItem('mutalaa-users',JSON.stringify(users))}updateAccountChip();render('profile')}}
 });
 $('play').onclick=()=>{if(!current){toast('Dinlemek için bir eser seç.');return}playing?pause():playSpeech()};
 document.addEventListener('click',e=>{if(e.target.closest('#audioMainPlay')){if(!current){render('library');return}playing?pause():playSpeech();const b=$('audioMainPlay');if(b)b.textContent=playing?'Ⅱ Duraklat':'▶ Dinlemeye başla';}});
@@ -2009,6 +2018,23 @@ button{touch-action:manipulation}
  .library-shortcuts{flex-direction:column;align-items:flex-end;gap:0}
  .calendar-weekday{font-size:9px}
 }
+</style>
+
+
+<style id="mutalaa-8-7-interaction-fix">
+button,[data-page],[data-open],[data-play],[data-fav],[data-filter],[data-node],[data-map-filter],[data-hat],[data-search-chip]{cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.48}
+#content{position:relative;z-index:1}
+.sidebar,.topbar,.mobile-nav,.player{pointer-events:auto}
+#content button{position:relative}
+#content button::before{pointer-events:none}
+.page-leave{pointer-events:none}
+@media(max-width:850px){
+ .mobile-nav{z-index:30}
+ .player{z-index:25}
+ #content{padding-bottom:4px}
+}
+@media(prefers-reduced-motion:reduce){.page-leave{transition:none!important}}
 </style>
 
 </body>
