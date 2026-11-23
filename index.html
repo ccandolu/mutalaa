@@ -1119,6 +1119,67 @@ body.focus-reading .sidebar,body.focus-reading .topbar,body.focus-reading .mobil
 }
 </style>
 
+
+<style id="mutalaa-profile-cleanup">
+/* Profile redesign: clearer hierarchy, calmer spacing, consistent warm palette */
+.profile-identity{display:flex;align-items:center;gap:17px;padding:22px;margin:18px 0}
+.profile-identity-copy{min-width:0;flex:1}
+.profile-identity-copy h2{font:500 24px Georgia,serif;margin:5px 0;color:#f4e8d6}
+.profile-identity-copy p{font-size:11px;color:#b8aa96;margin:0;overflow-wrap:anywhere}
+.profile-big-avatar{width:62px;height:62px;flex:none;border-radius:50%;background:linear-gradient(145deg,#d8bd91,#8e6b42);color:#241c13;border:1px solid #f1dcb6;box-shadow:0 8px 24px #0004;font:26px Georgia,serif}
+.profile-edit-trigger{white-space:nowrap}
+.profile-edit-panel{padding:20px;margin:-6px 0 18px}
+.profile-edit-panel label{display:block;font-size:11px;color:#cdbb9f;margin:14px 0 6px}
+.profile-edit-panel input{width:100%;background:#171613;border:1px solid var(--line);border-radius:11px;color:#f4eadb;padding:12px}
+.profile-edit-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:14px}
+.profile-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:18px 0 32px}
+.profile-metric{padding:17px;display:flex;flex-direction:column;gap:5px}
+.profile-metric span{font-size:8px;letter-spacing:1.2px;color:#c9b18c}
+.profile-metric strong{font:32px Georgia,serif;color:#f0d3a5}
+.profile-metric small{font-size:10px;color:#b6a995}
+.profile-section{margin:30px 0}
+.profile-section-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:14px}
+.profile-section-heading h3{font:500 24px Georgia,serif;margin:5px 0;color:#f2e6d5}
+.profile-link-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.profile-link-card{position:relative;min-height:128px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:7px;padding:17px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,rgba(56,48,37,.85),rgba(31,29,25,.92));color:#f0e4d3}
+.profile-link-card>span{font-size:21px;color:#d9b98b}
+.profile-link-card b{font:16px Georgia,serif}
+.profile-link-card small{font-size:10px;color:#b7aa96;line-height:1.4}
+.profile-link-card i{position:absolute;right:14px;top:14px;color:#d9b98b;font-style:normal}
+.profile-settings{padding:5px 17px}
+.profile-setting-row{display:flex;align-items:center;gap:13px;width:100%;padding:15px 2px;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);color:#f1e4d2}
+.profile-setting-row:last-child{border-bottom:0}
+.profile-setting-icon{width:34px;height:34px;flex:none;border-radius:11px;display:grid;place-items:center;background:rgba(213,180,130,.1);color:#d9b98b;font-size:17px}
+.profile-setting-row>span:nth-child(2){display:flex;flex-direction:column;gap:4px;flex:1}
+.profile-setting-row b{font-size:12px;font-weight:600}
+.profile-setting-row small{font-size:10px;color:#b4a894}
+.profile-setting-row i{font-style:normal;color:#bca47f;font-size:20px}
+.danger-row b,.danger-row .profile-setting-icon{color:#e3a18e}
+.profile-footnote{font-size:10px;color:#a99d8c;line-height:1.7;margin:13px 3px}
+.profile-guest{flex-wrap:wrap}
+.profile-guest .primary{margin-left:auto}
+.account-card{background:linear-gradient(145deg,#3b3024,#1d1b17);border-color:rgba(225,195,150,.25);color:#f3e7d6}
+.account-card input{background:#181613;border-color:rgba(225,195,150,.23);color:#f3e7d6}
+.account-field label{color:#d0bea3}
+.account-tabs{background:#171512}
+.account-tabs button.active{background:#c5a579;color:#211a12}
+.account-hint{color:#b7aa96}
+.account-card .brandname{color:#f1dfc2}
+.account-card .brandmark{background:linear-gradient(145deg,#c6a778,#795b37);color:#211a12}
+@media(max-width:700px){
+ .profile-identity{flex-wrap:wrap;padding:17px;gap:12px}
+ .profile-edit-trigger{margin-left:74px}
+ .profile-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:25px}
+ .profile-metric{padding:14px}
+ .profile-link-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .profile-link-card{min-height:122px;padding:14px}
+ .profile-link-card b{font-size:14px}
+ .profile-section{margin:25px 0}
+ .profile-guest .primary{margin-left:0;width:100%}
+ body{background:radial-gradient(ellipse at 18% -10%,#4b3928 0%,transparent 35%),radial-gradient(ellipse at 95% 50%,#2e2921 0%,transparent 32%),#11110f!important}
+}
+</style>
+
 </head>
 <body>
 <div class="splash" id="splash" aria-hidden="true"><div class="splash-inner"><div class="splash-name">MÜTALAA</div><div class="splash-sub">İLİM · KÜLTÜR · TEFEKKÜR</div><div class="splash-line"></div></div></div>
@@ -1252,13 +1313,62 @@ function favoritesPage(){let a=books.filter(b=>favorites.includes(b.id));return 
 function notesPage(){return heading('Notlarım','Dinleme sırasında kaydettiğin notlar.')+(notes.length?notes.map((n,i)=>`<div class="glass" style="padding:16px;margin-bottom:12px"><div class="small muted">${esc(n.title)} · ${esc(n.date)}</div><p style="font-size:13px;line-height:1.7">${esc(n.text)}</p><button class="secondary" data-delete-note="${i}">Notu sil</button></div>`).join(''):'<div class="glass empty">Henüz not eklemedin.</div>')}
 function profile(){
  const u=getUser();
- if(!u)return `${heading('Profilim','Kişisel alanına erişmek için giriş yap.')}<div class="glass empty"><div style="font-size:28px;margin-bottom:12px">◉</div><b style="color:#edf4ff">MÜTALAA hesabını oluştur</b><p>Dinleme geçmişini, notlarını ve favorilerini hesabınla ilişkilendir.</p><button class="primary" id="openAccount">Giriş yap / Üye ol</button><button class="secondary" data-page="customize" style="margin-top:10px">Görünümü kişiselleştir</button></div>`;
- const initial=(u.name||u.email||'M').trim().charAt(0).toLocaleUpperCase('tr');
- return `${heading('Hesabım','Kişisel dinleme ve mütalaa alanın')}
- <div class="glass profile-head"><div class="profile-big-avatar">${esc(initial)}</div><div style="min-width:0"><b>${esc(u.name||'Mütalaa üyesi')}</b><div class="small muted" style="margin-top:4px">${esc(u.email)}</div><div class="small" style="color:#9fc8fa;margin-top:5px">MÜTALAA ÜYESİ</div></div></div>
- <div class="glass" style="padding:19px;margin-top:13px"><div class="small muted">TOPLAM DİNLEME</div><div style="font-size:32px;font-weight:650;margin:8px 0">${totalMinutes} <span class="small muted">dakika</span></div><div class="progress"><div style="width:${Math.min(100,totalMinutes/20*100)}%"></div></div><p class="small muted">Günlük 20 dakika hedefi</p></div>
- <div class="glass" style="padding:8px 17px;margin-top:13px"><button class="profile-action" data-page="stats">Okuma istatistikleri <span>↗</span></button><button class="profile-action" data-page="journey">İlim Yolculuğu <span>→</span></button><button class="profile-action" data-page="readingLists">Okuma listelerim <span>→</span></button><button class="profile-action" data-page="calendar">Okuma takvimi <span>→</span></button><button class="profile-action" data-page="glossary">Kavram sözlüğü <span>→</span></button><button class="profile-action" data-page="offline">Çevrimdışı eserler <span>→</span></button><button class="profile-action" data-page="customize">Görünümü kişiselleştir <span>✧</span></button><button class="profile-action" data-page="hat">Hat sanatı koleksiyonu <span>✧</span></button><button class="profile-action" id="editAccountName">Adını düzenle <span>›</span></button><button class="profile-action" id="accountStats">Kütüphane istatistikleri <span>♡ ${favorites.length} favori</span></button><button class="profile-action" id="logout">Oturumu kapat <span>↗</span></button></div>
- <p class="small muted" style="line-height:1.6;margin:13px 3px">Bu prototipte hesap bilgileri yalnızca bu cihazın tarayıcısında saklanır. Gerçek çok kullanıcılı üyelik için güvenli sunucu ve kimlik doğrulama servisi gerekir.</p>`;
+ const done=readJSON('mutalaa-completed-books',[]);
+ const progress=readJSON('mutalaa-reading-progress',{});
+ const lists=readJSON('mutalaa-reading-lists',[]);
+ const offline=readJSON('mutalaa-offline-books',[]);
+ const initial=(u?.name||u?.email||'M').trim().charAt(0).toLocaleUpperCase('tr');
+ const userBlock=u?`
+ <section class="profile-identity glass">
+  <div class="profile-big-avatar">${esc(initial)}</div>
+  <div class="profile-identity-copy"><span class="eyebrow">MÜTALAA ÜYESİ</span><h2>${esc(u.name||'Mütalaa üyesi')}</h2><p>${esc(u.email||'')}</p></div>
+  <button class="secondary profile-edit-trigger" id="toggleProfileEdit">Profili düzenle</button>
+ </section>
+ <section class="profile-edit-panel glass" id="profileEditPanel" hidden>
+  <div class="section-kicker">KİŞİSEL BİLGİLER</div>
+  <label for="profileNameInput">Ad soyad</label><input id="profileNameInput" value="${esc(u.name||'')}" maxlength="60" placeholder="Adınız soyadınız">
+  <div class="profile-edit-actions"><button class="secondary" id="cancelProfileEdit">Vazgeç</button><button class="primary" id="saveProfileEdit">Değişiklikleri kaydet</button></div>
+ </section>`:`
+ <section class="profile-identity glass profile-guest">
+  <div class="profile-big-avatar">م</div><div class="profile-identity-copy"><span class="eyebrow">KİŞİSEL KÜTÜPHANE</span><h2>Merhaba, okur.</h2><p>Okuma yolculuğunu cihazında takip et.</p></div>
+  <button class="primary" id="openAccount">Giriş yap / Üye ol</button>
+ </section>`;
+ return `${heading('Profilim','Hesabını, okuma ilerlemeni ve uygulama tercihlerini tek yerden yönet.')}
+ ${userBlock}
+ <section class="profile-metrics">
+  <article class="profile-metric glass"><span>OKUMA SÜRESİ</span><strong>${totalMinutes}</strong><small>dakika</small></article>
+  <article class="profile-metric glass"><span>TAMAMLANAN</span><strong>${done.length}</strong><small>eser</small></article>
+  <article class="profile-metric glass"><span>DEVAM EDEN</span><strong>${Object.keys(progress).length}</strong><small>eser</small></article>
+  <article class="profile-metric glass"><span>FAVORİLER</span><strong>${favorites.length}</strong><small>eser</small></article>
+ </section>
+ <section class="profile-section">
+  <div class="profile-section-heading"><div><span class="section-kicker">OKUMA ALANIN</span><h3>Kütüphanem</h3></div></div>
+  <div class="profile-link-grid">
+   <button class="profile-link-card" data-page="stats"><span>◷</span><b>Okuma istatistikleri</b><small>İlerlemeni ve hedeflerini gör</small><i>↗</i></button>
+   <button class="profile-link-card" data-page="readingLists"><span>☷</span><b>Okuma listelerim</b><small>${lists.length} kişisel liste</small><i>↗</i></button>
+   <button class="profile-link-card" data-page="favorites"><span>♡</span><b>Favorilerim</b><small>${favorites.length} kayıtlı eser</small><i>↗</i></button>
+   <button class="profile-link-card" data-page="offline"><span>↓</span><b>Çevrimdışı eserler</b><small>${offline.length} kayıtlı eser</small><i>↗</i></button>
+   <button class="profile-link-card" data-page="notes"><span>✎</span><b>Mütalaa defteri</b><small>Notlarını ve alıntılarını gör</small><i>↗</i></button>
+   <button class="profile-link-card" data-page="calendar"><span>▦</span><b>Okuma takvimi</b><small>Günlük devamlılığını izle</small><i>↗</i></button>
+  </div>
+ </section>
+ <section class="profile-section">
+  <div class="profile-section-heading"><div><span class="section-kicker">UYGULAMA</span><h3>Tercihler</h3></div></div>
+  <div class="profile-settings glass">
+   <button class="profile-setting-row" data-page="customize"><span class="profile-setting-icon">◐</span><span><b>Görünüm ve okuma ayarları</b><small>Tema, yazı tipi ve metin boyutu</small></span><i>›</i></button>
+   <button class="profile-setting-row" data-page="audio"><span class="profile-setting-icon">♫</span><span><b>Sesli dinleme</b><small>Oynatıcı ve ses tercihleri</small></span><i>›</i></button>
+   <button class="profile-setting-row" data-page="assistant"><span class="profile-setting-icon">✧</span><span><b>Mütalaa Asistanı</b><small>Soru ve kavram çalışma alanı</small></span><i>›</i></button>
+   <button class="profile-setting-row" data-page="import"><span class="profile-setting-icon">⇧</span><span><b>Eser içe aktar</b><small>PDF ve metin dosyalarını aç</small></span><i>›</i></button>
+  </div>
+ </section>
+ <section class="profile-section profile-account-section">
+  <div class="profile-section-heading"><div><span class="section-kicker">HESAP VE VERİLER</span><h3>Hesap yönetimi</h3></div></div>
+  <div class="profile-settings glass">
+   <button class="profile-setting-row" id="exportProfileData"><span class="profile-setting-icon">⇩</span><span><b>Verilerimi dışa aktar</b><small>Not, favori ve ilerleme kayıtlarını indir</small></span><i>›</i></button>
+   ${u?'<button class="profile-setting-row danger-row" id="logout"><span class="profile-setting-icon">↪</span><span><b>Oturumu kapat</b><small>Bu cihazdaki hesabından çık</small></span><i>›</i></button>':'<button class="profile-setting-row" id="openAccount"><span class="profile-setting-icon">＋</span><span><b>Giriş yap veya üye ol</b><small>Kişisel alanını kullan</small></span><i>›</i></button>'}
+  </div>
+  <p class="profile-footnote">Bu sürümde hesap ve okuma verileri bu tarayıcıda saklanır. Gerçek hesap güvenliği ve cihazlar arası eşitleme için sunucu altyapısı gerekir.</p>
+ </section>`;
 }
 function audio(){
  return `${heading('Dinle','Sesli eserler ve dinleme ayarları.')}
@@ -1298,13 +1408,14 @@ function selectMapNode(id){if(!mapNodes.some(n=>n.id===id))return;selectedMapNod
 
 let accountMode='login';
 const getUser=()=>{try{return JSON.parse(localStorage.getItem('mutalaa-current-user')||'null')}catch(e){return null}};
-function openAccount(mode='login'){accountMode=mode;$('accountModal').classList.add('open');setAccountMode(mode);$('accountError').textContent='';}
-function closeAccount(){$('accountModal').classList.remove('open')}
+function openAccount(mode='login'){accountMode=mode;$('accountModal').classList.add('open');setAccountMode(mode);$('accountError').textContent='';setTimeout(()=>$(mode==='register'?'accountName':'accountEmail')?.focus(),80);}
+function closeAccount(){$('accountModal').classList.remove('open');$('accountForm')?.reset();$('accountError').textContent='';}
 function setAccountMode(mode){accountMode=mode;$('loginTab').classList.toggle('active',mode==='login');$('registerTab').classList.toggle('active',mode==='register');$('nameField').hidden=mode!=='register';$('accountName').required=mode==='register';$('accountSubmit').textContent=mode==='register'?'Hesap oluştur':'Giriş yap';$('accountPassword').autocomplete=mode==='register'?'new-password':'current-password';}
 function updateAccountChip(){let u=getUser();let btn=$('accountButton');if(!btn)return;btn.innerHTML=u?`<span class="account-avatar">${esc((u.name||u.email||'M').charAt(0).toLocaleUpperCase('tr'))}</span><span class="account-label">${esc((u.name||'Hesabım').split(' ')[0])}</span>`:'◉ <span class="account-label">Giriş yap</span>';btn.title=u?'Hesabım':'Giriş yap';}
 function accountSubmit(e){
  e.preventDefault();let email=$('accountEmail').value.trim().toLowerCase(),password=$('accountPassword').value,name=$('accountName').value.trim();
  let users={};try{users=JSON.parse(localStorage.getItem('mutalaa-users')||'{}')}catch(e){}
+ if(!email||!$('accountEmail').checkValidity()){$('accountError').textContent='Geçerli bir e-posta adresi girin.';return}
  if(accountMode==='register'){
   if(!name){$('accountError').textContent='Lütfen adınızı yazın.';return}
   if(password.length<6){$('accountError').textContent='Şifre en az 6 karakter olmalı.';return}
@@ -1640,6 +1751,705 @@ $('content').addEventListener('change',e=>{
  if(e.target.id==='sizeChoice'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.size=e.target.value;savePrefs(p);render('customize')}
 });
 $('content').addEventListener('click',e=>{
+ if(e.target.closest('#toggleProfileEdit')){const panel=$('profileEditPanel');if(panel)panel.hidden=!panel.hidden;return}
+ if(e.target.closest('#cancelProfileEdit')){const panel=$('profileEditPanel');if(panel)panel.hidden=true;return}
+ if(e.target.closest('#saveProfileEdit')){
+  const u=getUser(),name=($('profileNameInput')?.value||'').trim();
+  if(!u)return;
+  if(name.length<2){toast('Ad soyad en az 2 karakter olmalı.');return}
+  u.name=name;localStorage.setItem('mutalaa-current-user',JSON.stringify(u));
+  const users=readJSON('mutalaa-users',{});if(users[u.email]){users[u.email].name=name;localStorage.setItem('mutalaa-users',JSON.stringify(users))}
+  updateAccountChip();render('profile');toast('Profil bilgilerin güncellendi.');return
+ }
+ if(e.target.closest('#exportProfileData')){
+  const keys=['mutalaa-current-user','mutalaa-favs','mutalaa-notes','mutalaa-minutes','mutalaa-reading-progress','mutalaa-completed-books','mutalaa-reading-days','mutalaa-reading-lists','mutalaa-bookmarks','mutalaa-highlights','mutalaa-daily-answers'];
+  const data={app:'MÜTALAA',exportedAt:new Date().toISOString(),data:{}};
+  keys.forEach(k=>{const v=localStorage.getItem(k);if(v!==null)data.data[k]=v});
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mutalaa-verilerim.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Veri dosyan hazırlandı.');return
+ }
+
+ const action=e.target.closest('button,[role="button"]');
+ if(!action)return;
+ if(action.id==='widgetToggle'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.widgets=p.widgets===false?true:false;savePrefs(p);render('customize')}
+ if(action.id==='resetPrefs'){localStorage.removeItem('mutalaa-prefs');applyPrefs();render('customize')}
+ if(action.id==='clearSearch'){if($('advQuery'))$('advQuery').value='';if($('advCategory'))$('advCategory').value='';if($('advSort'))$('advSort').value='default';updateAdvancedSearch()}
+ if(action.id==='addToList'){const lists=readJSON('mutalaa-reading-lists',[]);if(!lists.length){const name=prompt('Önce yeni listenin adını yaz:');if(name&&name.trim()){lists.push({name:name.trim(),ids:[]})}}if(lists.length){const options=lists.map((l,i)=>`${i+1}. ${l.name}`).join('\\n');const pick=Number(prompt('Hangi listeye eklensin?\\n'+options));const idx=pick-1;if(lists[idx]){const id=Number(localStorage.getItem('mutalaa-last-book')||0);if(id&&!lists[idx].ids.includes(id))lists[idx].ids.push(id);localStorage.setItem('mutalaa-reading-lists',JSON.stringify(lists));toast('Eser listene eklendi.')}}}
+ if(action.id==='createReadingList'){const name=prompt('Yeni listenin adı:');if(name&&name.trim()){const lists=readJSON('mutalaa-reading-lists',[]);lists.push({name:name.trim(),ids:[]});localStorage.setItem('mutalaa-reading-lists',JSON.stringify(lists));render('readingLists');toast('Okuma listen oluşturuldu.')}} 
+ if(action.id==='saveDailyAnswer'){const value=($('dailyAnswer')?.value||'').trim();if(!value){toast('Önce düşünceni yaz.');return}const entries=readJSON('mutalaa-daily-answers',[]);entries.unshift({date:new Date().toLocaleDateString('tr-TR'),text:value});localStorage.setItem('mutalaa-daily-answers',JSON.stringify(entries));$('dailyAnswer').value='';toast('Günün mütalaası kaydedildi.')}
+ if(action.id==='openAccount')openAccount('register');
+ if(action.id==='logout'){localStorage.removeItem('mutalaa-current-user');updateAccountChip();render('profile');toast('Oturum kapatıldı.')}
+ if(action.id==='editAccountName'){let u=getUser();if(!u)return;let n=prompt('Yeni adınız',u.name||'');if(n&&n.trim()){u.name=n.trim();localStorage.setItem('mutalaa-current-user',JSON.stringify(u));let users=JSON.parse(localStorage.getItem('mutalaa-users')||'{}');if(users[u.email]){users[u.email].name=u.name;localStorage.setItem('mutalaa-users',JSON.stringify(users))}updateAccountChip();render('profile')}}
+});
+$('play').onclick=()=>{if(!current){toast('Dinlemek için bir eser seç.');return}playing?pause():playSpeech()};
+document.addEventListener('click',e=>{if(e.target.closest('#audioMainPlay')){if(!current){render('library');return}playing?pause():playSpeech();const b=$('audioMainPlay');if(b)b.textContent=playing?'Ⅱ Duraklat':'▶ Dinlemeye başla';}});
+$('speed').onclick=()=>{speed=speed===1?1.25:speed===1.25?1.5:speed===1.5?1.75:speed===1.75?2:1;$('speed').textContent=speed+'x';if(playing)playSpeech()};
+$('back15').onclick=()=>{if(current){elapsed=Math.max(0,elapsed-15);playSpeech()}};
+$('forward15').onclick=()=>{if(current){elapsed=Math.min(duration,elapsed+15);playSpeech()}};
+$('seek').oninput=()=>{elapsed=Math.round(duration*$('seek').value/100);$('elapsed').textContent=fmt(elapsed)};
+$('seek').onchange=()=>{if(playing)playSpeech()};
+$('searchToggle').onclick=()=>{$('searchBox').hidden=!$('searchBox').hidden;if(!$('searchBox').hidden)$('searchInput').focus()};
+$('searchInput').oninput=()=>{let q=$('searchInput').value.toLocaleLowerCase('tr');let arr=books.filter(b=>(b.title+' '+b.author+' '+b.cat+' '+b.desc+' '+b.text).toLocaleLowerCase('tr').includes(q));$('content').innerHTML=heading('Arama sonuçları','Aradığın eserler')+(arr.length?grid(arr):'<div class="glass empty">Sonuç bulunamadı.</div>')};
+$('content').addEventListener('input',e=>{if(e.target.id==='mapSearch'){mapSearch=e.target.value;let stage=document.querySelector('.map-stage');if(stage)stage.innerHTML=mapSvg();}});
+$('content').addEventListener('click',e=>{if(e.target.id==='reset'&&confirm('Dinleme istatistiklerini sıfırlamak istiyor musun?')){totalMinutes=0;save();render('profile')}});
+setInterval(()=>{if(playing&&current){elapsed++;if(elapsed%60===0){totalMinutes++;recordDailyMinute();save()}if(elapsed>=duration)pause();update()}},1000);
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('.map-node'))selectMapNode(e.target.dataset.node)});
+
+// Branded entrance and restrained touch feedback.
+window.addEventListener('load',()=>{const s=$('splash');if(s)setTimeout(()=>s.classList.add('hide'),1050)});
+
+
+updateAccountChip();applyPrefs();render('home');update();
+
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&$('accountModal')?.classList.contains('open'))closeAccount();
+});
+
+</script>
+
+<script id="mutalaa-6-interactions">
+(function(){
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce) return;
+
+  document.addEventListener('click',function(e){
+    const el=e.target.closest('button');
+    if(!el || el.disabled) return;
+    el.classList.remove('ui-tap');
+    requestAnimationFrame(()=>el.classList.add('ui-tap'));
+    setTimeout(()=>el.classList.remove('ui-tap'),360);
+  });
+})();
+
+let touchStartX=0,touchStartY=0,touchTracking=false;
+document.addEventListener('touchstart',e=>{
+ const t=e.touches&&e.touches[0];if(!t)return;
+ touchStartX=t.clientX;touchStartY=t.clientY;touchTracking=t.clientX<34;
+},{passive:true});
+document.addEventListener('touchend',e=>{
+ if(!touchTracking)return;touchTracking=false;
+ const t=e.changedTouches&&e.changedTouches[0];if(!t)return;
+ const dx=t.clientX-touchStartX,dy=Math.abs(t.clientY-touchStartY);
+ if(dx>85&&dy<70)goBack();
+},{passive:true});
+
+
+// MÜTALAA 9.0 interaction layer — local-first features and keyboard support.
+let selectedReaderText='';
+document.addEventListener('selectionchange',()=>{
+ const sel=window.getSelection(),paper=document.getElementById('paperText'),tools=document.getElementById('selectionTools');
+ if(!paper||!tools)return;
+ const txt=(sel?sel.toString():'').trim();
+ if(txt&&paper.contains(sel.anchorNode)){selectedReaderText=txt;tools.hidden=false}else tools.hidden=true;
+});
+document.addEventListener('click',e=>{
+ const cat=e.target.closest('[data-home-category]');
+ if(cat){render('library');setTimeout(()=>{const f=[...document.querySelectorAll('[data-filter]')].find(x=>x.dataset.filter===cat.dataset.homeCategory);if(f)f.click()},140);return}
+ const jump=e.target.closest('[data-bookmark-jump]');
+ if(jump){const n=Number(jump.dataset.bookmarkJump);const next=document.getElementById('paperNext');if(next){const sel=document.getElementById('readerSection');if(sel){sel.value=n;sel.dispatchEvent(new Event('change'))}}return}
+ const action=e.target.closest('[data-selection-action]');
+ if(action){
+  if(action.dataset.selectionAction==='copy'){navigator.clipboard?.writeText(selectedReaderText).then(()=>toast('Metin kopyalandı.')).catch(()=>toast('Kopyalama bu tarayıcıda desteklenmiyor.'))}
+  if(action.dataset.selectionAction==='note'){const notes=readJSON('mutalaa-notes',[]);notes.unshift({text:selectedReaderText,date:new Date().toISOString(),book:localStorage.getItem('mutalaa-last-book')});localStorage.setItem('mutalaa-notes',JSON.stringify(notes));toast('Seçili metin notlarına eklendi.')}
+  if(action.dataset.selectionAction==='highlight'){const marks=readJSON('mutalaa-highlights',[]);marks.push({text:selectedReaderText,book:localStorage.getItem('mutalaa-last-book')});localStorage.setItem('mutalaa-highlights',JSON.stringify(marks));toast('Metin işaretlendi.')}
+  if(action.dataset.selectionAction==='explain'){render('assistant');setTimeout(()=>{const q=document.getElementById('assistantInput');if(q)q.value='Şu metni açıklar mısın: '+selectedReaderText},100)}
+  const tools=document.getElementById('selectionTools');if(tools)tools.hidden=true;return;
+ }
+ const prompt=e.target.closest('[data-assistant-prompt]');
+ if(prompt){const q=document.getElementById('assistantInput');if(q){q.value=prompt.dataset.assistantPrompt;q.focus()}return}
+});
+document.addEventListener('submit',e=>{
+ if(e.target.id==='assistantForm'){
+  e.preventDefault();const input=document.getElementById('assistantInput'),messages=document.getElementById('assistantMessages');const q=(input.value||'').trim();if(!q)return;
+  const user=document.createElement('div');user.className='assistant-message';user.innerHTML='<b>Sen</b><p></p>';user.querySelector('p').textContent=q;messages.appendChild(user);
+  const answer=document.createElement('div');answer.className='assistant-message';answer.innerHTML='<b>Mütalaa</b><p></p>';
+  const txt=q.toLocaleLowerCase('tr');
+  let response='Bu soruyu değerlendirirken eserin bağlamını, kullanılan kavramları ve yazarın ana fikrini birlikte ele almak gerekir. Gerçek kaynaklı ve esere özel yanıtlar için Mütalaa Asistanı’nın yapay zekâ servisine bağlanması gerekir.';
+  if(txt.includes('tevekkül'))response='Tevekkül, kişinin üzerine düşen gayreti gösterdikten sonra neticeyi Allah’a bırakmasıdır. Yalnızca beklemek değil; sorumlulukla hareket ederken kalben güven duymaktır. Bu kısa açıklama genel bir başvuru notudur.';
+  else if(txt.includes('sadeleştir'))response='Metni sadeleştirmek için önce cümlenin ana hükmünü belirle, ardından eski kelimeleri güncel karşılıklarıyla açıkla. Metnin tamamını paylaşırsan anlamını koruyarak sadeleştirebilirim.';
+  else if(txt.includes('ana fikir'))response='Ana fikri belirlemek için bölümde tekrar edilen kavramları, verilen örnekleri ve sonuç cümlesini birlikte incelemek gerekir. Bu prototipte tam metin analizi için henüz yapay zekâ bağlantısı bulunmuyor.';
+  answer.querySelector('p').textContent=response;messages.appendChild(answer);input.value='';messages.scrollTop=messages.scrollHeight;return;
+ }
+});
+document.addEventListener('change',e=>{
+ if(e.target.id==='localBookFile'){
+  const file=e.target.files&&e.target.files[0];if(!file)return;
+  const status=document.getElementById('importStatus'),preview=document.getElementById('importPreview');
+  status.textContent=file.name+' · '+Math.round(file.size/1024)+' KB';
+  if(file.type==='application/pdf'||file.name.toLowerCase().endsWith('.pdf')){
+   const url=URL.createObjectURL(file);preview.innerHTML='<iframe class="import-preview-frame" title="PDF önizleme"></iframe>';preview.querySelector('iframe').src=url;
+  }else if(file.name.toLowerCase().endsWith('.txt')){
+   const reader=new FileReader();reader.onload=()=>{const pre=document.createElement('pre');pre.className='glass';pre.style.cssText='white-space:pre-wrap;text-align:left;padding:18px;max-height:55vh;overflow:auto';pre.textContent=String(reader.result).slice(0,100000);preview.replaceChildren(pre)};reader.readAsText(file);
+  }else{
+   preview.innerHTML='<div class="glass" style="padding:16px;margin-top:15px">EPUB dosyası seçildi. Bu sürümde EPUB kitap ayrıştırıcısı henüz bağlı değil; PDF ve TXT dosyaları açılabilir.</div>';
+  }
+ }
+});
+document.addEventListener('click',e=>{
+ if(e.target.id==='homeSearchGo'){const q=document.getElementById('homeSearch')?.value||'';render('search');setTimeout(()=>{const a=document.getElementById('advQuery');if(a){a.value=q;updateAdvancedSearch()}},120)}
+});
+document.addEventListener('keydown',e=>{
+ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();const q=document.getElementById('homeSearch')||document.getElementById('searchInput');if(q){q.focus()}else{render('search');setTimeout(()=>document.getElementById('advQuery')?.focus(),120)}}
+ if(e.key==='Escape'&&document.body.classList.contains('focus-reading'))document.body.classList.remove('focus-reading');
+ if((e.altKey||e.metaKey)&&e.key==='ArrowLeft'){e.preventDefault();goBack()}
+});
+let deferredInstallPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstallPrompt=e;});
+window.addEventListener('appinstalled',()=>toast('MÜTALAA ana ekrana eklendi.'));
+document.addEventListener('click',async e=>{
+ const install=e.target.closest('[data-install-app]');if(!install)return;
+ if(deferredInstallPrompt){deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null}
+ else toast('Ana ekrana ekleme için tarayıcı menüsünden “Yükle” veya “Ana ekrana ekle” seçeneğini kullan.');
+});
+
+</script>
+<style id="mutalaa-6-interaction-style">
+.glass,.widget-card,.setting-card,.calligraphy-card,.book{position:relative;isolation:isolate}
+.glass:before,.widget-card:before,.setting-card:before,.calligraphy-card:before,.book:before{
+ content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+ background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),rgba(190,215,246,.075),transparent 65%);
+ opacity:0;transition:opacity .3s
+}
+.glass:hover:before,.widget-card:hover:before,.setting-card:hover:before,.calligraphy-card:hover:before,.book:hover:before{opacity:1}
+button.ui-tap{animation:tapPulse .34s ease}
+@keyframes tapPulse{0%{transform:scale(1)}45%{transform:scale(.965)}100%{transform:scale(1)}}
+</style>
+
+
+<style id="mutalaa-7-finish">
+/* Consistent editorial rhythm */
+#content{min-height:55vh}
+#content .page>*+*{margin-top:18px}
+#content .sectionhead:first-child{margin-top:0}
+.date,.source,.muted{color:#8799ae}
+.progress{height:4px!important;background:rgba(255,255,255,.08)!important;border-radius:20px;overflow:hidden}
+.progress>div{background:linear-gradient(90deg,#9d845b,#dfc99f)!important;border-radius:20px}
+.toggle{accent-color:#c5a879}
+.map-stage{border-radius:12px;overflow:hidden}
+.map-node{filter:drop-shadow(0 5px 10px rgba(0,0,0,.25))}
+.calligraphy-card{overflow:hidden}
+.calligraphy-caption{letter-spacing:.12em;color:#b7a17a}
+.profile-big-avatar,.account-avatar{border:1px solid rgba(197,168,121,.3);box-shadow:0 10px 25px rgba(0,0,0,.25)}
+.empty{border:1px dashed rgba(191,207,226,.17);border-radius:14px;padding:35px 20px}
+@media(min-width:1500px){main{padding-left:72px;padding-right:72px}}
+</style>
+
+
+<style id="mutalaa-native-app-layer">
+:root{--app-ink:#f2eee5;--app-muted:#9ba9b9;--app-paper:#eee7d8;--app-gold:#bda477}
+html{background:#071426;overscroll-behavior-y:none}
+body{overscroll-behavior-y:contain;-webkit-tap-highlight-color:transparent}
+button,a{-webkit-tap-highlight-color:transparent}
+button{touch-action:manipulation}
+.mobile-nav{display:none}
+@media(max-width:850px){
+ body{min-height:100dvh;background:#091522}
+ .app{display:block;min-height:100dvh}
+ .sidebar{display:none!important}
+ main{width:100%;max-width:none;padding:calc(env(safe-area-inset-top) + 16px) 19px calc(190px + env(safe-area-inset-bottom));}
+ .topbar{margin:0 -2px 22px;padding:2px 0 15px;border-bottom:1px solid rgba(255,255,255,.075)}
+ .crumb{font-size:9px;letter-spacing:1.6px}
+ .topactions{gap:6px}
+ .topactions button{width:39px;height:39px;padding:0;border-radius:50%;display:grid;place-items:center}
+ .mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;left:0;right:0;bottom:0;z-index:40;height:calc(67px + env(safe-area-inset-bottom));padding:7px 10px calc(7px + env(safe-area-inset-bottom));background:rgba(8,19,31,.96);border-top:1px solid rgba(255,255,255,.09);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+ .mobile-nav button{height:51px;border:0;background:transparent;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#8190a2;padding:3px 1px;transform:none!important;filter:none!important}
+ .mobile-nav button .nav-icon{font-size:21px;line-height:23px;font-weight:400}
+ .mobile-nav button small{font-size:9px;letter-spacing:.05px;white-space:nowrap}
+ .mobile-nav button.active{color:#e4d4b5;background:rgba(189,164,119,.09)}
+ .mobile-nav button.active .nav-icon{color:#cbb58d}
+ .player{left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));padding:9px 10px;border-radius:15px;background:rgba(18,34,51,.97);box-shadow:0 8px 28px rgba(0,0,0,.28);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+ .playerrow{gap:9px}
+ .mini-cover{width:37px;height:40px;border-radius:8px}
+ .now strong{font-size:11px}
+ .now span{font-size:9px}
+ .player .secondary{font-size:10px;padding:7px 8px;border-radius:9px}
+ .playbtn{width:35px;height:35px;flex-shrink:0}
+ .mini-wave{display:none}
+ .seekrow{margin-top:5px}
+ .seekrow span{font-size:9px}
+ .home-hero{border-radius:20px}
+ .bookgrid{gap:13px}
+ .book{border-radius:15px}
+ #content{min-height:55vh}
+}
+@media(max-width:420px){
+ main{padding-left:15px;padding-right:15px}
+ .mobile-nav{padding-left:6px;padding-right:6px}
+ .mobile-nav button small{font-size:8.5px}
+ .player .secondary#back15,.player .secondary#forward15{display:none}
+}
+@media(min-width:851px){
+ .mobile-nav{display:none!important}
+}
+@media(prefers-reduced-motion:no-preference){
+ .mobile-nav button{transition:background .18s ease,color .18s ease}
+ .mobile-nav button:active{transform:scale(.96)!important}
+}
+</style>
+
+
+<style id="mutalaa-8-2-features">
+.journey-intro,.journey-card,.reader-notes,.audio-control-panel,.weekly-chart,.stats-goal{padding:20px;border-radius:18px}
+.journey-intro{margin-bottom:15px;background:linear-gradient(135deg,rgba(35,61,88,.72),rgba(14,29,46,.76))}
+.journey-intro h2{font-family:Georgia,serif;font-size:clamp(25px,4vw,38px);font-weight:500;line-height:1.15;margin:13px 0}
+.journey-intro h2 em{color:#c7b18a}
+.journey-intro p,.journey-card p{font-size:13px;line-height:1.7;color:var(--muted)}
+.journey-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.journey-card h3{font-size:18px;margin:12px 0 5px}
+.journey-card-top{display:flex;align-items:center;justify-content:space-between}
+.journey-index{font-family:Georgia,serif;font-size:24px;color:#c4ae85}
+.journey-books{margin-top:13px;border-top:1px solid var(--line)}
+.journey-book{width:100%;display:grid;grid-template-columns:25px 1fr 15px;gap:8px;align-items:center;text-align:left;padding:12px 0;border:0;border-bottom:1px solid var(--line);background:transparent;font-size:12px}
+.journey-book>span:first-child{color:#bda477;font-family:Georgia,serif}
+.journey-book small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.journey-book b{font-size:18px;color:var(--muted)}
+.journey-shortcuts{display:flex;gap:9px;flex-wrap:wrap}
+.journey-chip{border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.035);padding:10px 13px;font-size:11px;color:#dce5ef}
+.journey-chip span{color:#c4ad83;margin-left:8px}
+.reader-notes{margin-top:16px}
+.reader-notes h3,.weekly-chart h3{font-size:17px;margin:9px 0}
+.reader-notes textarea{width:100%;resize:vertical;min-height:85px;padding:13px;border:1px solid var(--line);border-radius:12px;background:rgba(0,0,0,.16);color:inherit;font:inherit;font-size:13px;line-height:1.6}
+.reader-note-actions{display:flex;justify-content:space-between;gap:10px;margin-top:10px;flex-wrap:wrap}
+.audio-control-panel{margin-bottom:23px}
+.audio-control-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.audio-control-row b{font-size:13px}
+.audio-control-row p{margin:4px 0 0}
+.audio-control-row select{max-width:145px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#102238;color:#eef3f8}
+.stats-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-bottom:14px}
+.stat-tile{padding:16px;border-radius:15px;display:flex;flex-direction:column;gap:5px}
+.stat-tile span{font-size:9px;letter-spacing:1px;color:var(--muted)}
+.stat-tile strong{font-size:29px;font-weight:600}
+.stat-tile small{font-size:10px;color:var(--muted)}
+.weekly-chart{margin-bottom:13px}
+.week-bars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:9px;align-items:end;height:150px;margin-top:18px}
+.week-day{display:flex;flex-direction:column;align-items:center;justify-content:end;gap:6px;height:100%;font-size:10px;color:var(--muted)}
+.week-bar-track{height:105px;width:min(24px,70%);display:flex;align-items:end;border-radius:8px;background:rgba(255,255,255,.045);overflow:hidden}
+.week-bar{width:100%;min-height:3px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,#c8b48e,#8d7958)}
+.week-day b{font-size:9px;color:#dfe6ee}
+.week-day small{font-size:9px}
+.stats-goal{margin-bottom:15px}
+.stats-goal>div:first-child{display:flex;justify-content:space-between;margin-bottom:12px}
+.home-quote .small{display:block;margin-top:10px;line-height:1.6}
+@media(max-width:650px){
+ .journey-list{grid-template-columns:1fr}
+ .journey-card{padding:17px}
+ .reader-notes,.audio-control-panel,.weekly-chart,.stats-goal{padding:16px}
+ .stats-overview{gap:7px}
+ .stat-tile{padding:12px 10px}
+ .stat-tile span{font-size:8px;letter-spacing:.4px}
+ .stat-tile strong{font-size:24px}
+ .week-bars{gap:5px}
+ .reader-note-actions>*{flex:1}
+}
+@media(hover:none){button:hover{transform:none;filter:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+
+
+<style id="mutalaa-8-3-mobile-cleanup">
+html,body{max-width:100%;overflow-x:hidden}
+img,svg,video{max-width:100%}
+button,input,select,textarea{font-family:inherit}
+@media(max-width:850px){
+  body{font-size:14px}
+  main{padding-left:18px;padding-right:18px;padding-bottom:calc(178px + env(safe-area-inset-bottom))}
+  .topbar{margin-bottom:18px;padding-bottom:12px}
+  .crumb{font-size:9px;letter-spacing:1.25px}
+  .topactions{gap:7px}
+  .topactions button{width:36px;height:36px}
+  #content{min-height:0}
+  .sectionhead{margin-bottom:14px}
+  .sectionhead h2{font-size:20px!important}
+  .sectionhead p{font-size:11px;line-height:1.55}
+  .home-hero{grid-template-columns:minmax(0,1fr) 104px;gap:12px;padding:12px 0 19px}
+  .home-copy h1{font-size:clamp(27px,7vw,34px)!important;line-height:1.08}
+  .home-copy p{font-size:11px;line-height:1.6;max-width:34ch}
+  .home-copy .eyebrow{font-size:8px;letter-spacing:1.1px}
+  .home-date{font-size:10px}
+  .home-featured{width:100px}
+  .home-progress{grid-template-columns:1fr 1.2fr;gap:10px;padding:13px 0}
+  .home-progress .text-link{grid-column:1/-1;margin-top:0}
+  .home-progress strong{font-size:23px}
+  .home-progress .eyebrow{font-size:8px}
+  .home-progress .muted,.progress-copy{font-size:9px}
+  .home-selection{padding-top:19px}
+  .home-selection .sectionhead{align-items:end;gap:8px}
+  .home-selection .sectionhead h2{font-size:18px!important}
+  .home-selection .sectionhead p{font-size:10px}
+  .home-selection .sectionhead>.text-link{font-size:10px;white-space:nowrap}
+  .home-selection .bookgrid,#catalog .bookgrid,.bookgrid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:17px 13px!important
+  }
+  .book{min-width:0;border-radius:13px}
+  .bookcover{aspect-ratio:3/4.15}
+  .booktitle{font-size:12px;line-height:1.35}
+  .bookauthor,.bookmeta{font-size:9px;line-height:1.45}
+  .bookactions{display:flex;gap:7px;margin-top:8px}
+  .bookactions button{flex:1;min-width:0;padding:8px 7px;font-size:10px}
+  .home-quote{margin-top:21px;padding:15px 0}
+  .home-quote p{font-size:15px;line-height:1.5}
+  .home-quote .small{font-size:10px}
+  .journey-shortcuts{gap:7px}
+  .journey-chip{font-size:10px;padding:9px 11px}
+  .library-heading{align-items:center;padding:5px 0 15px}
+  .library-heading h1{font-size:30px!important}
+  .library-heading p{font-size:11px;line-height:1.55;max-width:29ch}
+  .library-count{flex:0 0 auto}
+  .library-tools{padding:11px 0 14px}
+  .library-tools .filters{gap:7px}
+  .library-tools .filter{font-size:10px;padding:8px 11px}
+  .reader-back{margin-bottom:10px}
+  .reader-heading{grid-template-columns:92px minmax(0,1fr);gap:14px;padding:15px 0}
+  .reader-cover .bookcover{width:92px}
+  .reader-intro h1{font-size:23px!important;line-height:1.15}
+  .reader-intro .detail-desc{font-size:11px;line-height:1.55}
+  .reader-facts{font-size:9px;gap:8px}
+  .reader-actions{gap:7px}
+  .reader-actions button{font-size:10px;padding:9px 11px}
+  .reading-area{padding:20px 16px!important;border-radius:15px}
+  .reading-area .paper-text{font-size:16px;line-height:1.85}
+  .reading-top{font-size:8px}
+  .reader-notes,.journey-intro,.journey-card,.audio-control-panel,.weekly-chart,.stats-goal{padding:15px;border-radius:15px}
+  .journey-list{gap:10px}
+  .journey-card h3{font-size:16px}
+  .journey-card p{font-size:11px}
+  .audio-control-row{padding:11px 0}
+  .audio-control-row b{font-size:12px}
+  .audio-control-row p{font-size:10px}
+  .audio-control-row select{font-size:12px;padding:9px}
+  .stats-overview{gap:7px}
+  .stat-tile{padding:12px 9px}
+  .stat-tile span{font-size:8px;letter-spacing:.25px}
+  .stat-tile strong{font-size:23px}
+  .week-bars{height:135px}
+  .mobile-nav{grid-template-columns:repeat(5,minmax(0,1fr));height:calc(65px + env(safe-area-inset-bottom));padding:5px 8px calc(5px + env(safe-area-inset-bottom))}
+  .mobile-nav button{height:49px;gap:2px;border-radius:11px}
+  .mobile-nav button .nav-icon{font-size:20px;line-height:22px}
+  .mobile-nav button small{font-size:9px}
+  .player{left:10px;right:10px;bottom:calc(72px + env(safe-area-inset-bottom));padding:8px 9px;border-radius:13px}
+  .playerrow{gap:8px}
+  .mini-cover{width:34px;height:37px}
+  .now strong{font-size:10px}
+  .now span{font-size:9px}
+  .playbtn{width:33px;height:33px}
+  .player .secondary{padding:6px 7px;font-size:9px}
+  .seekrow{margin-top:4px}
+  input[type="search"],input[type="text"],input[type="email"],input[type="password"],textarea,select{font-size:16px}
+}
+@media(max-width:390px){
+  main{padding-left:15px;padding-right:15px}
+  .home-hero{grid-template-columns:minmax(0,1fr) 88px;gap:9px}
+  .home-featured{width:86px}
+  .home-copy h1{font-size:27px!important}
+  .home-copy p{font-size:10px}
+  .reader-heading{grid-template-columns:80px minmax(0,1fr);gap:11px}
+  .reader-cover .bookcover{width:80px}
+  .reader-intro h1{font-size:20px!important}
+  .mobile-nav button small{font-size:8px}
+  .player .secondary#back15,.player .secondary#forward15{display:none}
+}
+@media(min-width:651px) and (max-width:850px){
+  .home-selection .bookgrid,#catalog .bookgrid,.bookgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .page,.page-leave,.ui-tap{animation:none!important;transition:none!important}
+}
+</style>
+
+
+<style id="mutalaa-8-4-simplified">
+@media(max-width:850px){
+ main{padding-top:calc(env(safe-area-inset-top) + 12px);padding-bottom:calc(166px + env(safe-area-inset-bottom))}
+ .topbar{border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:10px;margin-bottom:20px}
+ .mobilebrand{display:flex!important;align-items:center;gap:9px;font-size:12px;letter-spacing:2px;font-weight:700}
+ .mobilebrand .brandmark{width:31px!important;height:31px!important;border-radius:9px!important}
+ .crumb{display:none}
+ .topactions button{width:35px;height:35px;padding:0;display:grid;place-items:center;font-size:0}
+ #searchToggle:before{content:'⌕';font-size:21px}
+ #accountButton:before{content:'◉';font-size:17px}
+ #accountButton .account-label{display:none}
+ .simple-welcome{padding:4px 0 18px}
+ .simple-welcome .eyebrow{font-size:9px;text-transform:capitalize;letter-spacing:.5px}
+ .simple-welcome h1{font-family:Georgia,serif;font-size:clamp(25px,7vw,32px);font-weight:500;line-height:1.16;margin:9px 0 0;color:#f1eee8}
+ .continue-book{width:100%;display:flex;align-items:center;gap:15px;text-align:left;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);padding:12px;border-radius:15px}
+ .continue-cover{width:74px;flex:0 0 74px}
+ .continue-cover .bookcover{width:74px;aspect-ratio:3/4.2}
+ .continue-cover .bookcover .symbol{font-size:20px}
+ .continue-cover .bookcover .covername{font-size:10px}
+ .continue-cover .bookcover .coverauthor{font-size:7px}
+ .continue-info{display:flex;min-width:0;flex-direction:column;gap:6px}
+ .continue-info .eyebrow{font-size:8px;letter-spacing:1px;color:#bca77f}
+ .continue-info strong{font-size:15px;line-height:1.25}
+ .continue-info small{font-size:10px;color:var(--muted)}
+ .continue-link{font-size:10px;color:#d2c19d;margin-top:3px}
+ .continue-link b{font-size:14px;margin-left:5px}
+ .simple-library-preview{padding-top:27px}
+ .simple-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px}
+ .simple-section-head h2{font-size:17px;font-weight:550;margin:0}
+ .simple-section-head .text-link{font-size:10px;white-space:nowrap}
+ .simple-library-preview .bookgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:11px!important}
+ .simple-library-preview .bookactions{display:none}
+ .simple-library-preview .booktitle{font-size:10px}
+ .simple-library-preview .bookauthor,.simple-library-preview .bookmeta{font-size:8px}
+ .simple-library-heading{border:0;padding:3px 0 14px}
+ .simple-library-heading h1{font-size:29px!important;margin:7px 0 0}
+ .saved-link{border:0;background:transparent;color:#c7b58f;font-size:11px;padding:8px 0}
+ .simple-library-tools{padding:0 0 15px}
+ .simple-library-tools .filters{gap:7px}
+ .simple-library-tools .filter{font-size:10px;padding:8px 11px}
+ .library-note{display:none}
+ .home-hero,.home-progress,.home-quote,.journey-shortcuts{display:none!important}
+ .home-selection:not(.simple-library-preview){display:none!important}
+ .audio-control-panel{display:none}
+ .now-playing-card{padding:17px;border-radius:16px;margin-bottom:15px}
+ .now-playing-main{display:flex;align-items:center;gap:12px;margin:15px 0}
+ .now-playing-art{width:53px;height:62px;border-radius:8px;background:linear-gradient(145deg,#315d8d,#101e35);display:grid;place-items:center;font-size:24px;color:#e8ddc7}
+ .now-playing-main strong,.now-playing-main small{display:block}
+ .now-playing-main strong{font-size:14px}
+ .now-playing-main small{font-size:10px;color:var(--muted);margin-top:5px}
+ .now-playing-actions{display:flex;gap:8px}
+ .now-playing-actions button{flex:1;font-size:10px;padding:10px}
+ .audio-settings{border-bottom:1px solid var(--line);padding:12px 2px;margin-bottom:22px}
+ .audio-settings summary,.reader-notes summary{font-size:12px;color:#cbb990;cursor:pointer;list-style:none}
+ .audio-settings summary:after,.reader-notes summary:after{content:'＋';float:right;color:var(--muted)}
+ .audio-settings[open] summary:after,.reader-notes[open] summary:after{content:'−'}
+ .audio-settings .audio-control-row{padding:12px 0}
+ .reader-notes{margin-top:14px}
+ .reader-notes summary{font-size:11px}
+ .reader-notes[open] summary{margin-bottom:14px}
+ .mobile-nav{grid-template-columns:repeat(3,minmax(0,1fr));height:calc(59px + env(safe-area-inset-bottom));padding:4px 22px calc(4px + env(safe-area-inset-bottom));background:rgba(8,19,31,.97)}
+ .mobile-nav button{height:47px;gap:2px}
+ .mobile-nav button .nav-icon{font-size:19px;line-height:21px}
+ .mobile-nav button small{font-size:9px}
+ .player{bottom:calc(65px + env(safe-area-inset-bottom));left:10px;right:10px;padding:7px 9px}
+ .player #voiceStatus{display:none!important}
+}
+@media(max-width:390px){
+ .simple-library-preview .bookgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .continue-cover,.continue-cover .bookcover{width:66px;flex-basis:66px}
+ .continue-book{gap:12px;padding:10px}
+}
+</style>
+
+
+<style id="mutalaa-8-5-responsive-optimization">
+/* Shared layout and rendering stability */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{min-width:320px;overflow-x:hidden}
+button,input,select,textarea{font:inherit}
+button{touch-action:manipulation}
+#content{min-width:0;width:100%}
+#content img,.bookcover,.reader-cover{max-width:100%}
+.bookgrid,.journey-list,.widget-grid{min-width:0}
+.book,.bookgrid>*{min-width:0}
+.booktitle,.bookauthor{overflow-wrap:anywhere}
+:focus-visible{outline:2px solid #9fc4f0;outline-offset:3px}
+
+/* Desktop: calm editorial workspace */
+@media(min-width:1101px){
+ .app{grid-template-columns:244px minmax(0,1fr)}
+ .sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;padding:30px 19px 24px;gap:34px}
+ main{max-width:1480px;padding:34px clamp(34px,4vw,68px) 170px}
+ .topbar{margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+ .bookgrid{grid-template-columns:repeat(5,minmax(0,1fr));gap:30px 22px}
+ .player{left:264px;right:max(28px,calc((100vw - 1480px)/2 + 28px));bottom:18px}
+ .simple-welcome{padding:6px 0 25px}
+ .simple-welcome h1{font-family:Georgia,serif;font-size:clamp(34px,3vw,45px);font-weight:500;letter-spacing:-.7px;margin:12px 0 0}
+ .continue-book{max-width:700px;display:flex;align-items:center;gap:20px;text-align:left;padding:15px 18px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025);transition:border-color .2s,background .2s}
+ .continue-book:hover{border-color:#8eadd0;background:rgba(255,255,255,.045)}
+ .continue-cover,.continue-cover .bookcover{width:92px;flex:0 0 92px}
+ .continue-info{display:flex;flex-direction:column;gap:8px}
+ .continue-info .eyebrow{font-size:9px;letter-spacing:1.4px;color:#c7b18a}
+ .continue-info strong{font-size:19px;line-height:1.3}
+ .continue-info small{font-size:12px;color:var(--muted)}
+ .continue-link{font-size:11px;color:#d2c19d;margin-top:4px}
+ .simple-library-preview{padding-top:38px}
+ .simple-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}
+ .simple-section-head h2{font-size:22px;font-weight:550;margin:0}
+ .simple-section-head .text-link{font-size:11px}
+ .simple-library-heading{display:flex;align-items:end;justify-content:space-between;padding-bottom:20px}
+ .simple-library-heading h1{font-size:38px;margin:8px 0 0}
+ .simple-library-tools{padding:0 0 22px}
+ .simple-library-tools .filters{flex-wrap:wrap}
+ .now-playing-card{max-width:760px;padding:24px;border-radius:18px}
+ .now-playing-main{display:flex;align-items:center;gap:17px;margin:20px 0}
+ .now-playing-art{width:70px;height:84px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#315d8d,#101e35);font-size:30px;color:#e8ddc7}
+ .now-playing-main strong,.now-playing-main small{display:block}
+ .now-playing-main strong{font-size:17px}
+ .now-playing-main small{font-size:12px;color:var(--muted);margin-top:6px}
+ .now-playing-actions{display:flex;gap:10px}
+ .audio-settings{max-width:760px;margin:16px 0 34px;border:1px solid var(--line);border-radius:14px;padding:15px 18px}
+ .audio-settings summary{cursor:pointer;color:#cbb990;font-size:12px}
+ .audio-settings .audio-control-row{display:flex;align-items:center;justify-content:space-between;padding:15px 0;border-bottom:1px solid var(--line)}
+}
+@media(min-width:851px) and (max-width:1100px){
+ .app{grid-template-columns:205px minmax(0,1fr)}
+ .sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 14px}
+ main{padding:28px 26px 165px}
+ .bookgrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 15px}
+ .player{left:222px;right:18px}
+ .simple-welcome h1{font-size:36px}
+ .continue-book{max-width:640px}
+}
+@media(min-width:851px) and (max-width:950px){
+ .bookgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .player{left:220px;right:14px}
+}
+@media(min-width:651px) and (max-width:850px){
+ main{max-width:980px;margin:0 auto;padding-left:clamp(24px,5vw,52px);padding-right:clamp(24px,5vw,52px);padding-bottom:calc(178px + env(safe-area-inset-bottom))}
+ .bookgrid,#catalog .bookgrid,.simple-library-preview .bookgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:25px 20px}
+ .mobile-nav{left:50%;transform:translateX(-50%);width:min(560px,calc(100% - 34px));border:1px solid rgba(255,255,255,.1);border-bottom:0;border-radius:17px 17px 0 0}
+ .player{left:50%;transform:translateX(-50%);width:min(560px,calc(100% - 34px));bottom:calc(72px + env(safe-area-inset-bottom))}
+ .continue-book{max-width:640px}
+ .simple-welcome h1{font-size:34px}
+}
+
+/* Phones: readable two-column catalog and uncluttered controls */
+@media(max-width:650px){
+ body{font-size:14px}
+ main{width:100%;padding-left:16px;padding-right:16px;padding-bottom:calc(160px + env(safe-area-inset-bottom))}
+ .topbar{gap:8px;margin-bottom:17px}
+ .mobilebrand{letter-spacing:1.5px}
+ .topactions{gap:5px}
+ .topactions button{min-width:34px;min-height:34px}
+ .simple-welcome{padding:2px 0 16px}
+ .simple-welcome h1{font-size:29px}
+ .continue-book{border-radius:13px;padding:10px;gap:12px}
+ .continue-cover,.continue-cover .bookcover{width:68px;flex-basis:68px}
+ .continue-info strong{font-size:13px}
+ .simple-library-preview{padding-top:25px}
+ .simple-section-head{margin-bottom:12px}
+ .simple-section-head h2{font-size:16px}
+ .bookgrid,#catalog .bookgrid,.simple-library-preview .bookgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:22px 15px}
+ .bookcover{border-radius:8px}
+ .booktitle{font-size:12px;line-height:1.35}
+ .bookauthor,.bookmeta{font-size:9px}
+ .simple-library-heading h1{font-size:28px!important}
+ .simple-library-tools .filters{padding-bottom:12px}
+ .simple-library-tools .filter{padding:8px 10px;font-size:10px}
+ .reader-heading{grid-template-columns:92px minmax(0,1fr);gap:15px}
+ .reader-cover{width:92px}
+ .reader-intro h1{font-size:22px!important;line-height:1.18}
+ .reader-intro p{font-size:11px;line-height:1.55}
+ .journey-list{grid-template-columns:1fr}
+ .widget-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .mobile-nav{left:0;right:0;width:100%;transform:none;border-radius:15px 15px 0 0}
+ .player{left:9px;right:9px;width:auto;transform:none;bottom:calc(64px + env(safe-area-inset-bottom))}
+ .playerrow{gap:7px}
+ .player .mini-cover{width:34px;height:38px}
+ .player .now strong{font-size:10px}
+ .player .now span{font-size:9px}
+ .player .secondary{padding:6px 7px;font-size:10px}
+ .player .playbtn{width:34px;height:34px}
+ .player .mini-wave{display:none}
+ .seekrow{gap:7px}
+ .seekrow span{font-size:9px}
+ .audio-settings{margin:12px 0 25px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+ .audio-settings .audio-control-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0}
+ .audio-settings select{max-width:125px}
+}
+@media(max-width:380px){
+ main{padding-left:13px;padding-right:13px}
+ .mobilebrand{font-size:10px}
+ .topactions button{width:32px;height:32px}
+ .bookgrid,#catalog .bookgrid,.simple-library-preview .bookgrid{gap:19px 11px}
+ .player .secondary#back15,.player .secondary#forward15{display:none}
+ .simple-welcome h1{font-size:26px}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+
+
+<style id="mutalaa-8-6-all-features">
+.library-shortcuts{display:flex;gap:14px;align-items:center}
+.reader-extra-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}
+.reader-extra-actions button{font-size:10px;padding:8px 10px}
+.reading-progress-line{height:3px;background:#ffffff12;border-radius:9px;margin-top:18px;overflow:hidden}
+.reading-progress-line span{display:block;height:100%;background:#c5ae83;transition:width .2s}
+.home-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:26px}
+.home-tools button{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:14px;border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;color:inherit;min-width:0}
+.home-tools button>span{font-size:18px;color:#c7b18a}
+.home-tools b{font-size:12px;font-weight:600}
+.home-tools small{font-size:10px;color:var(--muted);line-height:1.4}
+.list-create,.personal-list,.calendar-card,.daily-card,.offline-info,.glossary-search{padding:19px;margin-bottom:14px;border-radius:16px}
+.list-create{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.list-create p{margin:5px 0 0}
+.personal-list h3{font-size:17px;margin:0 0 5px}
+.personal-list-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.personal-list .journey-book{width:100%}
+.glossary-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.glossary-item{padding:17px;border:1px solid var(--line);border-radius:14px}
+.glossary-item h3{font-size:16px;margin:0 0 8px;color:#e7d7b6}
+.glossary-item p{font-size:12px;line-height:1.7;color:var(--muted);margin:0}
+.glossary-item[hidden]{display:none}
+.glossary-search input{width:100%;background:transparent;border:0;color:inherit;outline:0}
+.calendar-card{max-width:650px}
+.calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.calendar-weekday{text-align:center;font-size:10px;color:var(--muted);padding:7px 0}
+.calendar-day,.calendar-empty{aspect-ratio:1;display:grid;place-items:center;border-radius:10px;font-size:12px}
+.calendar-day{background:rgba(255,255,255,.035);border:1px solid transparent}
+.calendar-day.active{background:rgba(190,166,119,.2);border-color:rgba(190,166,119,.35);color:#ead8b2}
+.calendar-day.today{outline:1px solid #8fb6e7;outline-offset:2px}
+.calendar-legend{display:flex;align-items:center;gap:8px;margin-top:17px}
+.calendar-dot{width:9px;height:9px;border-radius:50%;background:#c5ae83}
+.daily-card{max-width:760px;padding:clamp(18px,4vw,34px)}
+.daily-card blockquote{font:clamp(23px,4vw,34px)/1.35 Georgia,serif;color:#f0e7d6;margin:22px 0}
+.daily-source{font-size:9px;letter-spacing:1.5px;color:#c5ae83}
+.divider-line{height:1px;background:var(--line);margin:24px 0}
+.daily-card h3{font-size:15px;margin:0 0 8px}
+.daily-card p{font-size:13px;line-height:1.7;color:var(--muted)}
+.daily-card textarea{width:100%;margin:10px 0 12px;background:#ffffff08;border:1px solid var(--line);border-radius:11px;color:inherit;padding:12px}
+.offline-info{max-width:680px}
+.offline-info p{line-height:1.7}
+@media(max-width:850px){
+ .home-tools{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:22px}
+ .home-tools button{padding:12px}
+ .home-tools b{font-size:11px}
+ .home-tools small{font-size:9px}
+ .glossary-list{grid-template-columns:1fr}
+ .list-create{align-items:flex-start;flex-direction:column}
+ .list-create button{width:100%}
+ .calendar-card{padding:14px}
+ .calendar-grid{gap:4px}
+ .calendar-day,.calendar-empty{border-radius:7px;font-size:11px}
+ .daily-card{padding:19px}
+ .library-shortcuts{gap:8px}
+ .reader-extra-actions button{font-size:9px}
+}
+@media(max-width:390px){
+ .home-tools{gap:7px}
+ .home-tools button{padding:10px}
+ .library-shortcuts{flex-direction:column;align-items:flex-end;gap:0}
+ .calendar-weekday{font-size:9px}
+}
+</style>
+
+
+<style id="mutalaa-8-7-interaction-fix">
+button,[data-page],[data-open],[data-play],[data-fav],[data-filter],[data-node],[data-map-filter],[data-hat],[data-search-chip]{cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.48}
+#content{position:relative;z-index:1}
+.sidebar,.topbar,.mobile-nav,.player{pointer-events:auto}
+#content button{position:relative}
+#content button::before{pointer-events:none}
+.page-leave{pointer-events:none}
+@media(max-width:850px){
+ .mobile-nav{z-index:30}
+ .player{z-index:25}
+ #content{padding-bottom:4px}
+}
+@media(prefers-reduced-motion:reduce){.page-leave{transition:none!important}}
+</style>
+
+</body>
+</html>
+
  const action=e.target.closest('button,[role="button"]');
  if(!action)return;
  if(action.id==='widgetToggle'){let p=JSON.parse(localStorage.getItem('mutalaa-prefs')||'{}');p.widgets=p.widgets===false?true:false;savePrefs(p);render('customize')}
