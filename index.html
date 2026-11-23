@@ -1229,6 +1229,33 @@ body.focus-reading .sidebar,body.focus-reading .topbar,body.focus-reading .mobil
 }
 </style>
 
+
+<style id="mutalaa-10-5-editorial-design">
+:root{--m-gold:#cdb184;--m-ink:#e9e1d5;--m-panel:#171e26}
+.home-announcement{display:flex;align-items:center;gap:13px;margin:17px 0;padding:13px 17px;border:1px solid rgba(204,176,133,.24);border-radius:13px;background:linear-gradient(100deg,rgba(183,145,89,.13),rgba(255,255,255,.025))}
+.home-announcement>span{flex:none;padding:6px 8px;border-radius:6px;background:#c9a87520;color:#e3c79a;font-size:8px;letter-spacing:1.4px}
+.home-announcement div{flex:1;min-width:0}.home-announcement b,.home-announcement small{display:block}.home-announcement b{font:15px Georgia,serif;color:#f1e5d5}.home-announcement small{margin-top:4px;color:#b8ad9e;font-size:10px;line-height:1.5}.home-announcement i{color:#d6b98d;font-style:normal}
+.home-weekly{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:25px;align-items:center;margin:27px 0;padding:27px 30px;border:1px solid rgba(208,181,141,.2);border-radius:20px;background:radial-gradient(ellipse at 80% 20%,rgba(187,148,91,.15),transparent 45%),linear-gradient(120deg,#202c37,#18212b 65%,#29251f)}
+.home-weekly-copy h2{font:500 clamp(25px,3vw,38px)/1.14 Georgia,serif;color:#f0e4d4;margin:11px 0}.home-weekly-copy p{max-width:540px;color:#c0b6a8;font-size:11px;line-height:1.75}.home-weekly-meta{color:#d1b88e;font-size:9px;letter-spacing:.6px;margin:14px 0 18px}
+.home-weekly-cover{width:150px;justify-self:center;border:0;background:transparent;padding:0;transform:rotate(2deg);filter:drop-shadow(9px 12px 12px #0008);transition:transform .25s}.home-weekly-cover:hover{transform:rotate(0) translateY(-4px)}.home-weekly-cover .bookcover{width:100%;aspect-ratio:3/4.25;min-height:0;border-radius:4px}
+.home-concept-strip{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:27px 0;padding:19px 22px;border-left:3px solid #cdb184;background:linear-gradient(90deg,rgba(196,163,111,.12),rgba(255,255,255,.015));border-radius:0 13px 13px 0}
+.home-concept-strip h3{font:500 23px Georgia,serif;color:#efdfc8;margin:5px 0}.home-concept-strip p{font-size:10px;color:#b6aa98;margin:0}.home-concept-strip button,.home-editorial-card button{flex:none;border:1px solid rgba(206,178,137,.32);background:transparent;color:#e1c59a;border-radius:9px;padding:9px 12px;font-size:10px}
+.home-editorial-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.home-editorial-card{min-height:190px;padding:23px;border-radius:17px;border:1px solid rgba(208,181,141,.2);display:flex;flex-direction:column;align-items:flex-start;background:linear-gradient(145deg,#253342,#18212a)}.home-editorial-card h3{font:500 22px/1.2 Georgia,serif;color:#f0e5d6;margin:13px 0 8px}.home-editorial-card p{font-size:10px;line-height:1.7;color:#b8ad9e;max-width:330px}.home-editorial-card button{margin-top:auto}.editorial-author{background:linear-gradient(145deg,#3a332b,#20252b)}
+.admin-shortcuts{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+#adminEditorial .admin-card{padding:21px}
+#adminAnnouncementActive{accent-color:#cdb184}
+.admin-heading h3{letter-spacing:-.02em}
+.glass{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+button{transition:transform .18s ease,background-color .2s ease,border-color .2s ease,filter .2s ease}
+button:active{transform:scale(.975)}
+input,textarea,select{accent-color:#cdb184}
+@media(max-width:700px){
+ .home-weekly{grid-template-columns:minmax(0,1fr) 105px;padding:19px;gap:10px}.home-weekly-cover{width:96px}.home-weekly-copy h2{font-size:25px}.home-weekly-copy p{font-size:10px}
+ .home-concept-strip{align-items:flex-start;flex-direction:column}.home-editorial-row{grid-template-columns:1fr}.home-editorial-card{min-height:165px}
+}
+@media(prefers-reduced-motion:reduce){button,.home-weekly-cover{transition:none!important}}
+</style>
+
 </head>
 <body>
 <div class="splash" id="splash" aria-hidden="true"><div class="splash-inner"><div class="splash-name">MÜTALAA</div><div class="splash-sub">İLİM · KÜLTÜR · TEFEKKÜR</div><div class="splash-line"></div></div></div>
@@ -1349,6 +1376,11 @@ function home(){
   ['İSTİKAMET','Az ama devamlı olan gayret, zamanla büyük bir yol açar.','Küçük bir okuma hedefi belirle ve bugün tamamla.']
  ];
  const daily=dailyItems[new Date().getDate()%dailyItems.length];
+ const weeklyId=Number(readJSON('mutalaa-weekly-feature',0));
+ const weeklyBook=books.find(b=>b.id===weeklyId)||books[Math.floor((new Date().getDate()+new Date().getMonth())%books.length)]||books[0];
+ const announcement=readJSON('mutalaa-announcement',{title:'MÜTALAA’ya hoş geldin',body:'Yeni eserleri keşfet, okuma yolculuğunu kendi ritminde sürdür.',active:true});
+ const conceptCards=[['TEFEKKÜR','Düşünerek anlam arama'],['İHLAS','Niyet ve samimiyet'],['İSTİKAMET','Kararlılıkla devam etmek'],['MARİFET','Bilgiyle tanımaya yönelmek']];
+ const concept=conceptCards[new Date().getDate()%conceptCards.length];
  const cats=[['Risale-i Nur','Risale-i Nur','✦'],['İslam Düşüncesi','İslam Düşüncesi','◈'],['Tasavvuf ve İrfan','Tasavvuf ve İrfan','❋'],['Fikir ve Edebiyat','Fikir ve Edebiyat','✧']];
  return `
  <section class="home-hero">
@@ -1360,6 +1392,11 @@ function home(){
   
  </section>
  <section class="home-search glass"><span>⌕</span><input id="homeSearch" type="search" placeholder="Eser, yazar veya kavram ara..."><button class="primary" id="homeSearchGo">Ara</button></section>
+ ${announcement.active?`<section class="home-announcement"><span>DUYURU</span><div><b>${esc(announcement.title)}</b><small>${esc(announcement.body)}</small></div><i>✦</i></section>`:''}
+ <section class="home-weekly">
+  <div class="home-weekly-copy"><span class="section-kicker">HAFTANIN ESERİ · EDİTÖR SEÇİMİ</span><h2>${esc(weeklyBook.title)}</h2><p>${esc(weeklyBook.desc||'Bu haftanın seçkisindeki eseri keşfet.')}</p><div class="home-weekly-meta">${esc(weeklyBook.author)} · ${esc(weeklyBook.cat)}</div><button class="gold-button" data-open="${weeklyBook.id}">Eseri keşfet <span>↗</span></button></div>
+  <button class="home-weekly-cover" data-open="${weeklyBook.id}" aria-label="Haftanın eserini aç">${cover(weeklyBook)}</button>
+ </section>
  <section class="home-welcome-strip">
   <div><span class="section-kicker">BUGÜN MÜTALAA VAKTİ</span><h2>Her gün bir sayfa, her sayfada yeni bir ufuk.</h2><p>${todayKey} · Kendi ritminde oku, dinle ve düşün.</p></div>
   <div class="welcome-emblem">م</div>
@@ -1377,6 +1414,7 @@ function home(){
  <section class="home-daily-feature">
   <div class="home-daily-mark">✧</div><div class="home-daily-copy"><span class="section-kicker">GÜNÜN DÜŞÜNCESİ · ${daily[0]}</span><blockquote>“${daily[1]}”</blockquote><p>${daily[2]}</p><button class="text-link" data-page="daily">Günün istifadesini aç →</button></div>
  </section>
+ <section class="home-concept-strip"><div><span class="section-kicker">BUGÜNÜN KAVRAMI</span><h3>${concept[0]}</h3><p>${concept[1]}</p></div><button data-page="glossary">Kavram sözlüğünde incele ↗</button></section>
  <section class="home-section"><div class="home-section-head"><div><div class="section-kicker">KEŞFET</div><h2>İlgi alanlarına göre keşfet</h2></div><button class="text-link" data-page="library">Tüm kitaplık →</button></div><div class="category-tiles">${cats.map(([label,cat,icon])=>`<button class="category-tile" data-home-category="${esc(cat)}"><span>${icon}</span><b>${label}</b><small>Eserleri keşfet ↗</small></button>`).join('')}</div></section>
  <section class="home-section"><div class="home-section-head"><div><div class="section-kicker">SEÇKİMİZ</div><h2>Öne çıkan eserler</h2><p>Okuma yolculuğuna başlamak için seçilmiş eserler.</p></div><button class="text-link" data-page="library">Koleksiyonun tamamı →</button></div>${grid(books.slice(0,4))}</section>
  <section class="home-section"><div class="home-section-head"><div><div class="section-kicker">KENDİ YOLUNU OLUŞTUR</div><h2>İlim yolculukları</h2><p>Belirli bir konu etrafında hazırlanmış okuma rotaları.</p></div><button class="text-link" data-page="journey">Tüm rotalar →</button></div><div class="journey-teasers">${routeSets.slice(0,3).map((r,i)=>`<button class="journey-teaser" data-page="journey"><span>0${i+1}</span><b>${esc(r.title)}</b><small>${esc(r.desc)}</small><i>Rotayı incele ↗</i></button>`).join('')}</div></section>
@@ -1395,6 +1433,7 @@ function home(){
   <button data-page="daily"><span>✧</span><b>Günün istifadesi</b><small>Her gün bir düşünce</small></button>
   <button data-page="assistant"><span>✺</span><b>Mütalaa Asistanı</b><small>Sorularını düşünceye dönüştür</small></button>
  </div></section>
+ <section class="home-section home-editorial-row"><div class="home-editorial-card editorial-verse"><span class="section-kicker">KAYNAKLI OKUMA</span><h3>Ayet ve hadisleri kaynağından keşfet</h3><p>Metin, meal/şerh ve kaynak bilgisiyle güvenilir içeriklere ulaş.</p><button data-page="library">İlgili eserleri incele ↗</button></div><div class="home-editorial-card editorial-author"><span class="section-kicker">DÜŞÜNCE TARİHİ</span><h3>Mütefekkirleri ve fikirlerini tanı</h3><p>Yazarları, eserleri ve düşünce geleneklerini birlikte keşfet.</p><button data-page="library">Yazarları keşfet ↗</button></div></section>
  <section class="home-quote"><span>GÜNÜN MÜTALAASI</span><blockquote>“Okumak biriktirmek, mütalaa etmek anlamlandırmaktır.”</blockquote><button class="text-link" data-page="daily">Günün istifadesine git →</button></section>
  <section class="home-section"><div class="home-section-head"><div><div class="section-kicker">SON ÇALIŞMALARIN</div><h2>Yeniden göz at</h2></div><button class="text-link" data-page="stats">Okuma geçmişi →</button></div>${recent.length?grid(recent):'<div class="glass empty">Bir eser okumaya başladığında burada görünecek.</div>'}</section>
  <section class="home-bottom-links"><button data-page="import">＋ Kendi eserini ekle</button><button data-page="offline">↓ Çevrimdışı eserler</button><button data-page="customize">⚙ Görünümü kişiselleştir</button><button data-install-app>＋ Ana ekrana ekle</button></section>`;
@@ -1556,7 +1595,7 @@ function adminPage(){
    <button class="admin-shortcut" data-admin-jump="adminBookSelect"><span>▤</span><b>Kitapları düzenle</b><small>Kapak, yazar ve açıklama</small></button>
    <button class="admin-shortcut" data-admin-jump="adminLogoFile"><span>✧</span><b>Marka kimliği</b><small>Logo ve görsel ayarlar</small></button>
    <button class="admin-shortcut" data-admin-jump="adminUsers"><span>♙</span><b>Kullanıcı kayıtları</b><small>Yerel hesap listesi</small></button>
-   <button class="admin-shortcut" data-admin-jump="adminActivity"><span>◷</span><b>İşlem geçmişi</b><small>Son kullanım kayıtları</small></button>
+   <button class="admin-shortcut" data-admin-jump="adminActivity"><span>◷</span><b>İşlem geçmişi</b><small>Son kullanım kayıtları</small></button>\n   <button class="admin-shortcut" data-admin-jump="adminEditorial"><span>✧</span><b>Ana sayfa vitrini</b><small>Haftanın eseri ve duyuru</small></button>
   </div>
  </section>
  <section class="admin-block"><div class="admin-heading"><div><span class="section-kicker">İÇERİK YÖNETİMİ</span><h3>Kitap ve kapak düzenleme</h3></div><span>${books.length} eser</span></div>
@@ -1584,6 +1623,18 @@ function adminPage(){
  </section>
  <section class="admin-block" id="adminActivity"><div class="admin-heading"><div><span class="section-kicker">İŞLEM GEÇMİŞİ</span><h3>Son yönetim ve kullanım kayıtları</h3></div><button class="secondary" id="adminClearEvents">Temizle</button></div>
   <div class="admin-card glass admin-events">${recent.length?recent.map(x=>`<div class="admin-event"><span>${esc(x.label||x.type)}</span><small>${new Date(x.at).toLocaleString('tr-TR')}</small></div>`).join(''):'<p class="admin-empty">Henüz kayıt bulunmuyor.</p>'}</div>
+ </section>
+ <section class="admin-block" id="adminEditorial">
+  <div class="admin-heading"><div><span class="section-kicker">ANA SAYFA YÖNETİMİ</span><h3>Editoryal vitrin ve duyuru</h3></div></div>
+  <div class="admin-card glass">
+   <div class="admin-grid">
+    <label class="admin-field wide">Haftanın eseri<select id="adminWeeklyBook">${books.map(b=>`<option value="${b.id}" ${Number(readJSON('mutalaa-weekly-feature',0))===b.id?'selected':''}>${esc(b.title)} — ${esc(b.author)}</option>`).join('')}</select></label>
+    <label class="admin-field">Duyuru başlığı<input id="adminAnnouncementTitle" maxlength="90" value="${esc(readJSON('mutalaa-announcement',{title:'MÜTALAA’ya hoş geldin'}).title||'')}"></label>
+    <label class="admin-field">Duyuru metni<input id="adminAnnouncementBody" maxlength="180" value="${esc(readJSON('mutalaa-announcement',{body:'Yeni eserleri keşfet.'}).body||'')}"></label>
+   </div>
+   <div class="admin-actions"><label class="admin-field" style="flex-direction:row;align-items:center"><input id="adminAnnouncementActive" type="checkbox" ${readJSON('mutalaa-announcement',{active:true}).active?'checked':''} style="width:auto"> Duyuruyu ana sayfada göster</label><button class="primary" id="adminSaveEditorial">Ana sayfayı güncelle</button></div>
+   <small class="muted">Bu düzenlemeler şu an bu tarayıcıda saklanır. Sunucuya bağlı yayın değildir.</small>
+  </div>
  </section>
  <p class="admin-disclaimer">Yönetici: Can Dolu · MÜTALAA 10.0 · Yerel yönetim prototipi. Gerçek yayın öncesi sunucu tarafında yönetici girişi ve yetki kontrolü eklenmelidir.</p>`;
 }
@@ -2695,6 +2746,16 @@ document.addEventListener('submit',async e=>{
 document.addEventListener('click',e=>{
  const jump=e.target.closest('[data-admin-jump]');
  if(jump){document.getElementById(jump.dataset.adminJump)?.scrollIntoView({behavior:'smooth',block:'center'});return}
+ if(e.target.closest('#adminSaveEditorial')){
+  const id=Number(document.getElementById('adminWeeklyBook')?.value||0);
+  const title=document.getElementById('adminAnnouncementTitle')?.value.trim()||'';
+  const body=document.getElementById('adminAnnouncementBody')?.value.trim()||'';
+  const active=!!document.getElementById('adminAnnouncementActive')?.checked;
+  localStorage.setItem('mutalaa-weekly-feature',JSON.stringify(id));
+  localStorage.setItem('mutalaa-announcement',JSON.stringify({title,body,active}));
+  adminRecord('editorial','Ana sayfa vitrini ve duyuru güncellendi');
+  toast('Ana sayfa içeriği kaydedildi.');render('admin');return
+ }
  if(e.target.closest('#adminLockNow')){
   sessionStorage.removeItem('mutalaa-admin-unlocked');render('admin');toast('Yönetici oturumu kilitlendi.');return
  }
